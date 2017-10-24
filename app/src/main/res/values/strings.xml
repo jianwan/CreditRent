@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CreditRent</string>
+
+    <!--————————网络————————-->
+    <string name="no_network">网络不给力</string>
+    <string name="fail_connet">连接服务器失败，请稍后再试！</string>
+
 </resources>
