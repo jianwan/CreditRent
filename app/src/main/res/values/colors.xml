@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <!--————————主菜单————————-->
+    <color name="main_toolbar">#00caab</color>
+    <color name="main_text">#f0f0f0</color>
+    <color name="defaultWhite">#ffffff</color>
 </resources>
