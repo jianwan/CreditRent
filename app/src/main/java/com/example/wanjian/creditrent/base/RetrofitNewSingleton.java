@@ -4,12 +4,14 @@ package com.example.wanjian.creditrent.base;
 import android.content.Context;
 
 import com.example.wanjian.creditrent.R;
+import com.example.wanjian.creditrent.common.RxUtil.RxUtils;
 import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -226,5 +228,33 @@ public class RetrofitNewSingleton {
 //    public Observable<ArrayList<ChooseTutorModel>> getNoTechnologyTutor() {
 //        return apiService.getTechnologyOrNotList(0).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
 //    }
+
+    /**
+     * 登陆注册 忘记密码
+     */
+    public Observable<String> getPhoneCode(String phone) {
+        return apiService.getPhoneCode(phone).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    public Observable<String> register(String username,String phone,String code,String password) {
+        return apiService.register(username,phone,code,password).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    public Observable<String> userLogin( String name, String password) {
+        return apiService.userLogin(name, password)
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleResultToMsg());
+    }
+
+
+
+    public Observable<String> findPassword1(String phone) {
+        return apiService.findPassword1(phone).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    public Observable<String> findPassword2(String phone,String code, String psw) {
+        return apiService.findPassword2(phone,code, psw).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
 
 }

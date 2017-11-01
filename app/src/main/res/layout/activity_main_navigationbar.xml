@@ -7,6 +7,7 @@
     android:id="@+id/activity_main_navigationbar">
 
     <LinearLayout
+        android:id="@+id/linear_homepage"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -31,7 +32,9 @@
             android:id="@+id/linear1_tv"
             />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/linear_kinds"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -56,7 +59,9 @@
             android:id="@+id/linear2_tv"
             />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/linear_user"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

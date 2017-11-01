@@ -1,0 +1,10 @@
+package com.example.wanjian.creditrent.moudles.user;
+
+import com.example.wanjian.creditrent.base.BaseFragment;
+
+/**
+ * Created by wanjian on 2017/10/25.
+ */
+
+public class UserFragment extends BaseFragment {
+}

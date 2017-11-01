@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.example.wanjian.creditrent.base.Global;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
-import com.example.wanjian.creditrent.common.Xzds_Context;
+import com.example.wanjian.creditrent.common.CreditRent_Context;
 import com.example.wanjian.creditrent.common.util.CrashHandler;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.facebook.stetho.Stetho;
@@ -37,7 +37,7 @@ public class CreditRent_Application extends MobApplication {
         super.attachBaseContext(base);
         long startTime = System.currentTimeMillis();
         Log.e("startTime", startTime + "");
-        Xzds_Context.setApplicaiton(this);
+        CreditRent_Context.setApplicaiton(this);
         MultiDex.install(this);
     }
     @Override

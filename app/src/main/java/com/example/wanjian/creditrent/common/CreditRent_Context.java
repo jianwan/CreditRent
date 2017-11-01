@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Created by Soully on 2017/7/26.
  */
 
-public final class Xzds_Context {
+public final class CreditRent_Context {
     private final static AtomicReference<CreditRent_Application> aApplicaiton = new AtomicReference<>();
     public static Context getApplicationContext(){
         return Global.getApplicationContext();

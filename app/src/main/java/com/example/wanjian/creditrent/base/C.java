@@ -23,6 +23,8 @@ public class C {
 
     public static final String USER_NAME = "username"; //用户账户
     public static final String TRUENAME = "truename"; //真实姓名
+    public static final String PHONR_NUMBER = "phonenumber"; //用户账户
+
     public static final String PASSWORD = "password";
     public static final String VERSION = "version";
 

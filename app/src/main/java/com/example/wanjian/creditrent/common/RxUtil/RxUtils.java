@@ -1,7 +1,7 @@
 package com.example.wanjian.creditrent.common.RxUtil;
 
 
-import com.example.wanjian.creditrent.common.Result;
+import com.example.wanjian.creditrent.base.Result;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;

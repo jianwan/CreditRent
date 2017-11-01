@@ -5,8 +5,19 @@
     <color name="colorAccent">#FF4081</color>
 
 
-    <!--————————主菜单————————-->
+    <!--————————main————————-->
     <color name="main_toolbar">#00caab</color>
     <color name="main_text">#f0f0f0</color>
     <color name="defaultWhite">#ffffff</color>
+    <color name="textColor">#777777</color>
+
+    <!--————————登录注册————————-->
+    <color name="base_color_text_gray">#9fa0a0</color>
+    <color name="base_color_text_white">#ffffff</color>
+    <color name="color_theme">#489cfa</color>
+    <color name="transparent">#00000000</color>
+    <color name="checkboxColor">#30d2b9</color>
+    <color name="forgetPassword">#FF0033</color>
+
+
 </resources>

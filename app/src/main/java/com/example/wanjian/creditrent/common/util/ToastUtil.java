@@ -11,6 +11,7 @@ import com.example.wanjian.creditrent.CreditRent_Application;
 
 public class ToastUtil {
 
+
     public static void show(String content) {
         Toast.makeText(CreditRent_Application.getContext(), content, Toast.LENGTH_SHORT).show();
     }

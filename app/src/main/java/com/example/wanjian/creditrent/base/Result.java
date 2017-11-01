@@ -1,4 +1,4 @@
-package com.example.wanjian.creditrent.common;
+package com.example.wanjian.creditrent.base;
 
 /**
  * Created by zk on 2015/12/19.
