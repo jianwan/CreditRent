@@ -54,24 +54,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     }
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_login:
-                iLoginPresenter.userLogin(et_username.getText().toString(),et_password.getText().toString());
+                if (!et_username.getText().toString().isEmpty()&&!et_password.getText().toString().isEmpty()){
+                    iLoginPresenter.userLogin(et_username.getText().toString(),et_password.getText().toString());
+                }else {
+                    ToastUtil.show("输入不能为空");
+                }
                 break;
             case R.id.tv_forgetPassword:
                 Intent intentToForgetPasswordActivity=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
                 startActivity(intentToForgetPasswordActivity);
                 break;
             case R.id.tv_register:
-                Intent intentToRegisterActivity=new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intentToRegisterActivity);
+                Intent intentToRegisterPhoneActivity=new Intent(LoginActivity.this,RegisterPhoneActivity.class);
+                startActivity(intentToRegisterPhoneActivity);
                 break;
         }
     }

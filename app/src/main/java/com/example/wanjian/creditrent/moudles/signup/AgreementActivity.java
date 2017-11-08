@@ -14,7 +14,7 @@ public class AgreementActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup_register);
+        setContentView(R.layout.activity_signup_register_information);
     }
 
 }

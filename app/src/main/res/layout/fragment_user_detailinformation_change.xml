@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/user_dl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/main_toolbar">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/user_dl_toolbar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_keyboard_backspace_white_24dp"/>
+            <TextView
+                android:id="@+id/user_dl_toolbar_detailinformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="19sp"
+                android:text="详细信息"/>
+            <TextView
+                android:id="@+id/user_dl_toolbar_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="18dp"
+                android:textSize="19sp"
+                android:text="完成"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/user_dl_linear_truename"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="10dp"
+            android:text="姓名"
+            android:textSize="14sp"
+            android:textColor="#5c5c5c" />
+        <EditText
+            android:id="@+id/user_dl_et_truename"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="15dp"
+            android:background="@null"
+            android:hint="请输入你的真实姓名"
+            android:minWidth="80dp"
+            android:textColor="#969696"
+            android:textColorHint="#b3b3b3"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="10dp"
+            android:text="年龄"
+            android:textSize="14sp"
+            android:textColor="#5c5c5c" />
+        <EditText
+            android:id="@+id/user_dl_et_age"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="15dp"
+            android:background="@null"
+            android:hint="请输入你的年龄"
+            android:minWidth="80dp"
+            android:textColor="#969696"
+            android:textColorHint="#b3b3b3"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="number"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="        交易
+     默认备注"
+            android:textSize="14sp"
+            android:textColor="#5c5c5c" />
+        <EditText
+            android:id="@+id/user_dl_et_remark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="0dp"
+            android:background="@null"
+            android:hint="请输入交易默认备注"
+            android:minWidth="80dp"
+            android:textColor="#969696"
+            android:textColorHint="#b3b3b3"
+            android:textSize="14sp"
+            android:maxLines="3"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="学校"
+            android:textColor="#5c5c5c"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/user_dl_spinner_school"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/schools"
+            android:layout_marginLeft="30dp"
+            android:spinnerMode="dialog">
+        </android.support.v7.widget.AppCompatSpinner>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center_vertical"
+        android:layout_weight="0.60">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:text="个人宣言"
+            android:textSize="14sp"
+            android:textColor="#5c5c5c" />
+        <EditText
+            android:id="@+id/user_dl_et_declaration"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:paddingLeft="15dp"
+            android:background="@null"
+            android:hint="快来写出你的个人宣言~"
+            android:minWidth="80dp"
+            android:textColor="#969696"
+            android:textColorHint="#b3b3b3"
+            android:textSize="14sp"
+            android:maxLines="3"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+
+
+
+</LinearLayout>

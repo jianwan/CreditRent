@@ -25,9 +25,34 @@
     <string name="agree">我已同意信租</string>
     <string name="agreement">用户协议</string>
     <string name="forgetPassword">忘记密码</string>
-
+    <string name="theNextStep">下一步</string>
+    <string name="phoneCode">请输入验证码</string>
+    <string name="completeYouInformation">完善你的信息</string>
+    <string name="register_free">免费注册</string>
+    <string name="new_password_hint">请输入新密码</string>
+    <string name="resetPassword">重置密码</string>
+    <string name="published">我发布的</string>
+    <string name="selled">我卖出的</string>
+    <string name="bought">我买到的</string>
+    <string name="collected">我收藏的</string>
 
 
     <!--————————网络————————-->
+
+    <!--————————user————————-->
+
+    <string-array name="schools">
+
+        <item>重庆邮电大学</item>
+        <item>重庆大学</item>
+        <item>西南大学</item>
+        <item>重庆师范大学</item>
+        <item>西南政法大学</item>
+        <item>重庆工商大学</item>
+        <item>重庆理工大学</item>
+        <item>其他</item>
+    </string-array>
+
+
 
 </resources>

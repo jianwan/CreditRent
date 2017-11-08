@@ -236,8 +236,12 @@ public class RetrofitNewSingleton {
         return apiService.getPhoneCode(phone).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
-    public Observable<String> register(String username,String phone,String code,String password) {
-        return apiService.register(username,phone,code,password).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    public Observable<String> checkPhoneCode(String phone,String code) {
+        return apiService.checkPhoneCode(phone,code).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    public Observable<String> register(String username,String phone,String password) {
+        return apiService.register(username,phone,password).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
     public Observable<String> userLogin( String name, String password) {

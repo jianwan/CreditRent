@@ -21,11 +21,16 @@ public  interface ApiInterface {
     @POST("app/user/phoneCode")
     Observable<Result<Object>> getPhoneCode(@Field("phone") String phone);
 
+    //验证验证码
+    @FormUrlEncoded
+    @POST("app/user/phoneCode")
+    Observable<Result<Object>> checkPhoneCode(@Field("phone") String phone,@Field("code") String code);
+
     //注册
     @FormUrlEncoded
     @POST("app/user/register")
     Observable<Result<Object>> register(@Field("username") String username,@Field("phoneNumber") String phoneNumber,
-                                        @Field("phoneCode") String phoneCode,@Field("password") String password);
+                                        @Field("password") String password);
 
 
     //登录接口
