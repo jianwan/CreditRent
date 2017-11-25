@@ -18,5 +18,6 @@ public class UserCollectedActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_collected);
 
+
     }
 }

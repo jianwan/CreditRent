@@ -16,7 +16,7 @@
             android:background="@color/color_theme"
             android:theme="@style/ThemeOverlay.AppCompat.Light">
             <ImageButton
-                android:id="@+id/btn_back"
+                android:id="@+id/registerreal_btn_back"
                 android:layout_width="32dp"
                 android:layout_height="48dp"
                 android:background="@drawable/ic_keyboard_backspace_white_24dp"/>
@@ -40,7 +40,7 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/et_username"
+            android:id="@+id/registerreal_et_username"
             android:layout_width="fill_parent"
             android:layout_height="48dp"
             android:background="@color/transparent"
@@ -64,7 +64,7 @@
 
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/registerreal_et_password"
             android:layout_width="fill_parent"
             android:layout_height="48dp"
             android:background="@color/transparent"
@@ -82,7 +82,7 @@
             android:layout_height="0.5dp"
             android:background="@mipmap/base_horization_line" />
         <EditText
-            android:id="@+id/et_password_again"
+            android:id="@+id/registerreal_et_password_again"
             android:layout_width="fill_parent"
             android:layout_height="48dp"
             android:background="@color/transparent"
@@ -125,7 +125,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_register"
+        android:id="@+id/registerreal_btn_register"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_margin="16dp"

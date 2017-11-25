@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".CreditRent_Application">
-        <activity android:name=".moudles.main.MainActivity">
+        <activity android:name=".moudles.main.MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,13 +33,16 @@
         <activity android:name=".moudles.user.moudles.UserDetailInformation"/>
         <activity android:name=".moudles.user.moudles.UserRentActivity"/>
         <activity android:name=".moudles.user.moudles.UserReturnActivity"/>
-        <activity android:name=".moudles.user.moudles.UserPublishedActivity"/>
-        <activity android:name=".moudles.user.moudles.UserUnpublishedActivity"/>
+        <activity android:name=".moudles.user.moudles.user_publish.UserPublishedActivity"/>
+        <activity android:name=".moudles.user.moudles.user_unpublished.UserUnpublishedActivity"/>
         <activity android:name=".moudles.user.moudles.UserBoughtActivity"/>
         <activity android:name=".moudles.user.moudles.UserSelledActivtiy"/>
         <activity android:name=".moudles.user.moudles.UserCollectedActivity"/>
         <activity android:name=".moudles.user.moudles.UserSawActivity"/>
-        <activity android:name=".moudles.user.moudles.UserSettings"/>
+        <activity android:name=".moudles.user.moudles.UserSettingsActivity"/>
+
+        <!--————————————homepager——————————-->
+        <activity android:name=".moudles.homepage.SearchActivity"/>
 
     </application>
 

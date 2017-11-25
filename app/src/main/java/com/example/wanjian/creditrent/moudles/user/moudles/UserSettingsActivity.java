@@ -10,7 +10,7 @@ import com.example.wanjian.creditrent.base.BaseActivity;
  * Created by wanjian on 2017/11/8.
  */
 
-public class UserSettings extends BaseActivity {
+public class UserSettingsActivity extends BaseActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

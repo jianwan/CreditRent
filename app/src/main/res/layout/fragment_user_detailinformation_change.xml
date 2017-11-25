@@ -20,12 +20,12 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_keyboard_backspace_white_24dp"/>
             <TextView
-                android:id="@+id/user_dl_toolbar_detailinformation"
+                android:id="@+id/user_dl_toolbar_changeinformation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:textSize="19sp"
-                android:text="详细信息"/>
+                android:text="修改信息"/>
             <TextView
                 android:id="@+id/user_dl_toolbar_complete"
                 android:layout_width="wrap_content"
@@ -84,18 +84,18 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="15dp"
             android:paddingLeft="10dp"
-            android:text="年龄"
+            android:text="昵称"
             android:textSize="14sp"
             android:textColor="#5c5c5c" />
         <EditText
-            android:id="@+id/user_dl_et_age"
+            android:id="@+id/user_dl_et_nickname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:paddingLeft="15dp"
             android:background="@null"
-            android:hint="请输入你的年龄"
+            android:hint="请输入你的昵称"
             android:minWidth="80dp"
             android:textColor="#969696"
             android:textColorHint="#b3b3b3"
@@ -118,25 +118,27 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="        交易
-     默认备注"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="10dp"
+            android:text="电话"
             android:textSize="14sp"
             android:textColor="#5c5c5c" />
         <EditText
-            android:id="@+id/user_dl_et_remark"
+            android:id="@+id/user_dl_et_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:paddingLeft="0dp"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="15dp"
             android:background="@null"
-            android:hint="请输入交易默认备注"
+            android:hint="请输入你的电话"
             android:minWidth="80dp"
             android:textColor="#969696"
             android:textColorHint="#b3b3b3"
             android:textSize="14sp"
-            android:maxLines="3"
-            android:singleLine="true"/>
+            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="number"/>
     </LinearLayout>
 
     <View
@@ -178,8 +180,44 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="        交易
+     默认备注"
+            android:textSize="14sp"
+            android:textColor="#5c5c5c" />
+        <EditText
+            android:id="@+id/user_dl_et_remark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="0dp"
+            android:background="@null"
+            android:hint="请输入交易默认备注"
+            android:minWidth="80dp"
+            android:textColor="#969696"
+            android:textColorHint="#b3b3b3"
+            android:textSize="14sp"
+            android:maxLines="3"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
         android:gravity="center_vertical"
-        android:layout_weight="0.60">
+        android:layout_weight="0.29">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -208,7 +246,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eeeeee" />
-
 
 
 </LinearLayout>

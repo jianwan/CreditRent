@@ -15,13 +15,13 @@ import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserBoughtActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserCollectedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserDetailInformation;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserPublishedActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserRentActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserReturnActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSawActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSelledActivtiy;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserSettings;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserUnpublishedActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.UserSettingsActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_unpublished.UserUnpublishedActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -140,7 +140,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                 startIntentActivity(this,new UserSawActivity());
                 break;
             case R.id.user_relLay_settings:
-                startIntentActivity(this,new UserSettings());
+                startIntentActivity(this,new UserSettingsActivity());
                 break;
             default:
                 break;

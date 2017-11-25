@@ -18,7 +18,7 @@
             android:background="@color/color_theme"
             android:theme="@style/ThemeOverlay.AppCompat.Light">
             <ImageButton
-                android:id="@+id/btn_back"
+                android:id="@+id/register_ib_back"
                 android:layout_width="32dp"
                 android:layout_height="48dp"
                 android:background="@drawable/ic_keyboard_backspace_white_24dp"/>
@@ -49,7 +49,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/et_phonenumber"
+                android:id="@+id/register_et_phonenumber"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
@@ -65,7 +65,7 @@
                 android:singleLine="true" />
 
             <TextView
-                android:id="@+id/tv_getPhoneCode"
+                android:id="@+id/register_tv_getPhoneCode"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginLeft="10dp"
@@ -93,7 +93,7 @@
 
 
             <EditText
-                android:id="@+id/et_phoneCode"
+                android:id="@+id/register_et_phoneCode"
                 android:layout_width="fill_parent"
                 android:layout_height="48dp"
                 android:background="@color/transparent"
@@ -116,7 +116,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp">
     <Button
-        android:id="@+id/btn_nextStep"
+        android:id="@+id/register_btn_nextStep"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_margin="5dp"

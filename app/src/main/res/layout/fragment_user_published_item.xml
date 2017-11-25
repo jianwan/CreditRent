@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    >
 
 
     <android.support.v7.widget.CardView
+        android:id="@+id/user_published_item_cardview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         app:cardCornerRadius="15dp"
-        app:cardElevation="8dp">
+        app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,6 +27,7 @@
                 android:layout_weight="1">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_published_item_circleimageview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
@@ -51,6 +54,7 @@
                         android:text="物品名称:" />
 
                     <TextView
+                        android:id="@+id/user_published_item_name"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -78,6 +82,7 @@
                         android:text="上架时间:" />
 
                     <TextView
+                        android:id="@+id/user_published_item_publishtime"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -105,6 +110,7 @@
                         android:text="关注人数:" />
 
                     <TextView
+                        android:id="@+id/user_published_item_peoplenumber"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -126,12 +132,14 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/user_published_item_checkapplicantlist"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:text="查看申请人列表" />
+                        android:text="查看关注者列表" />
 
                     <Button
+                        android:id="@+id/user_published_item_unpublished"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -143,5 +151,9 @@
 
 
     </android.support.v7.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
 
 </LinearLayout>

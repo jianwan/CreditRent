@@ -8,6 +8,7 @@ public interface IRegisterPhoneView {
 
     //倒计时
     void changeObservableTimer();
+
     void showSendCodeSuccessed();
 
     void showErr(Throwable e);

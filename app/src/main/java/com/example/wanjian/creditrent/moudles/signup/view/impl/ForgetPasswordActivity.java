@@ -17,10 +17,10 @@ import com.example.wanjian.creditrent.base.BaseActivity;
 public class ForgetPasswordActivity extends BaseActivity implements View.OnClickListener {
 
 
-    EditText et_phonemumber,et_phoneCode,et_newPassword;
-    TextView tv_getPhoneCode;
-    Button btn_resetPassword;
-    ImageButton btn_back;
+    EditText forgetpsw_et_phonemumber,forgetpsw_et_phoneCode,forgetpsw_et_newPassword;
+    TextView forgetpsw_tv_getPhoneCode;
+    Button forgetpsw_btn_resetPassword;
+    ImageButton forgetpsw_ib_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +31,16 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
     }
 
     private void initView() {
-        et_phonemumber=(EditText)findViewById(R.id.et_phonenumber);
-        et_phoneCode=(EditText)findViewById(R.id.et_phoneCode);
-        et_newPassword=(EditText)findViewById(R.id.et_newPassword);
-        tv_getPhoneCode=(TextView)findViewById(R.id.tv_getPhoneCode);
-        btn_back=(ImageButton)findViewById(R.id.btn_back);
-        btn_resetPassword=(Button)findViewById(R.id.btn_resetPassword);
+        forgetpsw_et_phonemumber=(EditText)findViewById(R.id.forgetpsw_et_phonenumber);
+        forgetpsw_et_phoneCode=(EditText)findViewById(R.id.forgetpsw_et_phoneCode);
+        forgetpsw_et_newPassword=(EditText)findViewById(R.id.forgetpsw_et_newPassword);
+        forgetpsw_tv_getPhoneCode=(TextView)findViewById(R.id.forgetpsw_tv_getPhoneCode);
+        forgetpsw_ib_back=(ImageButton)findViewById(R.id.forgetpsw_ib_back);
+        forgetpsw_btn_resetPassword=(Button)findViewById(R.id.forgetpsw_btn_resetPassword);
 
-        tv_getPhoneCode.setOnClickListener(this);
-        btn_back.setOnClickListener(this);
-        btn_resetPassword.setOnClickListener(this);
+        forgetpsw_tv_getPhoneCode.setOnClickListener(this);
+        forgetpsw_ib_back.setOnClickListener(this);
+        forgetpsw_btn_resetPassword.setOnClickListener(this);
 
     }
 
@@ -48,13 +48,13 @@ public class ForgetPasswordActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_back:
+            case R.id.forgetpsw_ib_back:
                 onBackPressed();
                 break;
-            case R.id.tv_getPhoneCode:
+            case R.id.forgetpsw_tv_getPhoneCode:
 
                 break;
-            case R.id.btn_resetPassword:
+            case R.id.forgetpsw_btn_resetPassword:
 
                 break;
         }

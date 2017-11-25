@@ -42,7 +42,7 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/et_username"
+                android:id="@+id/login_et_username"
                 android:layout_width="fill_parent"
                 android:layout_height="48.0dip"
                 android:background="@color/transparent"
@@ -65,7 +65,7 @@
                 android:background="@color/base_color_text_gray" />
 
             <EditText
-                android:id="@+id/et_password"
+                android:id="@+id/login_et_password"
                 android:layout_width="fill_parent"
                 android:layout_height="48.0dip"
                 android:background="@color/transparent"
@@ -80,7 +80,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_forgetPassword"
+            android:id="@+id/login_tv_forgetPassword"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginLeft="130dp"
@@ -90,7 +90,7 @@
             android:textColor="@color/forgetPassword"/>
 
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/login_btn_login"
             android:layout_width="match_parent"
             android:layout_height="48.0dip"
             android:layout_margin="16dp"
@@ -118,7 +118,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tv_register"
+            android:id="@+id/login_tv_register"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"

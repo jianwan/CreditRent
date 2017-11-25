@@ -18,6 +18,7 @@ import com.example.wanjian.creditrent.moudles.signup.presenter.ILoginPresenter;
 import com.example.wanjian.creditrent.moudles.signup.presenter.impl.LoginPresenter;
 import com.example.wanjian.creditrent.moudles.signup.view.ILoginView;
 
+
 /**
  * Created by wanjian on 2017/10/25.
  * 登录
@@ -25,9 +26,9 @@ import com.example.wanjian.creditrent.moudles.signup.view.ILoginView;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener,ILoginView{
 
-    EditText et_username,et_phonenumber,et_password;
-    Button btn_login;
-    TextView tv_forgetPassword, tv_register;
+    EditText login_et_username,login_et_password;
+    Button login_btn_login;
+    TextView login_tv_forgetPassword,login_tv_register;
 
     ILoginPresenter iLoginPresenter;
 
@@ -39,18 +40,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void initView() {
-        et_username=(EditText)findViewById(R.id.et_username);
-        et_phonenumber=(EditText)findViewById(R.id.et_phonenumber);
-        et_password=(EditText)findViewById(R.id.et_password);
-        btn_login=(Button)findViewById(R.id.btn_login);
-        tv_forgetPassword=(TextView)findViewById(R.id.tv_forgetPassword);
-        tv_register=(TextView)findViewById(R.id.tv_register);
+        login_et_username=(EditText)findViewById(R.id.login_et_username);
+        login_et_password=(EditText)findViewById(R.id.login_et_password);
+        login_btn_login=(Button)findViewById(R.id.login_btn_login);
+        login_tv_forgetPassword=(TextView)findViewById(R.id.login_tv_forgetPassword);
+        login_tv_register=(TextView)findViewById(R.id.login_tv_register);
 
         iLoginPresenter=new LoginPresenter(this);
 
-        btn_login.setOnClickListener(this);
-        tv_forgetPassword.setOnClickListener(this);
-        tv_register.setOnClickListener(this);
+        login_btn_login.setOnClickListener(this);
+        login_tv_forgetPassword.setOnClickListener(this);
+        login_tv_register.setOnClickListener(this);
 
     }
 
@@ -59,18 +59,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_login:
-                if (!et_username.getText().toString().isEmpty()&&!et_password.getText().toString().isEmpty()){
-                    iLoginPresenter.userLogin(et_username.getText().toString(),et_password.getText().toString());
+            case R.id.login_btn_login:
+                if (!login_et_username.getText().toString().isEmpty()&&!login_et_password.getText().toString().isEmpty()){
+                    iLoginPresenter.userLogin(login_et_username.getText().toString(),login_et_password.getText().toString());
                 }else {
                     ToastUtil.show("输入不能为空");
                 }
                 break;
-            case R.id.tv_forgetPassword:
+            case R.id.login_tv_forgetPassword:
                 Intent intentToForgetPasswordActivity=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
                 startActivity(intentToForgetPasswordActivity);
                 break;
-            case R.id.tv_register:
+            case R.id.login_tv_register:
                 Intent intentToRegisterPhoneActivity=new Intent(LoginActivity.this,RegisterPhoneActivity.class);
                 startActivity(intentToRegisterPhoneActivity);
                 break;
@@ -89,10 +89,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void saveInformation() {
-        //缓存用户username，phonenumber，password
-        ACache.getDefault().put(C.USER_NAME,et_username.getText().toString());
-        ACache.getDefault().put(C.PHONR_NUMBER,et_phonenumber.getText().toString());
-        ACache.getDefault().put(C.PASSWORD,et_password.getText().toString());
+        //缓存用户username，password
+        ACache.getDefault().put(C.USER_NAME,login_et_username.getText().toString());
+        ACache.getDefault().put(C.PASSWORD,login_et_password.getText().toString());
     }
 
     @Override
@@ -107,6 +106,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void setBtUnClickable() {
-        btn_login.setClickable(false);
+        login_btn_login.setClickable(false);
     }
 }

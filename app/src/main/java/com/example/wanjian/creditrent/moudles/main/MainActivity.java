@@ -5,21 +5,22 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wanjian.creditrent.R;
+import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.moudles.homepage.HomePageFragment;
+import com.example.wanjian.creditrent.moudles.homepage.SearchActivity;
 import com.example.wanjian.creditrent.moudles.kinds.KindsFragment;
 import com.example.wanjian.creditrent.moudles.user.UserFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private final String TAG=MainActivity.class.getSimpleName();
     private ViewPager mainViewpager;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private KindsFragment kindsFragment;
     private UserFragment userFragment;
     private MainViewpagerAdapter mainViewpagerAdapter;
-    private ImageView ivOne,ivTwo,ivThree;
+    private ImageView toolbarSearchview,ivOne,ivTwo,ivThree;
     private TextView tvOne,tvTwo,tvThree,tv_title;
     private Toolbar toolbar;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainViewpagerAdapter = new MainViewpagerAdapter(getSupportFragmentManager(),fragmentList);
         mainViewpager.setOffscreenPageLimit(3);  //设置预加载
         mainViewpager.setAdapter(mainViewpagerAdapter);
+        toolbarSearchview=(ImageView)findViewById(R.id.toolbar_searchview);
         ivOne = (ImageView) findViewById(R.id.linear1_iv);
         ivTwo = (ImageView) findViewById(R.id.linear2_iv);
         ivThree = (ImageView) findViewById(R.id.linear3_iv);
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvTwo.setTextColor(this.getResources().getColor(R.color.textColor));
         tvThree.setTextColor(this.getResources().getColor(R.color.textColor));
 
+        toolbarSearchview.setOnClickListener(this);
         ivOne.setOnClickListener(this);
         ivTwo.setOnClickListener(this);
         ivThree.setOnClickListener(this);
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(false);
             tv_title.setText("首页");
+            toolbarSearchview.setVisibility(View.VISIBLE);
         }
     }
 
@@ -96,16 +100,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.linear1_tv:
                 mainViewpager.setCurrentItem(0);
                 tv_title.setText("首页");
+                toolbarSearchview.setVisibility(View.VISIBLE);
                 break;
             case R.id.linear2_iv:
             case R.id.linear2_tv:
                 mainViewpager.setCurrentItem(1);
                 tv_title.setText("物品分类");
+                toolbarSearchview.setVisibility(View.GONE);
                 break;
             case R.id.linear3_iv:
             case R.id.linear3_tv:
                 mainViewpager.setCurrentItem(2);
                 tv_title.setText("个人中心");
+                toolbarSearchview.setVisibility(View.GONE);
+                break;
+            case R.id.toolbar_searchview:
+                startIntentActivity(this, new SearchActivity());
+                break;
+            default:
                 break;
         }
     }
@@ -120,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onPageSelected(int position) {
         switch (position){
             case 0:
+                toolbarSearchview.setVisibility(View.VISIBLE);
                 tv_title.setText("首页");
                 ivOne.setImageResource(R.mipmap.home_seclect);
                 ivTwo.setImageResource(R.mipmap.service_unseclect);
@@ -129,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tvThree.setTextColor(this.getResources().getColor(R.color.textColor));
                 break;
             case 1:
+                toolbarSearchview.setVisibility(View.GONE);
                 tv_title.setText("物品分类");
                 ivOne.setImageResource(R.mipmap.home_unseclect);
                 ivTwo.setImageResource(R.mipmap.service_seclect);
@@ -138,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tvThree.setTextColor(this.getResources().getColor(R.color.textColor));
                 break;
             case 2:
+                toolbarSearchview.setVisibility(View.GONE);
                 tv_title.setText("个人中心");
                 ivOne.setImageResource(R.mipmap.home_unseclect);
                 ivTwo.setImageResource(R.mipmap.service_unseclect);

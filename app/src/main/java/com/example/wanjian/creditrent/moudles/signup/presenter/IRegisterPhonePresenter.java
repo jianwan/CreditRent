@@ -9,6 +9,7 @@ public interface IRegisterPhonePresenter {
     //发送验证码
     void sendPhoneCode(String phone);
 
+    //
    void checkPhoneCode(String phone,String code);
 
 }

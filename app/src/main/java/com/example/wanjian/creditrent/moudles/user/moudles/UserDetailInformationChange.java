@@ -21,9 +21,9 @@ import com.example.wanjian.creditrent.base.BaseActivity;
 public class UserDetailInformationChange extends BaseActivity  implements View.OnClickListener{
 
     private ImageView user_dl_toolbar_back;
-    private TextView user_dl_toolbar_detailinformation,user_dl_toolbar_complete;
+    private TextView user_dl_toolbar_changeinformation,user_dl_toolbar_complete;
 
-    private EditText user_dl_et_truename,user_dl_et_age,user_dl_et_remark,user_dl_et_declaration;
+    private EditText user_dl_et_truename,user_dl_et_nickname,user_dl_et_phone,user_dl_et_remark,user_dl_et_declaration;
 
     String school;
 
@@ -52,10 +52,11 @@ public class UserDetailInformationChange extends BaseActivity  implements View.O
 
     private void initView() {
         user_dl_toolbar_back=(ImageView)findViewById(R.id.user_dl_toolbar_back);
-        user_dl_toolbar_detailinformation=(TextView)findViewById(R.id.user_dl_toolbar_detailinformation);
+        user_dl_toolbar_changeinformation=(TextView)findViewById(R.id.user_dl_toolbar_changeinformation);
         user_dl_toolbar_complete=(TextView)findViewById(R.id.user_dl_toolbar_complete);
         user_dl_et_truename=(EditText)findViewById(R.id.user_dl_et_truename);
-        user_dl_et_age=(EditText)findViewById(R.id.user_dl_et_age);
+        user_dl_et_nickname=(EditText)findViewById(R.id.user_dl_et_nickname);
+        user_dl_et_phone=(EditText)findViewById(R.id.user_dl_et_phone);
         user_dl_et_remark=(EditText)findViewById(R.id.user_dl_et_remark);
         user_dl_et_declaration=(EditText) findViewById(R.id.user_dl_et_declaration);
 
@@ -80,7 +81,8 @@ public class UserDetailInformationChange extends BaseActivity  implements View.O
 
     private void completeInformation() {
         String username=user_dl_et_truename.getText().toString();
-        String userage=user_dl_et_age.getText().toString();
+        String usernickname=user_dl_et_nickname.getText().toString();
+        String phone=user_dl_et_phone.getText().toString();
         String remark=user_dl_et_remark.getText().toString();
         String declaration=user_dl_et_declaration.getText().toString();
     }
