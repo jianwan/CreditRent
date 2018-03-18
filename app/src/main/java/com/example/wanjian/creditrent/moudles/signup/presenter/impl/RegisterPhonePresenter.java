@@ -1,10 +1,9 @@
 package com.example.wanjian.creditrent.moudles.signup.presenter.impl;
 
 import com.example.wanjian.creditrent.base.BaseActivity;
-import com.example.wanjian.creditrent.base.C;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
-import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.PLog;
+import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.signup.presenter.IRegisterPhonePresenter;
 import com.example.wanjian.creditrent.moudles.signup.view.IRegisterPhoneView;
 
@@ -20,6 +19,11 @@ public class RegisterPhonePresenter extends BaseActivity implements IRegisterPho
 
     IRegisterPhoneView iRegisterPhoneView;
 
+    public RegisterPhonePresenter(IRegisterPhoneView iRegisterPhoneView){
+        this.iRegisterPhoneView=iRegisterPhoneView;
+    }
+
+
     @Override
     public void sendPhoneCode(String phone) {
         RetrofitNewSingleton.getInstance()
@@ -27,53 +31,58 @@ public class RegisterPhonePresenter extends BaseActivity implements IRegisterPho
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        PLog.d("register1","onSubscribe"+d);
+                        PLog.d("getPhoneCode","onSubscribe"+d);
                     }
                     @Override
                     public void onNext(String value) {
-                        iRegisterPhoneView.changeObservableTimer();
-                        PLog.d("register1","onNext"+value);
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        iRegisterPhoneView.showErr(e);
-                        PLog.d("register2","onError"+e);
-                    }
-
-                    @Override
-                    public void onComplete() {
                         iRegisterPhoneView.showSendCodeSuccessed();
-                        PLog.d("register2","onComplete");
+                        iRegisterPhoneView.changeObservableTimer();
+                        PLog.d("getPhoneCode","onNext"+value);
                     }
-                }) ;
-    }
-
-    @Override
-    public void checkPhoneCode(String phone, String code) {
-        RetrofitNewSingleton.getInstance()
-                .checkPhoneCode(phone,code)
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(String value) {
-
-                    }
-
                     @Override
                     public void onError(Throwable e) {
-
+//                        iRegisterPhoneView.showErr(e);
+                        PLog.d("getPhoneCode","onError"+e);
+                        ToastUtil.show(e.getMessage());
+                        RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
                     }
 
                     @Override
                     public void onComplete() {
-                        ACache.getDefault().put(C.PHONR_NUMBER,phone);
+
+                        PLog.d("getPhoneCode","onComplete");
+
                     }
                 });
     }
+
+//    @Override
+//    public void checkPhoneCode(String phone, String code) {
+//        RetrofitNewSingleton.getInstance()
+//                .checkPhoneCode(phone,code)
+//                .subscribe(new Observer<String>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(String value) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        iRegisterPhoneView.showErr(e);
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        iRegisterPhoneView.intentToRegisterReal();
+//                        ACache.getDefault().put(C.PHONR_NUMBER,phone);
+//                    }
+//                });
+//    }
 
 
 }

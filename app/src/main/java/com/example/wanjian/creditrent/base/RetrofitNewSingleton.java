@@ -7,6 +7,7 @@ import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.common.RxUtil.RxUtils;
 import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.example.wanjian.creditrent.moudles.signup.cookie.CookiesManager;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -71,12 +72,12 @@ public class RetrofitNewSingleton {
 //            }
 //        };
 
-//        CookiesManager cookiesManager=new  CookiesManager();
+        CookiesManager cookiesManager=new  CookiesManager();
 
         okHttpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(interceptor)
-//                .cookieJar(cookiesManager)
+                .cookieJar(cookiesManager)
                 .retryOnConnectionFailure(true)//断网自动重连
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .build();
@@ -232,18 +233,19 @@ public class RetrofitNewSingleton {
     /**
      * 登陆注册 忘记密码
      */
+
+    //获取验证码
     public Observable<String> getPhoneCode(String phone) {
         return apiService.getPhoneCode(phone).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
-    public Observable<String> checkPhoneCode(String phone,String code) {
-        return apiService.checkPhoneCode(phone,code).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+
+    //注册
+    public Observable<String> register(String phone,String nickname,String password,String yanzhengma) {
+        return apiService.register(phone,nickname,password,yanzhengma).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
-    public Observable<String> register(String username,String phone,String password) {
-        return apiService.register(username,phone,password).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
-    }
-
+    //登录
     public Observable<String> userLogin( String name, String password) {
         return apiService.userLogin(name, password)
                 .compose(RxUtils.rxSchedulerHelper())
@@ -251,13 +253,20 @@ public class RetrofitNewSingleton {
     }
 
 
-
-    public Observable<String> findPassword1(String phone) {
-        return apiService.findPassword1(phone).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    //退出登录
+    public Observable<String> loginOut(String noting) {
+        return apiService.loginOut(noting).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
-    public Observable<String> findPassword2(String phone,String code, String psw) {
-        return apiService.findPassword2(phone,code, psw).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+
+    //找回密码：获取验证码
+    public Observable<String> findPasswordCode(String phone) {
+        return apiService.findPasswordCode(phone).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    //找回密码：重置密码
+    public Observable<String> findPassword(String phone,String yanzhengma, String password) {
+        return apiService.findPassword(phone,yanzhengma, password).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
 

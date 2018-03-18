@@ -51,4 +51,5 @@ public class UserPublishList {
     public void setNumber(String number) {
         this.number = number;
     }
+
 }

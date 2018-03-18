@@ -8,19 +8,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseFragment;
+import com.example.wanjian.creditrent.base.C;
+import com.example.wanjian.creditrent.common.util.ACache;
+import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserBoughtActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserCollectedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserDetailInformation;
-import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserRentActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserReturnActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSawActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSelledActivtiy;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserSettingsActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishedActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.view.impl.UserSettingsActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_unpublished.UserUnpublishedActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,24 +36,49 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout relLay_unlogin,relLay_login,
-            user_ralLay_published,user_ralLay_unpublished,user_relLay_bought, user_relLay_selled,user_relLay_collected,user_relLay_saw,
-            user_relLay_settings;
+            user_ralLay_published,user_ralLay_unpublished,user_relLay_bought,
+            user_relLay_selled,user_relLay_collected,user_relLay_saw, user_relLay_settings;
 
     private Button unlogin_btn_login;
     private CircleImageView unlogin_iv_picture;
 
-    private LinearLayout login_linear_nickname;
+    private LinearLayout login_linear_userinformation;
     private CircleImageView login_ci_avatar;
+    private TextView login_tv_nickname;
     private LinearLayout linear_rent,linear_return;
 
-    private boolean isLogin=true;
+    String username;
+    String nickname;
+    Boolean isLogin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
 
         initView(view);
+        checkIsLoginin();
+
         return view;
+    }
+
+
+    private void checkIsLoginin() {
+
+        username= ACache.getDefault().getAsString(C.USER_NAME);
+        nickname=ACache.getDefault().getAsString(C.NICKNAME);
+
+        if (username!=null&&!username.equals("")) {
+//            isLogin=true;
+            SharedPreferencesUtil.setIsLogin(true);
+            relLay_unlogin.setVisibility(View.GONE);
+            login_tv_nickname.setText(nickname);
+            relLay_login.setVisibility(View.VISIBLE);
+        } else {
+//            isLogin=false;
+            SharedPreferencesUtil.setIsLogin(false);
+            relLay_unlogin.setVisibility(View.VISIBLE);
+            relLay_login.setVisibility(View.GONE);
+        }
     }
 
     private void initView(View v) {
@@ -66,16 +95,14 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         unlogin_btn_login=v.findViewById(R.id.unlogin_btn_login);
         unlogin_iv_picture=v.findViewById(R.id.unlogin_iv_picture);
 
-        login_linear_nickname=v.findViewById(R.id.login_linear_nickname);
+        login_linear_userinformation=v.findViewById(R.id.login_linear_userinformation);
         login_ci_avatar=v.findViewById(R.id.login_ci_avatar);
+        login_tv_nickname=v.findViewById(R.id.login_tv_nickname);
         linear_rent=v.findViewById(R.id.linear_rent);
         linear_return=v.findViewById(R.id.linear_return);
 
-        setLoginOrUnlogin(isLogin);
-
         unlogin_btn_login.setOnClickListener(this);
-
-        login_linear_nickname.setOnClickListener(this);
+        login_linear_userinformation.setOnClickListener(this);
         user_ralLay_unpublished.setOnClickListener(this);
         login_ci_avatar.setOnClickListener(this);
 
@@ -93,15 +120,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-    private void setLoginOrUnlogin(boolean isLogin) {
-        if (isLogin) {
-            relLay_unlogin.setVisibility(View.GONE);
-            relLay_login.setVisibility(View.VISIBLE);
-        } else {
-            relLay_unlogin.setVisibility(View.VISIBLE);
-            relLay_login.setVisibility(View.GONE);
-        }
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -109,7 +128,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
             case R.id.unlogin_btn_login:
                 startIntentActivity(this,new LoginActivity());
                 break;
-            case R.id.login_linear_nickname:
+            case R.id.login_linear_userinformation:
                 startIntentActivity(this,new UserDetailInformation());
                 break;
             case R.id.login_ci_avatar:

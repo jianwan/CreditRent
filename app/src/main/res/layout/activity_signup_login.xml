@@ -48,16 +48,15 @@
                 android:background="@color/transparent"
                 android:drawableLeft="@mipmap/login_icon_account"
                 android:drawablePadding="25dip"
-                android:hint="@string/login_username_hint"
+                android:hint="@string/login_username"
                 android:paddingLeft="15dip"
                 android:shadowDx="0.0"
                 android:shadowDy="1.0"
                 android:shadowRadius="1.0"
                 android:inputType="number"
                 android:textColorHint="#ffdddddd"
-                android:maxLength="10"
-                android:maxLines="1"
-                android:singleLine="true" />
+                android:maxLength="11"
+                android:maxLines="1"/>
 
             <View
                 android:layout_width="match_parent"

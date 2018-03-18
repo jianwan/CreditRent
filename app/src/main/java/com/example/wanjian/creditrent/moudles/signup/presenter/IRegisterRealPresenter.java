@@ -5,6 +5,6 @@ package com.example.wanjian.creditrent.moudles.signup.presenter;
 public interface IRegisterRealPresenter {
 
     //绑定手机号的注册
-    void register(String username,String phone,String password);
+    void register(String phone,String nickname,String password,String yanzhengma);
 
 }

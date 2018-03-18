@@ -5,5 +5,7 @@ package com.example.wanjian.creditrent.moudles.signup.presenter;
  */
 
 public interface ILoginPresenter {
+
     void userLogin(String username,String password);
+
 }

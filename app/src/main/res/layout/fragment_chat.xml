@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="这是分类"
+        android:text="这是对话"
         android:gravity="center"
         android:textSize="30dp"/>
 

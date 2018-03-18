@@ -199,4 +199,7 @@ public class BaseActivity extends AppCompatActivity {
         intent.setClass(activity1, fragment2.getClass());
         startActivity(intent);
     }
+
+
+
 }

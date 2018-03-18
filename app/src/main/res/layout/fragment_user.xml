@@ -21,8 +21,7 @@
                 <RelativeLayout
                     android:id="@+id/relLay_unlogin"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:visibility="gone">
+                    android:layout_height="100dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -73,36 +72,36 @@
                 <RelativeLayout
                     android:id="@+id/relLay_login"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    >
+                    android:layout_height="160dp">
                     <LinearLayout
-                        android:id="@+id/login_linear_nickname"
+                        android:id="@+id/login_linear_userinformation"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal">
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="6"
+                            android:layout_weight="4"
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_nickname"
+                                android:id="@+id/login_tv_nickname"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="信租一号"
-                                android:textSize="20sp"
-                                />
+                                android:textSize="20sp" />
+
                             <TextView
                                 android:id="@+id/tv_welcome_login"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
                                 android:text="欢迎来到信租平台"
-                                android:textSize="15sp"
-                                android:gravity="center"
+                                android:textSize="20sp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginTop="5dp"
                                 />
                         </LinearLayout>
 
@@ -113,8 +112,10 @@
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/login_ci_avatar"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@mipmap/ic_launcher"/>
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:src="@mipmap/avatordefault"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -125,8 +126,8 @@
                             <ImageView
                                 android:id="@+id/iv_go"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_launcher"
+                                android:layout_height="match_parent"
+                                android:src="@mipmap/trunright"
                                 android:layout_gravity="center"/>
                         </LinearLayout>
 

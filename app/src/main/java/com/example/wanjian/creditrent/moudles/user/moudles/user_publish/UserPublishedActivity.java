@@ -53,6 +53,8 @@ public class UserPublishedActivity extends BaseActivity implements View.OnClickL
         user_published_toolbar_back.setOnClickListener(this);
     }
 
+
+
     /**
      * Called when a view has been clicked.
      *

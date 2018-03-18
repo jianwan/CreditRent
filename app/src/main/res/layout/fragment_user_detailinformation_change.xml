@@ -38,41 +38,6 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/user_dl_linear_truename"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:gravity="center_vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:paddingLeft="10dp"
-            android:text="姓名"
-            android:textSize="14sp"
-            android:textColor="#5c5c5c" />
-        <EditText
-            android:id="@+id/user_dl_et_truename"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:paddingLeft="15dp"
-            android:background="@null"
-            android:hint="请输入你的真实姓名"
-            android:minWidth="80dp"
-            android:textColor="#969696"
-            android:textColorHint="#b3b3b3"
-            android:textSize="14sp"
-            android:maxLines="1"
-            android:singleLine="true"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#eeeeee" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -120,25 +85,33 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="15dp"
             android:paddingLeft="10dp"
-            android:text="电话"
+            android:text="性别"
             android:textSize="14sp"
             android:textColor="#5c5c5c" />
-        <EditText
-            android:id="@+id/user_dl_et_phone"
+        <!--<EditText-->
+            <!--android:id="@+id/user_dl_et_phone"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:paddingLeft="15dp"-->
+            <!--android:background="@null"-->
+            <!--android:hint="请输入你的电话"-->
+            <!--android:minWidth="80dp"-->
+            <!--android:textColor="#969696"-->
+            <!--android:textColorHint="#b3b3b3"-->
+            <!--android:textSize="14sp"-->
+            <!--android:maxLines="1"-->
+            <!--android:singleLine="true"/>-->
+
+        <Spinner
+            android:id="@+id/user_dl_spinner_sex"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:paddingLeft="15dp"
-            android:background="@null"
-            android:hint="请输入你的电话"
-            android:minWidth="80dp"
-            android:textColor="#969696"
-            android:textColorHint="#b3b3b3"
-            android:textSize="14sp"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:inputType="number"/>
+            android:entries="@array/sex"
+            android:layout_marginLeft="30dp"
+            android:spinnerMode="dialog">
+        </Spinner>
     </LinearLayout>
 
     <View
@@ -176,41 +149,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#eeeeee" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:gravity="center_vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="        交易
-     默认备注"
-            android:textSize="14sp"
-            android:textColor="#5c5c5c" />
-        <EditText
-            android:id="@+id/user_dl_et_remark"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:paddingLeft="0dp"
-            android:background="@null"
-            android:hint="请输入交易默认备注"
-            android:minWidth="80dp"
-            android:textColor="#969696"
-            android:textColorHint="#b3b3b3"
-            android:textSize="14sp"
-            android:maxLines="3"
-            android:singleLine="true"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#eeeeee" />
-
 
 
     <LinearLayout

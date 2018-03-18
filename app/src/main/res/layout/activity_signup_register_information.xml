@@ -40,13 +40,13 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/registerreal_et_username"
+            android:id="@+id/registerreal_et_nickname"
             android:layout_width="fill_parent"
             android:layout_height="48dp"
             android:background="@color/transparent"
             android:drawableLeft="@mipmap/login_icon_account"
             android:drawablePadding="25dp"
-            android:hint="@string/login_username_hint"
+            android:hint="@string/login_nickname"
             android:inputType="number"
             android:paddingLeft="15dp"
             android:shadowDx="0.0"
@@ -54,8 +54,7 @@
             android:shadowRadius="1.0"
             android:textColorHint="#ffdddddd"
             android:maxLength="10"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:maxLines="1" />
 
         <View
             android:layout_width="match_parent"
@@ -74,8 +73,7 @@
             android:inputType="textPassword"
             android:paddingLeft="15dip"
             android:textColorHint="#ffdddddd"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:maxLines="1"/>
 
         <View
             android:layout_width="match_parent"
@@ -92,8 +90,7 @@
             android:inputType="textPassword"
             android:paddingLeft="15dip"
             android:textColorHint="#ffdddddd"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:maxLines="1" />
 
     </LinearLayout>
 

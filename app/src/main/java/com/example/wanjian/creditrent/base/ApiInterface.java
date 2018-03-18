@@ -11,31 +11,32 @@ import retrofit2.http.POST;
  */
 public  interface ApiInterface {
 
-            String HOST="http://www.lingshi321.com/tutor/";
-
+     String HOST="http://119.29.133.244/test/adminweb/";
 
 
     /** ————————————————登录注册—————————————————**/
     //获取验证码
     @FormUrlEncoded
-    @POST("app/user/phoneCode")
+    @POST("zhuctanz.php")
     Observable<Result<Object>> getPhoneCode(@Field("phone") String phone);
 
-    //验证验证码
-    @FormUrlEncoded
-    @POST("app/user/phoneCode")
-    Observable<Result<Object>> checkPhoneCode(@Field("phone") String phone,@Field("code") String code);
+
 
     //注册
     @FormUrlEncoded
-    @POST("app/user/register")
-    Observable<Result<Object>> register(@Field("username") String username,@Field("phoneNumber") String phoneNumber,
-                                        @Field("password") String password);
+    @POST("register.php")
+    Observable<Result<Object>> register(@Field("phone") String phone,@Field("nickname") String nickname,@Field("password") String password,
+                                        @Field("yanzhengma") String yanzhengma);
 
+    //注册返回信息
+    @FormUrlEncoded
+    @POST("register.php")
+    Observable<Result<String>> registerData(@Field("phone") String phone,@Field("nickname") String nickname,@Field("password") String password,
+                                        @Field("yanzhengma") String yanzhengma);
 
     //登录接口
     @FormUrlEncoded
-    @POST("app/user/login")
+    @POST("login.php")
     Observable<Result<Object>> userLogin(
             @Field("phone") String phone, @Field("password") String password);
 
@@ -45,13 +46,23 @@ public  interface ApiInterface {
             @Field("phone") String phone, @Field("password") String password);
 
 
-    //重置密码
+    //退出登录
     @FormUrlEncoded
-    @POST("app/user/phoneCode")
-    Observable<Result<Object>> findPassword1(@Field("phone") String phone);
+    @POST("logout.php")
+    Observable<Result<Object>> loginOut(@Field("none") String noting);
 
+
+    //忘记密码  第一步:获取验证码
     @FormUrlEncoded
-    @POST("app/user/pwdChange")
-    Observable<Result<Object>> findPassword2(
-            @Field("phone") String phone, @Field("code") String code, @Field("newPassword") String newPassword);
+    @POST("zhaohtanz.php")
+    Observable<Result<Object>> findPasswordCode(
+            @Field("phone") String phone);
+
+    //忘记密码  第二步：找回密码
+    @FormUrlEncoded
+    @POST("findmima.php")
+    Observable<Result<Object>> findPassword(
+            @Field("phone") String phone, @Field("yanzhengma") String yanzhengma, @Field("password") String password);
+
+
 }

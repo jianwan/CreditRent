@@ -47,6 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userdetial_ci_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/ic_launcher"/>
@@ -54,8 +55,8 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_height="121dp"
+            android:layout_weight="1.50"
             android:orientation="vertical">
 
             <LinearLayout
@@ -66,15 +67,16 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="姓名:"
+                    android:text="昵称:"
                     android:textSize="16sp"
                     android:gravity="center_vertical"/>
 
                 <TextView
+                    android:id="@+id/userdetial_tv_nickname"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="王二"
+                    android:text="你还未修改昵称哦"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -93,15 +95,16 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="年龄:"
+                    android:text="性别:"
                     android:textSize="16sp"
                     android:gravity="center_vertical"/>
 
                 <TextView
+                    android:id="@+id/userdetial_tv_sex"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="20岁"
+                    android:text="你还未修改性别哦"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -125,6 +128,7 @@
                     android:gravity="center_vertical"/>
 
                 <TextView
+                    android:id="@+id/userdetial_tv_credit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
@@ -152,10 +156,11 @@
                     android:gravity="center_vertical"/>
 
                 <TextView
+                    android:id="@+id/userdetial_tv_school"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="重庆邮电大学"
+                    android:text="你还未选择学校哦"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
                     />
@@ -187,13 +192,13 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/userdetial_ci_declaration"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:hint="在这里输入你的个人宣言~"
+            android:hint="你还未修改个人宣言哦~"
             android:textSize="14sp" />
-
     </LinearLayout>
 
     <View
@@ -202,63 +207,5 @@
         android:background="#dddddd" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text=" 交易默认备注:"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:hint="这里是交易默认备注"
-            android:gravity="center_vertical"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="交易次数:"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@null"
-            android:hint="这里是交易次数"
-            android:gravity="center_vertical"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
 
 </LinearLayout>

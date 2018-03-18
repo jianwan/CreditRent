@@ -10,7 +10,7 @@ public interface ILoginView {
 
     void saveInformation();
 
-    void showErr(Throwable e) ;
+    void showErr(String e) ;
 
     void toast(String s);
 

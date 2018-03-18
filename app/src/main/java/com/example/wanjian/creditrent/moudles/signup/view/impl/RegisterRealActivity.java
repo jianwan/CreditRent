@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
-import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
+import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.signup.AgreementActivity;
 import com.example.wanjian.creditrent.moudles.signup.presenter.IRegisterRealPresenter;
@@ -33,7 +33,7 @@ public class RegisterRealActivity extends BaseActivity implements View.OnClickLi
 
     IRegisterRealPresenter iRegisterRealPresenter;
 
-    EditText registerreal_et_username,registerreal_et_password,registerreal_et_password_again;
+    EditText registerreal_et_nickname,registerreal_et_password,registerreal_et_password_again;
     CheckBox checkBox;
     TextView agreement;
     Button registerreal_btn_register;
@@ -49,7 +49,7 @@ public class RegisterRealActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initView() {
-        registerreal_et_username=(EditText)findViewById(R.id.registerreal_et_username);
+        registerreal_et_nickname=(EditText)findViewById(R.id.registerreal_et_nickname);
         registerreal_et_password=(EditText)findViewById(R.id.registerreal_et_password);
         registerreal_et_password_again=(EditText)findViewById(R.id.registerreal_et_password_again);
         checkBox=(CheckBox)findViewById(R.id.check_box);
@@ -77,21 +77,23 @@ public class RegisterRealActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intentToAgreementActivity);
                 break;
             case R.id.registerreal_btn_register:
-                if(registerreal_et_username.getText().toString().equals("")||registerreal_et_password.getText().toString().equals("")
+                if(registerreal_et_nickname.getText().toString().equals("")||registerreal_et_password.getText().toString().equals("")
                         ||registerreal_et_password_again.getText().toString().equals("")){
                     ToastUtil.show("输入不能为空");
                 }else {
-                    int usernameNumber=Integer.valueOf(registerreal_et_username.getText().toString());
+                    int usernameNumber=Integer.valueOf(registerreal_et_nickname.getText().toString());
                     Log.d(TAG,usernameNumber+"");
                     //判断学号是否合法
                     if (usernameNumber>=2014000000&&usernameNumber<=2017999999){
                         if (registerreal_et_password.getText().toString().equals(registerreal_et_password_again.getText().toString())){
                             //信租协议
                             if (checkBox.isChecked()){
-                                ToastUtil.show("成功，准备登陆");
-                                String phoneNumber=C.PHONR_NUMBER;
-                                iRegisterRealPresenter.register(registerreal_et_username.getText().toString(),
-                                        phoneNumber,registerreal_et_password_again.getText().toString());
+                                Bundle bundle=this.getIntent().getExtras();
+                                String phoneNumber=bundle.getString("phoneNumber");
+                                String phoneCode=bundle.getString("phoneCode");
+                                PLog.d("PLog",phoneNumber+" "+phoneCode);
+                                iRegisterRealPresenter.register(phoneNumber,registerreal_et_nickname.getText().toString(),
+                                        registerreal_et_password_again.getText().toString(),phoneCode);
                             }else {
                                 ToastUtil.show("请阅读并同意“信租协议”");
                             }
@@ -110,13 +112,32 @@ public class RegisterRealActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void saveInformation() {
         //缓存用户username，password
-        ACache.getDefault().put(C.USER_NAME,registerreal_et_username.getText().toString());
-        ACache.getDefault().put(C.PASSWORD,registerreal_et_password.getText().toString());
+//        ACache.getDefault().put(C.PHONR_NUMBER,registerreal_et_nickname.getText().toString());
+//        ACache.getDefault().put(C.PASSWORD,registerreal_et_password.getText().toString());
+
+        //TODO 该处未测试成功
+        ACache.getDefault().put(C.NICKNAME,registerreal_et_nickname.getText().toString());
+
+
+        ToastUtil.show("运行到了saveInformation"+C.NICKNAME);
+        Intent intent=new Intent(RegisterRealActivity.this,LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override
-    public void showErr(Throwable e) {
-        RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+    public void showErr(String error) {
+        ToastUtil.show(error);
+    }
+
+    @Override
+    public void loginFinishIntent() {
+        ToastUtil.show("运行到了loginFinishIntent");
+        Intent intent=new Intent(RegisterRealActivity.this,LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }

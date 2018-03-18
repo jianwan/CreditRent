@@ -35,41 +35,42 @@ public class RxUtils {
     }
 
 
-
-    public static <T> ObservableTransformer<Result<T>, T> handleResult() {
-        return upstream -> upstream.flatMap(tResult -> {
-            if (tResult.code == 1) {
-                return createData(tResult.data);
-            } else {
-                return Observable.error(new ApiException(tResult.code, tResult.msg));
-            }
-        });
-//        return new ObservableTransformer<Result<T>, T>() {
-//            @Override
-//            public ObservableSource<T> apply(Observable<Result<T>> upstream) {
-//                return upstream.flatMap((Function<? super Result<T>, ? extends ObservableSource<? extends T>>) new Function<Result<T>, ObservableSource<?>>() {
-//                    @Override
-//                    public ObservableSource<?> apply(Result<T> tResult) throws Exception {
-//                        if (tResult.code == 1) {
-//                    return createData(tResult.data);
-//                } else {
-//                    return Observable.error(new ApiException(tResult.code, tResult.msg));
-//                }
-//                    }
-//                });
+//    public static <T> ObservableTransformer<Result<T>, T> handleResult() {
+//        return upstream -> upstream.flatMap(tResult -> {
+//            if (tResult.code == 1) {
+//                return createData(tResult.data);
+//            } else {
+//                return Observable.error(new ApiException(tResult.code, tResult.info));
 //            }
-//        };
-    }
+//        });
+////        return new ObservableTransformer<Result<T>, T>() {
+////            @Override
+////            public ObservableSource<T> apply(Observable<Result<T>> upstream) {
+////                return upstream.flatMap((Function<? super Result<T>, ? extends ObservableSource<? extends T>>) new Function<Result<T>, ObservableSource<?>>() {
+////                    @Override
+////                    public ObservableSource<?> apply(Result<T> tResult) throws Exception {
+////                        if (tResult.code == 1) {
+////                    return createData(tResult.data);
+////                } else {
+////                    return Observable.error(new ApiException(tResult.code, tResult.msg));
+////                }
+////                    }
+////                });
+////            }
+////        };
+//    }
+
+
 
     public static <T> ObservableTransformer<Result<T>,String> handleResultToMsg() {
 
         return upstream -> upstream.flatMap(tResult -> {
-            if (tResult.code == 1) {
+            if (tResult.code == 200) {
 //                ToastUtil.show(tResult.msg.toString());
 //                PLog.d("TAG",tResult.msg.toString());
-                return createData(tResult.msg);
+                return createData(tResult.info);
             } else {
-                return Observable.error(new ApiException(tResult.code, tResult.msg));
+                return Observable.error(new ApiException(tResult.code, tResult.info));
             }
         });
 //        return new ObservableTransformer<Result<T>, String>() {

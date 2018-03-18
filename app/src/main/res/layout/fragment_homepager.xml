@@ -1,264 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/homepager_SwipeRefreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
 
 
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/homepaer_NestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1000dp"
+            android:descendantFocusability="blocksDescendants">
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-               <ImageView
-                   android:layout_width="match_parent"
-                   android:layout_height="180dp"
-                   android:src="@mipmap/ic_launcher"/>
+                <com.bigkoo.convenientbanner.ConvenientBanner
+                    android:id="@+id/convenientbanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    app:canLoop="true"/>
 
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="200dp"
-                   android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:orientation="vertical">
 
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="0dp"
-                       android:layout_weight="1">
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="物品分类"
-                           android:textSize="20sp"
-                           android:layout_gravity="center"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:visibility="gone">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="物品分类"
+                            android:textSize="20sp"
+                            android:layout_gravity="center"/>
 
-                   </LinearLayout>
+                    </LinearLayout>
 
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="0dp"
-                       android:layout_weight="5"
-                       android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
 
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="0dp"
-                           android:layout_weight="1">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
 
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
+                            <LinearLayout
+                                android:id="@+id/homepager_kinds_books"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                               <ImageView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:src="@mipmap/ic_launcher"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
 
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="分类一"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分类一"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
 
-                           </LinearLayout>
+                            </LinearLayout>
 
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                               <ImageView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:src="@mipmap/ic_launcher"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
 
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="分类二"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分类二"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
 
-                           </LinearLayout>
-
-
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
-
-                               <ImageView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:src="@mipmap/ic_launcher"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="分类三"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                           </LinearLayout>
-
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
-
-                               <ImageView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:src="@mipmap/ic_launcher"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="分类四"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                           </LinearLayout>
+                            </LinearLayout>
 
 
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                       </LinearLayout>
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
 
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="0dp"
-                           android:layout_weight="1">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分类三"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
 
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
+                            </LinearLayout>
 
-                               <ImageView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:src="@mipmap/ic_launcher"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="分类五"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
 
-                           </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分类四"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
 
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
-
-                               <ImageView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:src="@mipmap/ic_launcher"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="分类六"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                           </LinearLayout>
-
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
-
-                               <ImageView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:src="@mipmap/ic_launcher"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="分类七"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                           </LinearLayout>
-
-                           <LinearLayout
-                               android:layout_width="0dp"
-                               android:layout_height="match_parent"
-                               android:layout_weight="1"
-                               android:orientation="vertical">
-
-                               <ImageView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:src="@mipmap/ic_launcher"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="分类八"
-                                   android:layout_gravity="center"
-                                   android:layout_marginTop="5dp"/>
-
-                           </LinearLayout>
-
-                       </LinearLayout>
-
-
-                   </LinearLayout>
+                            </LinearLayout>
 
 
 
-               </LinearLayout>
+                        </LinearLayout>
 
-               <android.support.v7.widget.RecyclerView
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
 
-           </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-       </LinearLayout>
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分类五"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分类六"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分类七"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分类八"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/homepager_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="50dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="已经拉到底啦"
+                        android:gravity="center"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 
 
 
-   </ScrollView>
 
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

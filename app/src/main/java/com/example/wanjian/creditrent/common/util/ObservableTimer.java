@@ -15,6 +15,7 @@ import io.reactivex.functions.Consumer;
  * 验证码倒数
  */
 public class ObservableTimer {
+
     private TextView textView;
     private String TAG;
     public ObservableTimer(TextView textView, String TAG) {

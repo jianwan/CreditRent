@@ -10,6 +10,6 @@ public interface IRegisterPhonePresenter {
     void sendPhoneCode(String phone);
 
     //
-   void checkPhoneCode(String phone,String code);
+//   void checkPhoneCode(String phone,String code);
 
 }

@@ -86,13 +86,13 @@
         android:background="#eeeeee" />
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_loginout"
         android:layout_width="match_parent"
         android:layout_height="48.0dip"
         android:layout_margin="16dp"
         android:background="#FE2E2E"
         android:gravity="center"
-        android:text="@string/login"
+        android:text="@string/unlogin"
         android:textColor="@color/base_color_text_white"
         android:textSize="18sp" />
 

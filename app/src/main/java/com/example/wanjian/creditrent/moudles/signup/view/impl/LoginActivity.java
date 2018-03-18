@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
-import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
+import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.main.MainActivity;
 import com.example.wanjian.creditrent.moudles.signup.presenter.ILoginPresenter;
@@ -32,12 +32,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     ILoginPresenter iLoginPresenter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_login);
         initView();
+
     }
+
+
 
     private void initView() {
         login_et_username=(EditText)findViewById(R.id.login_et_username);
@@ -92,11 +97,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         //缓存用户username，password
         ACache.getDefault().put(C.USER_NAME,login_et_username.getText().toString());
         ACache.getDefault().put(C.PASSWORD,login_et_password.getText().toString());
+
+        SharedPreferencesUtil.setIsLogin(true);
     }
 
     @Override
-    public void showErr(Throwable e) {
-        RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+    public void showErr(String error) {
+//        RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+        ToastUtil.show(error);
     }
 
     @Override
@@ -108,4 +116,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void setBtUnClickable() {
         login_btn_login.setClickable(false);
     }
+
 }

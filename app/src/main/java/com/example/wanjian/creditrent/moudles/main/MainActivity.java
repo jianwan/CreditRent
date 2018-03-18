@@ -6,15 +6,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
+import com.example.wanjian.creditrent.moudles.chat.ChatFragment;
 import com.example.wanjian.creditrent.moudles.homepage.HomePageFragment;
 import com.example.wanjian.creditrent.moudles.homepage.SearchActivity;
-import com.example.wanjian.creditrent.moudles.kinds.KindsFragment;
 import com.example.wanjian.creditrent.moudles.user.UserFragment;
 
 import java.util.ArrayList;
@@ -25,12 +27,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private final String TAG=MainActivity.class.getSimpleName();
     private ViewPager mainViewpager;
     private HomePageFragment homepagerFragment;
-    private KindsFragment kindsFragment;
+    private ChatFragment chatFragment;
     private UserFragment userFragment;
     private MainViewpagerAdapter mainViewpagerAdapter;
     private ImageView toolbarSearchview,ivOne,ivTwo,ivThree;
     private TextView tvOne,tvTwo,tvThree,tv_title;
     private Toolbar toolbar;
+
+    //上次按下返回键的系统时间
+    private long lastBackTime = 0;
+    //当前按下返回键的系统时间
+    private long currentBackTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +53,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mainViewpager = (ViewPager) findViewById(R.id.activity_main_viewPager);
         List<Fragment> fragmentList = new ArrayList<Fragment>();
         userFragment = new UserFragment();
-        kindsFragment=new KindsFragment();
+        chatFragment =new ChatFragment();
         homepagerFragment = new HomePageFragment();
         fragmentList.add(homepagerFragment);
-        fragmentList.add(kindsFragment);
+        fragmentList.add(chatFragment);
         fragmentList.add(userFragment);
         mainViewpagerAdapter = new MainViewpagerAdapter(getSupportFragmentManager(),fragmentList);
         mainViewpager.setOffscreenPageLimit(3);  //设置预加载
@@ -105,7 +112,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.linear2_iv:
             case R.id.linear2_tv:
                 mainViewpager.setCurrentItem(1);
-                tv_title.setText("物品分类");
+                tv_title.setText("对话");
                 toolbarSearchview.setVisibility(View.GONE);
                 break;
             case R.id.linear3_iv:
@@ -143,7 +150,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 1:
                 toolbarSearchview.setVisibility(View.GONE);
-                tv_title.setText("物品分类");
+                tv_title.setText("对话");
                 ivOne.setImageResource(R.mipmap.home_unseclect);
                 ivTwo.setImageResource(R.mipmap.service_seclect);
                 ivThree.setImageResource(R.mipmap.my_unseclect);
@@ -168,6 +175,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
+
+    //按两次退出app
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //捕获返回键按下的事件
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            currentBackTime = System.currentTimeMillis();
+            if(currentBackTime - lastBackTime > 2 * 1000){
+                Toast.makeText(this, "再按一次返回键退出", Toast.LENGTH_SHORT).show();
+                lastBackTime = currentBackTime;
+            }else{ //如果两次按下的时间差小于2秒，则退出程序
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
 
 }

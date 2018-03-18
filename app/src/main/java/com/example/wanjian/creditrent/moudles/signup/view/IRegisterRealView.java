@@ -9,5 +9,8 @@ public interface IRegisterRealView {
 
     void saveInformation();
 
-    void showErr(Throwable e);
+    void showErr(String e);
+
+    void loginFinishIntent();
+
 }

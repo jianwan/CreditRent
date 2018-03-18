@@ -4,6 +4,7 @@ package com.example.wanjian.creditrent.moudles.signup.presenter.impl;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.PLog;
+import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.signup.presenter.IRegisterRealPresenter;
 import com.example.wanjian.creditrent.moudles.signup.view.IRegisterRealView;
 
@@ -16,69 +17,48 @@ import io.reactivex.disposables.Disposable;
 
 public class RegisterRealPresenter extends BaseActivity implements IRegisterRealPresenter {
 
-    IRegisterRealView iRegisterView;
+    IRegisterRealView iRegisterRealView;
+
 
     public RegisterRealPresenter(IRegisterRealView view){
-        this.iRegisterView=view;
+        this.iRegisterRealView=view;
     }
 
 
     @Override
-    public void register(String username,String phone,String password){
+    public void register(String phone,String nickname,String password,String yanzhengma){
         RetrofitNewSingleton.getInstance()
-                    .register(username,phone,password)
+                    .register(phone,nickname,password,yanzhengma)
                     .subscribe(new Observer<String>() {
                         @Override
                         public void onSubscribe(Disposable d) {
-                            PLog.d("register2","onSubscribe"+d);
+                            PLog.d("register","onSubscribe"+d);
 
                         }
 
                         @Override
                         public void onNext(String value) {
-                            iRegisterView.saveInformation();
-                            PLog.d("register2","onNext"+value);
-
+                            PLog.d("register","onNext"+value);
+                            iRegisterRealView.loginFinishIntent();
+                            iRegisterRealView.saveInformation();
+                            ToastUtil.show("注册成功，请登录");
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            iRegisterView.showErr(e);
-                            PLog.d("register2","onError"+e);
+                            iRegisterRealView.showErr(e.getMessage());
+                            PLog.d("register","onError"+e);
+                            RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
                         }
 
                         @Override
                         public void onComplete() {
-                            PLog.d("register2","onComplete");
+                            PLog.d("register","onComplete");
                         }
                     });
-    }
 
-//TODO:修改后，待测试
-//    @Override
-//    public void register2(String phone, String code) {
-//        Observer<String>observer2=new Observer<String>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                PLog.d("register2","onSubscribe"+d);
-//            }
-//            @Override
-//            public void onNext(String value) {
-//                iSignupView.savePhone();
-//                PLog.d("register2","onNext"+value);
-//            }
-//            @Override
-//            public void onError(Throwable e) {
-//                iSignupView.showErr(e);
-//                PLog.d("register2","onError"+e);
-//            }
-//            @Override
-//            public void onComplete() {
-//                PLog.d("register2","onComplete");
-//            }
-//        };
-//        mSignupModel.registerApp2(observer2,phone,code);
-//    }
+
+    }
 
 
 }

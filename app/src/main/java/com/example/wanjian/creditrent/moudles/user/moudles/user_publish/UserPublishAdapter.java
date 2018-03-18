@@ -126,8 +126,11 @@ public class UserPublishAdapter extends RecyclerView.Adapter<UserPublishAdapter.
         holder.unpublished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ToastUtil.show("unpublished");
+                int i=position+1;
+                ToastUtil.show("你删除了第"+i+"个item"+"名字是："
+                        +userPublishList.getName()+"number是："+userPublishList.getNumber());
                 removeData(position);
+
             }
         });
     }
@@ -147,7 +150,12 @@ public class UserPublishAdapter extends RecyclerView.Adapter<UserPublishAdapter.
     //移除数据
     public void removeData(int position) {
         mUserPublished.remove(position);
+        //刷新默认动画
         notifyItemRemoved(position);
+        //刷新删除位置以下的List的Item位置，防止位置错乱
+        if (position != mUserPublished.size()) {
+            notifyItemRangeChanged(position, mUserPublished.size() - position);
+        }
     }
 
 }

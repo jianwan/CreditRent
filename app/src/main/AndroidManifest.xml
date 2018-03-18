@@ -39,10 +39,12 @@
         <activity android:name=".moudles.user.moudles.UserSelledActivtiy"/>
         <activity android:name=".moudles.user.moudles.UserCollectedActivity"/>
         <activity android:name=".moudles.user.moudles.UserSawActivity"/>
-        <activity android:name=".moudles.user.moudles.UserSettingsActivity"/>
+        <activity android:name=".moudles.user.moudles.user_settings.view.impl.UserSettingsActivity"/>
 
         <!--————————————homepager——————————-->
         <activity android:name=".moudles.homepage.SearchActivity"/>
+        <activity android:name=".moudles.homepage.kinds.Books"/>
+
 
     </application>
 
