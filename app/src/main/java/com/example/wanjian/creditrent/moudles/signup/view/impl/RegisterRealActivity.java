@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SignUpCallback;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
@@ -20,7 +23,6 @@ import com.example.wanjian.creditrent.moudles.signup.AgreementActivity;
 import com.example.wanjian.creditrent.moudles.signup.presenter.IRegisterRealPresenter;
 import com.example.wanjian.creditrent.moudles.signup.presenter.impl.RegisterRealPresenter;
 import com.example.wanjian.creditrent.moudles.signup.view.IRegisterRealView;
-
 
 
 /**
@@ -38,6 +40,7 @@ public class RegisterRealActivity extends BaseActivity implements View.OnClickLi
     TextView agreement;
     Button registerreal_btn_register;
     ImageButton registerreal_btn_back;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,18 +115,47 @@ public class RegisterRealActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void saveInformation() {
         //缓存用户username，password
-//        ACache.getDefault().put(C.PHONR_NUMBER,registerreal_et_nickname.getText().toString());
-//        ACache.getDefault().put(C.PASSWORD,registerreal_et_password.getText().toString());
+        ACache.getDefault().put(C.USER_NAME,registerreal_et_nickname.getText().toString());
+        ACache.getDefault().put(C.PASSWORD,registerreal_et_password.getText().toString());
 
-        //TODO 该处未测试成功
+//        //TODO 该处未测试成功
         ACache.getDefault().put(C.NICKNAME,registerreal_et_nickname.getText().toString());
 
 
+
+
+        registerToLeancloud();
+
         ToastUtil.show("运行到了saveInformation"+C.NICKNAME);
         Intent intent=new Intent(RegisterRealActivity.this,LoginActivity.class);
+
+//        //序列化
+//        intent.putExtra("userBean", userBean);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+
+    //注册leancloud
+    private void registerToLeancloud() {
+
+        AVUser user = new AVUser();// 新建 AVUser 对象实例
+        user.setObjectId(ACache.getDefault().getAsString(C.USER_NAME));//设置ObjectId
+        user.setUsername(ACache.getDefault().getAsString(C.USER_NAME));// 设置用户名
+        user.setPassword(ACache.getDefault().getAsString(C.PASSWORD));// 设置密码
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null) {
+                    ToastUtil.show("注册成功");
+                } else {
+                    ToastUtil.show(e.getMessage()+"注册Leancloud失败");
+                    Log.d("TAG",e.getMessage()+"注册Leancloud失败");
+                }
+            }
+        });
     }
 
     @Override

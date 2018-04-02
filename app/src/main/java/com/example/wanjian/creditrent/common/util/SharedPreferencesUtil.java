@@ -29,9 +29,6 @@ public class SharedPreferencesUtil {
 
 
 
-
-
-
     public static void setVersion(String version) {
         SharedPreferences.Editor editor = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE).edit();
         editor.putString(C.VERSION, version);
@@ -87,9 +84,6 @@ public class SharedPreferencesUtil {
         SharedPreferences preferences = context.getSharedPreferences(OTHER_INFO, Context.MODE_PRIVATE);
         return preferences.getString(C.LOG_DATE, "");
     }
-
-
-
 
 
     public static boolean getFirstNoPass(){

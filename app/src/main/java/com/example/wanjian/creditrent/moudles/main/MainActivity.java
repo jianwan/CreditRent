@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
+import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.moudles.chat.ChatFragment;
 import com.example.wanjian.creditrent.moudles.homepage.HomePageFragment;
 import com.example.wanjian.creditrent.moudles.homepage.SearchActivity;
@@ -22,12 +23,15 @@ import com.example.wanjian.creditrent.moudles.user.UserFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.leancloud.chatkit.activity.LCIMConversationListFragment;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private final String TAG=MainActivity.class.getSimpleName();
     private ViewPager mainViewpager;
     private HomePageFragment homepagerFragment;
     private ChatFragment chatFragment;
+    private LCIMConversationListFragment lcimConversationListFragment;
     private UserFragment userFragment;
     private MainViewpagerAdapter mainViewpagerAdapter;
     private ImageView toolbarSearchview,ivOne,ivTwo,ivThree;
@@ -39,6 +43,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     //当前按下返回键的系统时间
     private long currentBackTime = 0;
 
+    private Boolean isLogin = SharedPreferencesUtil.getIsLogin();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +55,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     }
 
+    @Override
+    protected void onResume() {
+        isLogin = SharedPreferencesUtil.getIsLogin();
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        isLogin = SharedPreferencesUtil.getIsLogin();
+        super.onRestart();
+    }
+
     private void initView() {
         mainViewpager = (ViewPager) findViewById(R.id.activity_main_viewPager);
         List<Fragment> fragmentList = new ArrayList<Fragment>();
         userFragment = new UserFragment();
         chatFragment =new ChatFragment();
+        lcimConversationListFragment = new LCIMConversationListFragment();
         homepagerFragment = new HomePageFragment();
         fragmentList.add(homepagerFragment);
-        fragmentList.add(chatFragment);
+
+        if (isLogin){
+            fragmentList.add(lcimConversationListFragment);
+        }else {
+            fragmentList.add(chatFragment);
+        }
+
         fragmentList.add(userFragment);
         mainViewpagerAdapter = new MainViewpagerAdapter(getSupportFragmentManager(),fragmentList);
         mainViewpager.setOffscreenPageLimit(3);  //设置预加载

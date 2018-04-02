@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/input_bg"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/registerreal_et_nickname"
@@ -48,13 +48,13 @@
             android:drawablePadding="25dp"
             android:hint="@string/login_nickname"
             android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
             android:paddingLeft="15dp"
             android:shadowDx="0.0"
             android:shadowDy="1.0"
             android:shadowRadius="1.0"
-            android:textColorHint="#ffdddddd"
-            android:maxLength="10"
-            android:maxLines="1" />
+            android:textColorHint="#ffdddddd" />
 
         <View
             android:layout_width="match_parent"
@@ -71,14 +71,15 @@
             android:drawablePadding="25dip"
             android:hint="@string/login_password_hint"
             android:inputType="textPassword"
+            android:maxLines="1"
             android:paddingLeft="15dip"
-            android:textColorHint="#ffdddddd"
-            android:maxLines="1"/>
+            android:textColorHint="#ffdddddd" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@mipmap/base_horization_line" />
+
         <EditText
             android:id="@+id/registerreal_et_password_again"
             android:layout_width="fill_parent"
@@ -88,9 +89,9 @@
             android:drawablePadding="25dip"
             android:hint="@string/login_email_hint"
             android:inputType="textPassword"
+            android:maxLines="1"
             android:paddingLeft="15dip"
-            android:textColorHint="#ffdddddd"
-            android:maxLines="1" />
+            android:textColorHint="#ffdddddd" />
 
     </LinearLayout>
 

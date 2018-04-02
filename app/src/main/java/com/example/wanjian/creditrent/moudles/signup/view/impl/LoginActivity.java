@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
@@ -17,6 +20,9 @@ import com.example.wanjian.creditrent.moudles.main.MainActivity;
 import com.example.wanjian.creditrent.moudles.signup.presenter.ILoginPresenter;
 import com.example.wanjian.creditrent.moudles.signup.presenter.impl.LoginPresenter;
 import com.example.wanjian.creditrent.moudles.signup.view.ILoginView;
+
+import cn.leancloud.chatkit.LCChatKitUser;
+import cn.leancloud.chatkit.cache.LCIMProfileCache;
 
 
 /**
@@ -86,10 +92,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void loginIntent() {
+
         Intent intentToMainActivtiy=new Intent(LoginActivity.this, MainActivity.class);
         intentToMainActivtiy.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intentToMainActivtiy.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intentToMainActivtiy);
+
     }
 
     @Override
@@ -97,9 +105,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         //缓存用户username，password
         ACache.getDefault().put(C.USER_NAME,login_et_username.getText().toString());
         ACache.getDefault().put(C.PASSWORD,login_et_password.getText().toString());
-
         SharedPreferencesUtil.setIsLogin(true);
+
+        changeInformationOnLeancloud();
     }
+
+    private void changeInformationOnLeancloud() {
+        String username= ACache.getDefault().getAsString(C.USER_NAME);
+        String nickname= ACache.getDefault().getAsString(C.NICKNAME);
+        LCChatKitUser user = new LCChatKitUser(username, nickname,"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
+        LCIMProfileCache.getInstance().cacheUser(user);
+
+
+        AVUser.logInInBackground(username, nickname, new LogInCallback<AVUser>() {
+            @Override
+            public void done(AVUser avUser, AVException e) {
+                ToastUtil.show("leancloud 登录成功");
+            }
+        });
+    }
+
 
     @Override
     public void showErr(String error) {

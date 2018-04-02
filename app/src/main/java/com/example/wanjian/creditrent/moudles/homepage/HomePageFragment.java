@@ -1,6 +1,7 @@
 package com.example.wanjian.creditrent.moudles.homepage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,22 +15,33 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseFragment;
+import com.example.wanjian.creditrent.base.C;
+import com.example.wanjian.creditrent.common.util.ACache;
+import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
-import com.example.wanjian.creditrent.moudles.homepage.kinds.Books;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerAdapter;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
+import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.LCChatKitUser;
+import cn.leancloud.chatkit.activity.LCIMConversationActivity;
+import cn.leancloud.chatkit.utils.LCIMConstants;
 
 /**
  * Created by wanjian on 2017/10/25.
@@ -42,13 +54,12 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
     private ArrayList<Integer> localImages = new ArrayList<Integer>();
     private List<String> networkImages;
     private String[] images = {
-            "http://img2.imgtn.bdimg.com/it/u=3093785514,1341050958&fm=21&gp=0.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/40.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/39.jpg",
-            "http://www.8kmm.com/UploadFiles/2012/8/201208140920132659.jpg",
-            "http://img07.tooopen.com/images/20170412/tooopen_sy_205630266491.jpg",
-            "http://img07.tooopen.com/images/20170811/tooopen_sy_219898696246.jpg",
-            "http://img06.tooopen.com/images/20170321/tooopen_sy_202673188311.jpg"
+            "https://bing.ioliu.cn/v1",
+            "https://bing.ioliu.cn/v1/?d=1",
+            "https://bing.ioliu.cn/v1/?d=2",
+            "https://bing.ioliu.cn/v1/?d=3",
+            "https://bing.ioliu.cn/v1/?d=4",
+            "https://bing.ioliu.cn/v1/?d=5",
     };
     private ImageLoader imageLoader;
     private HomepagerAdapter homepagerAdapter;
@@ -59,12 +70,14 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepager, null);
 
         initViews(view);
         initData();
+
 
         //convenientBanner 的用法
         networkImages= Arrays.asList(images);
@@ -75,7 +88,7 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
             }
         },networkImages)
                 .setPointViewVisible(true)
-                .startTurning(2000)
+                .startTurning(10000)
                 .setOnItemClickListener(this)
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused});
 
@@ -120,10 +133,37 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startIntentActivity(getContext(),new Books());
+//                startIntentActivity(getContext(),new Books());
+                if (SharedPreferencesUtil.getIsLogin()){
+//                    String userId = AVUser.getCurrentUser().getObjectId();
+
+                  //  ACache.getDefault().getAsString(C.USER_NAME) ACache.getDefault().getAsString(C.NICKNAME)
+
+//                    Intent intent = new Intent();
+//                    UserBean userBean = intent.getParcelableExtra("userBean");
+
+                    LCChatKitUser lcChatKitUser =new LCChatKitUser(ACache.getDefault().getAsString(C.USER_NAME),
+                            ACache.getDefault().getAsString(C.NICKNAME),"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
+                    LCChatKit.getInstance().open(lcChatKitUser.getUserId(), new AVIMClientCallback() {
+                        @Override
+                        public void done(AVIMClient avimClient, AVIMException e) {
+                            if (null == e) {
+                                Intent intent = new Intent(getActivity(), LCIMConversationActivity.class);
+                                intent.putExtra(LCIMConstants.PEER_ID, "Job");
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }else {
+                    startIntentActivity(getContext(), new LoginActivity());
+                    ToastUtil.show("请登录后再试");
+                }
+
             }
         });
-
 
     }
 
@@ -210,6 +250,8 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
     public void onItemClick(int position) {
         Toast.makeText(getContext(),"你点击了第"+position+"张图片",Toast.LENGTH_SHORT).show();
     }
+
+
 
     //NetworkImageHolderView
     private class NetworkImageHolderView implements Holder<String> {

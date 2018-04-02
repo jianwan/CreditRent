@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.example.wanjian.creditrent.base.Global;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.CreditRent_Context;
 import com.example.wanjian.creditrent.common.util.CrashHandler;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
+import com.example.wanjian.creditrent.moudles.chat.CustomUserProvider;
 import com.facebook.stetho.Stetho;
 import com.mob.MobApplication;
 
@@ -19,6 +21,8 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import cn.leancloud.chatkit.LCChatKit;
 
 /**
  * Created by Soully on 2017/7/25.
@@ -44,6 +48,16 @@ public class CreditRent_Application extends MobApplication {
     public void onCreate(){
         super.onCreate();
         Global.init(this);
+
+
+        // 初始化参数依次为 this, AppId, AppKey
+        AVOSCloud.initialize(this,"GQAiwzHhin5lvwc0PHtf1YGq-gzGzoHsz","JgW8AYQMKHOzHK4gcipCR5T1");
+        // 放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
+        AVOSCloud.setDebugLogEnabled(true);
+
+        LCChatKit.getInstance().setProfileProvider(CustomUserProvider.getInstance());
+        LCChatKit.getInstance().init(getApplicationContext(), "GQAiwzHhin5lvwc0PHtf1YGq-gzGzoHsz", "JgW8AYQMKHOzHK4gcipCR5T1");
+
         mContext = this;
         // 初始化 retrofit
         RetrofitNewSingleton.getInstance();

@@ -25,11 +25,12 @@ public class RegisterPhoneActivity extends BaseActivity implements IRegisterPhon
 
     private final String TAG = RegisterPhoneActivity.class.getSimpleName();
     IRegisterPhonePresenter iRegisterPhonePresenter;
-
     EditText register_et_phonenumber,register_et_phoneCode;
     TextView register_tv_getPhoneCode;
     Button register_btn_nextStep;
     ImageButton register_ib_back;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +43,17 @@ public class RegisterPhoneActivity extends BaseActivity implements IRegisterPhon
 
     private void initView() {
 
-
         register_et_phonenumber=(EditText)findViewById(R.id.register_et_phonenumber);
         register_et_phoneCode=(EditText)findViewById(R.id.register_et_phoneCode);
         register_tv_getPhoneCode=(TextView)findViewById(R.id.register_tv_getPhoneCode);
         register_btn_nextStep=(Button)findViewById(R.id.register_btn_nextStep);
         register_ib_back=(ImageButton)findViewById(R.id.register_ib_back);
 
-
         iRegisterPhonePresenter=new RegisterPhonePresenter(this);
 
         register_ib_back.setOnClickListener(this);
         register_tv_getPhoneCode.setOnClickListener(this);
         register_btn_nextStep.setOnClickListener(this);
-
 
     }
 
@@ -76,11 +74,6 @@ public class RegisterPhoneActivity extends BaseActivity implements IRegisterPhon
                 break;
             case R.id.register_btn_nextStep:
                 if (!register_et_phonenumber.getText().toString().isEmpty()&&!register_et_phoneCode.getText().toString().isEmpty()){
-//                    iRegisterPhonePresenter.checkPhoneCode(register_et_phonenumber.getText().toString(),register_et_phoneCode.getText().toString());
-//                    startIntentActivity(this,new RegisterRealActivity());
-//                    ACache.getDefault().put(C.PHONR_NUMBER,register_et_phonenumber.getText().toString());
-//                    ACache.getDefault().put(C.PHONE_CODE,register_et_phoneCode.getText().toString());
-//                    startIntentActivity(this,new RegisterRealActivity());
 
                     Intent intent=new Intent(RegisterPhoneActivity.this,RegisterRealActivity.class);
                     Bundle bundle=new Bundle();

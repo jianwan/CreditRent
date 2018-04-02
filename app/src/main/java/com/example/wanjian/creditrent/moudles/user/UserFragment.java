@@ -47,9 +47,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     private TextView login_tv_nickname;
     private LinearLayout linear_rent,linear_return;
 
-    String username;
-    String nickname;
-    Boolean isLogin;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,24 +61,29 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onResume() {
+        checkIsLoginin();
+        super.onResume();
+    }
+
     private void checkIsLoginin() {
 
-        username= ACache.getDefault().getAsString(C.USER_NAME);
-        nickname=ACache.getDefault().getAsString(C.NICKNAME);
+        String username= ACache.getDefault().getAsString(C.USER_NAME);
+        String nickname=ACache.getDefault().getAsString(C.NICKNAME);
 
         if (username!=null&&!username.equals("")) {
-//            isLogin=true;
             SharedPreferencesUtil.setIsLogin(true);
             relLay_unlogin.setVisibility(View.GONE);
-            login_tv_nickname.setText(nickname);
             relLay_login.setVisibility(View.VISIBLE);
+            login_tv_nickname.setText(nickname);
         } else {
-//            isLogin=false;
             SharedPreferencesUtil.setIsLogin(false);
             relLay_unlogin.setVisibility(View.VISIBLE);
             relLay_login.setVisibility(View.GONE);
         }
     }
+
 
     private void initView(View v) {
         relLay_unlogin=v.findViewById(R.id.relLay_unlogin);
@@ -116,7 +120,6 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         user_relLay_collected.setOnClickListener(this);
         user_relLay_saw.setOnClickListener(this);
         user_relLay_settings.setOnClickListener(this);
-
 
     }
 
