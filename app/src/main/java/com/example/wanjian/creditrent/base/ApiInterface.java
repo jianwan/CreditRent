@@ -1,10 +1,15 @@
 package com.example.wanjian.creditrent.base;
 
 
+import com.example.wanjian.creditrent.moudles.user.UserBean;
+
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * Created by Soully on 2017/7/25.
@@ -64,5 +69,45 @@ public  interface ApiInterface {
     Observable<Result<Object>> findPassword(
             @Field("phone") String phone, @Field("yanzhengma") String yanzhengma, @Field("password") String password);
 
+
+    //TODO 接口待测
+
+    //修改个人信息
+    @FormUrlEncoded
+    @POST("update.php")
+    Observable<Result<UserBean>> changeUserInformation(
+            @Field("nickname") String nickname,@Field("sex") String sex,@Field("birthday") String birthday,
+            @Field("area") String school,@Field("qianming") String declaration);
+
+
+    //展现个人信息
+    @FormUrlEncoded
+    @POST("showuserinfo.php")
+    Observable<Results<UserBean>> getUserInformation(@Field("phone") String phone);
+
+
+    //上传头像
+    @POST("uploadimg.php")
+    @Multipart
+    Observable<Result<String>> uploadImgFile(@Part MultipartBody.Part myfile);
+
+
+    //实名认证
+    @FormUrlEncoded
+    @POST("realname.php")
+    Observable<Result<String>> verify(
+            @Field("name") String name,@Field("phone") String phone,@Field("xuehao") String xuehao,
+            @Field("tongyi") String verifyCode);
+
+    @FormUrlEncoded
+    @POST("uploadrenzhengimg.php")
+    Observable<Result<Object>> verifyPic(@Part MultipartBody.Part myfile);
+
+
+    //登录遇到问题
+    @FormUrlEncoded
+    @POST("logoutwrong.php")
+    Observable<Result<String>> logOutWithError(
+            @Field("phone") String phone, @Field("password") String password);
 
 }

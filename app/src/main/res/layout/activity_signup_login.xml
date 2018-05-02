@@ -78,15 +78,33 @@
                 android:singleLine="true" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/login_tv_forgetPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/forgetPassword"
-            android:textSize="15sp"
-            android:textColor="@color/forgetPassword"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/login_tv_question"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="遇到问题"
+                android:textSize="15sp"
+                android:textColor="@color/forgetPassword"/>
+
+            <TextView
+                android:id="@+id/login_tv_forgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="190dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/forgetPassword"
+                android:textSize="15sp"
+                android:textColor="@color/forgetPassword"/>
+
+        </LinearLayout>
+
+
 
         <Button
             android:id="@+id/login_btn_login"

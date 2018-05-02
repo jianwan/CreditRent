@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,6 +32,8 @@ import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerAdapter;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -42,6 +45,7 @@ import cn.leancloud.chatkit.LCChatKit;
 import cn.leancloud.chatkit.LCChatKitUser;
 import cn.leancloud.chatkit.activity.LCIMConversationActivity;
 import cn.leancloud.chatkit.utils.LCIMConstants;
+
 
 /**
  * Created by wanjian on 2017/10/25.
@@ -71,6 +75,7 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
     private LinearLayoutManager linearLayoutManager;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepager, null);
@@ -80,7 +85,7 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
 
 
         //convenientBanner 的用法
-        networkImages= Arrays.asList(images);
+        networkImages = Arrays.asList(images);
         convenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
             public NetworkImageHolderView createHolder() {
@@ -93,22 +98,74 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused});
 
 
-
-        recyclerView=(RecyclerView)view.findViewById(R.id.homepager_recyclerview);
-        linearLayoutManager=new LinearLayoutManager(getContext());
+        //recyclerview
+        recyclerView = view.findViewById(R.id.homepager_recyclerview);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(linearLayoutManager);
         homepagerAdapter=new HomepagerAdapter(homepagerGoodsList);
         recyclerView.setAdapter(homepagerAdapter);
 
 
+
+
+
+        initFloatingActionButton(view);
         refreshData(view);
 
-        loadmoreData(view);
+//        loadmoreData(view);
 
 
         return view;
     }
+
+
+    //FloatingActionButton
+    private void initFloatingActionButton(View view) {
+
+        FloatingActionsMenu floatingActionsMenu = view.findViewById(R.id.multiple_actions);
+        floatingActionsMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+            @Override
+            public void onMenuExpanded() {
+
+            }
+
+            @Override
+            public void onMenuCollapsed() {
+
+            }
+        });
+
+        LinearLayout linearLayout = view.findViewById(R.id.homepager_ll);
+        linearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (floatingActionsMenu.isExpanded()) {
+                    floatingActionsMenu.collapse();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
+        FloatingActionButton floatingActionButtonA = view.findViewById(R.id.action_a);
+        floatingActionButtonA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.show("action_a");
+            }
+        });
+        FloatingActionButton floatingActionButtonB = view.findViewById(R.id.action_b);
+        floatingActionButtonB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.show("action_b");
+            }
+        });
+    }
+
 
 
 
@@ -118,6 +175,7 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
             homepagerGoodsList.add(homepagerGoods);
         }
     }
+
 
 
     private void initViews(View view) {
@@ -133,7 +191,6 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startIntentActivity(getContext(),new Books());
                 if (SharedPreferencesUtil.getIsLogin()){
 //                    String userId = AVUser.getCurrentUser().getObjectId();
 
@@ -164,6 +221,8 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
 
             }
         });
+
+
 
     }
 

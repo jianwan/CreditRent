@@ -1,153 +1,111 @@
 package com.example.wanjian.creditrent.moudles.user;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by wanjian on 2018/3/26.
  */
 
-public class UserBean implements Parcelable {
+public class UserBean {
 
 
+//    private String userId;
+//    private String nickName;          //昵称，即用户学号
+//    private String password;          //密码
 
-    private String userId;
-    private String userName;          //用户名，即用户手机号 userId
-    private String nickName;;         //昵称，即用户学号
-    private String password;          //密码
-    private Boolean sex;              //性别
-    private Integer credit;           //信用度
-    private String shool;             //学校
-    private String declaration;       //个人宣言
-    private String Avatar;            //头像
+    //已使用
+    private String phone;              //用户名，即用户手机号 userId
+    private String birthday;            //生日
+    private String sex;               //性别
+    private Integer crent;             //信用度
+    private String area;               //学校
+    private String qianming;           //个人宣言
+    private String img;             //头像
+    private String renzheng;           //认证
 
+//    public String getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(String userId) {
+//        this.userId = userId;
+//    }
+//
+//    public String getNickName() {
+//        return nickName;
+//    }
+//
+//    public void setNickName(String nickName) {
+//        this.nickName = nickName;
+//    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
-
-
-    public String getUserId() {
-        return userId;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public Integer getCredit() {
-        return credit;
+    public Integer getCrent() {
+        return crent;
     }
 
-    public void setCredit(Integer credit) {
-        this.credit = credit;
+    public void setCrent(Integer crent) {
+        this.crent = crent;
     }
 
-    public String getShool() {
-        return shool;
+    public String getArea() {
+        return area;
     }
 
-    public void setShool(String shool) {
-        this.shool = shool;
+    public void setArea(String area) {
+        this.area = area;
     }
 
-    public String getDeclaration() {
-        return declaration;
+    public String getQianming() {
+        return qianming;
     }
 
-    public void setDeclaration(String declaration) {
-        this.declaration = declaration;
+    public void setQianming(String qianming) {
+        this.qianming = qianming;
     }
 
-    public String getAvatar() {
-        return Avatar;
+    public String getImg() {
+        return img;
     }
 
-    public void setAvatar(String avatar) {
-        Avatar = avatar;
+    public void setImg(String img) {
+        this.img = img;
     }
 
-    public static Creator<UserBean> getCREATOR() {
-        return CREATOR;
+    public String getRenzheng() {
+        return renzheng;
     }
 
-
-    public UserBean(){
-
+    public void setRenzheng(String renzheng) {
+        this.renzheng = renzheng;
     }
-
-    protected UserBean(Parcel in) {
-
-        userId = in.readString();
-        userName = in.readString();
-        nickName = in.readString();
-        password = in.readString();
-        sex = in.readByte() != 0;
-        credit = in.readInt();
-        shool = in.readString();
-        declaration = in.readString();
-        Avatar = in.readString();
-
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        // 注意这里，并不是直接写入boolean值，而是写入整数值
-        dest.writeByte((byte)(sex ? 1 : 0));
-
-        dest.writeString(userId);
-        dest.writeString(userName);
-        dest.writeString(nickName);
-        dest.writeString(password);
-        dest.writeInt(credit);
-        dest.writeString(shool);
-        dest.writeString(declaration);
-        dest.writeString(Avatar);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<UserBean> CREATOR = new Creator<UserBean>() {
-        @Override
-        public UserBean createFromParcel(Parcel in) {
-            return new UserBean(in);
-        }
-
-        @Override
-        public UserBean[] newArray(int size) {
-            return new UserBean[size];
-        }
-    };
 }

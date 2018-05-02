@@ -32,6 +32,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
     }
+
+
     public void setStatusBarColor(int color) {
         /**
          * Android4.4以上可用
@@ -65,6 +67,8 @@ public class BaseActivity extends AppCompatActivity {
     获取图片的主色调
     id为本地图片的地址 如：R.mipmap.ic_launcher
      */
+
+
     public int  GetPaletteAyNc(int id){
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
         final int[] color_GRB = new int[1];
@@ -199,7 +203,6 @@ public class BaseActivity extends AppCompatActivity {
         intent.setClass(activity1, fragment2.getClass());
         startActivity(intent);
     }
-
 
 
 }

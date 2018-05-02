@@ -34,3 +34,22 @@ public class ApiException extends RuntimeException {
     }
 
 }
+
+
+
+//public class ApiException extends RuntimeException {
+//
+//
+//    private int resultCode = 0;
+//
+//    public ApiException(int resultCode, String msg) {
+//        super(msg);
+//        this.resultCode = resultCode;
+//    }
+//
+//    public int getResultCode() {
+//        return resultCode;
+//    }
+//
+//}
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/input_bg"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/question_et_username"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip"
+            android:background="@color/transparent"
+            android:drawableLeft="@mipmap/login_icon_account"
+            android:drawablePadding="25dip"
+            android:hint="@string/login_username"
+            android:paddingLeft="15dip"
+            android:shadowDx="0.0"
+            android:shadowDy="1.0"
+            android:shadowRadius="1.0"
+            android:inputType="number"
+            android:textColorHint="#ffdddddd"
+            android:maxLength="11"
+            android:maxLines="1"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/base_color_text_gray" />
+
+        <EditText
+            android:id="@+id/question_et_password"
+            android:layout_width="fill_parent"
+            android:layout_height="48.0dip"
+            android:background="@color/transparent"
+            android:drawableLeft="@mipmap/login_icon_password"
+            android:drawablePadding="25dip"
+            android:hint="@string/login_password_hint"
+            android:inputType="textPassword"
+            android:paddingLeft="15dip"
+            android:textColorHint="#ffdddddd"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/question_btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击退出当前登录状态"/>
+
+</LinearLayout>

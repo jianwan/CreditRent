@@ -473,7 +473,6 @@ public class LCIMConversationFragment extends Fragment {
       File oldFile = new File(imagePath);
       if (oldFile.length()>=1048576){
         Log.d("文件大小是"+oldFile.length()," ");
-//        File compressFile = CompressHelper.getDefault(getContext()).compressToFile(oldFile);
         File compressFile = new CompressHelper.Builder(getContext())
                 .setMaxWidth(720)
                 .setMaxHeight(960)

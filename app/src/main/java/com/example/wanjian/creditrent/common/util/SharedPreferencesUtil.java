@@ -129,5 +129,15 @@ public class SharedPreferencesUtil {
         editor.apply();
     }
 
+    public static void setCredit(String credit) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE).edit();
+        editor.putString(C.CREDIT, credit);
+        editor.apply();
+    }
+
+    public static String getCredit() {
+        SharedPreferences preferences = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
+        return preferences.getString(C.CREDIT, "");
+    }
 
 }

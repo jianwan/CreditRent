@@ -37,77 +37,180 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:orientation="horizontal">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/userdetial_swipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userdetial_ci_avatar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="121dp"
-            android:layout_weight="1.50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="昵称:"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"/>
+                android:layout_height="120dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/userdetial_tv_nickname"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:text="你还未修改昵称哦"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"
-                    />
+                    android:layout_weight="1">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userdetial_ci_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:src="@mipmap/ic_launcher"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="121dp"
+                    android:layout_weight="1.50"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="昵称:"
+                            android:textSize="16sp"
+                            android:gravity="center_vertical"/>
+
+                        <TextView
+                            android:id="@+id/userdetial_tv_nickname"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="你还未修改昵称哦"
+                            android:textSize="16sp"
+                            android:gravity="center_vertical"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#dddddd" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="性别:"
+                            android:textSize="16sp"
+                            android:gravity="center_vertical"/>
+
+                        <TextView
+                            android:id="@+id/userdetial_tv_sex"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="你还未修改性别哦"
+                            android:textSize="16sp"
+                            android:gravity="center_vertical"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#dddddd" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="信誉度:"
+                            android:textSize="16sp"
+                            android:gravity="center_vertical"/>
+
+                        <TextView
+                            android:id="@+id/userdetial_tv_credit"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="50"
+                            android:textSize="16sp"
+                            android:gravity="center_vertical"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#dddddd" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="学校:"
+                            android:textSize="16sp"
+                            android:gravity="center_vertical"/>
+
+                        <TextView
+                            android:id="@+id/userdetial_tv_school"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="你还未选择学校哦"
+                            android:textSize="16sp"
+                            android:gravity="center_vertical"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#dddddd" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#dddddd" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="性别:"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center"
+                    android:text="个人签名:"
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/userdetial_tv_sex"
+                    android:id="@+id/userdetial_ci_declaration"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="你还未修改性别哦"
-                    android:textSize="16sp"
                     android:gravity="center_vertical"
-                    />
+                    android:hint="你还未修改个人宣言哦~"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <View
@@ -115,96 +218,23 @@
                 android:layout_height="1dp"
                 android:background="#dddddd" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/userdetial_bt_verify"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="信誉度:"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"/>
-
-                <TextView
-                    android:id="@+id/userdetial_tv_credit"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:text="100"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#dddddd" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="学校:"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"/>
-
-                <TextView
-                    android:id="@+id/userdetial_tv_school"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:text="你还未选择学校哦"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"
-                    />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#dddddd" />
+                android:layout_height="wrap_content"
+                android:text="你还未实名认证（点击认证）"
+                android:background="@color/main_toolbar"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"/>
 
         </LinearLayout>
 
 
-    </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        >
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="个人宣言:"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/userdetial_ci_declaration"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:hint="你还未修改个人宣言哦~"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd" />
 
 
 

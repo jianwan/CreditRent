@@ -1,7 +1,8 @@
-package com.example.wanjian.creditrent.moudles.user.moudles;
+package com.example.wanjian.creditrent.moudles.user.moudles.user_information;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,11 +13,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
+import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -32,7 +38,7 @@ public class UserDetailInformationChange extends BaseActivity  implements View.O
     private EditText user_dl_et_nickname,user_dl_et_declaration;
     Spinner spinnerSex,spinnerSchool;
 
-
+    MaterialDialog dialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,26 +147,61 @@ public class UserDetailInformationChange extends BaseActivity  implements View.O
         String sex=spinnerSex.getSelectedItem().toString();
         String school=spinnerSchool.getSelectedItem().toString();
 
+        //缓存数据到本地
         ACache.getDefault().put(C.DECLARATION,declaration);
         ACache.getDefault().put(C.NICKNAME,usernickname);
         ACache.getDefault().put(C.SEX,sex);
         ACache.getDefault().put(C.SCHOOL,school);
 
-        updataUserInformation();
+        String birthday = null;
 
-        Intent intent=new Intent(UserDetailInformationChange.this,UserDetailInformation.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        ToastUtil.show("已成功修改个人信息");
-
-        startActivity(intent);
+        updataUserInformation(usernickname,sex,null,school,declaration);
 
     }
 
-    //TODO：等接口，修改个人信息
-    private void updataUserInformation() {
+    //已完成
+    private void updataUserInformation(String nickname,String sex,String birthday,String school,String declaration) {
+        RetrofitNewSingleton.getInstance()
+                .changeUserInformation(nickname,sex,birthday,school,declaration)
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(String value) {
+                        //dialog
+                        dialog = new MaterialDialog.Builder(UserDetailInformationChange.this)
+                                .content("正在加载内容")
+                                .progress(true, 0)
+                                .show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
+
+                                Intent intent=new Intent(UserDetailInformationChange.this,UserDetailInformation.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                ToastUtil.show("已成功修改个人信息");
+                                startActivity(intent);
+
+                            }
+                        }, 1500);
+
+                    }
+                });
     }
 
 }

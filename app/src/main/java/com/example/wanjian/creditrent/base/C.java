@@ -34,11 +34,16 @@ public class C {
 
     //登录注册
     public static final String PHONE_CODE = "phone_code";
-    public static final String NICKNAME="nickname";
 
+
+    public static final String AVATAR="avatar";
+    public static final String NICKNAME="nickname";
     public static final String SEX="sex";
+    public static final String CREDIT="credit";
     public static final String SCHOOL="school";
     public static final String DECLARATION="declaration";
+    public static final String VERIFY="verify";
+
 
     public static final String SEX_POSITION="0";
     public static final String SCHOOL_POSITION="0";

@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private UserFragment userFragment;
     private MainViewpagerAdapter mainViewpagerAdapter;
     private ImageView toolbarSearchview,ivOne,ivTwo,ivThree;
-    private TextView tvOne,tvTwo,tvThree,tv_title;
+    private TextView verify,tvOne,tvTwo,tvThree,tv_title;
     private Toolbar toolbar;
 
     //上次按下返回键的系统时间
@@ -87,6 +87,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mainViewpager.setOffscreenPageLimit(3);  //设置预加载
         mainViewpager.setAdapter(mainViewpagerAdapter);
         toolbarSearchview=(ImageView)findViewById(R.id.toolbar_searchview);
+//        verify = (TextView) findViewById(R.id.toolbar_verify);
         ivOne = (ImageView) findViewById(R.id.linear1_iv);
         ivTwo = (ImageView) findViewById(R.id.linear2_iv);
         ivThree = (ImageView) findViewById(R.id.linear3_iv);
@@ -102,6 +103,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         tvThree.setTextColor(this.getResources().getColor(R.color.textColor));
 
         toolbarSearchview.setOnClickListener(this);
+//        verify.setOnClickListener(this);
         ivOne.setOnClickListener(this);
         ivTwo.setOnClickListener(this);
         ivThree.setOnClickListener(this);
@@ -121,6 +123,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             actionBar.setDisplayHomeAsUpEnabled(false);
             tv_title.setText("首页");
             toolbarSearchview.setVisibility(View.VISIBLE);
+//            verify.setVisibility(View.GONE);
         }
     }
 
@@ -133,22 +136,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mainViewpager.setCurrentItem(0);
                 tv_title.setText("首页");
                 toolbarSearchview.setVisibility(View.VISIBLE);
+//                verify.setVisibility(View.GONE);
                 break;
             case R.id.linear2_iv:
             case R.id.linear2_tv:
                 mainViewpager.setCurrentItem(1);
                 tv_title.setText("对话");
                 toolbarSearchview.setVisibility(View.GONE);
+//                verify.setVisibility(View.GONE);
                 break;
             case R.id.linear3_iv:
             case R.id.linear3_tv:
                 mainViewpager.setCurrentItem(2);
                 tv_title.setText("个人中心");
                 toolbarSearchview.setVisibility(View.GONE);
+//                verify.setVisibility(View.VISIBLE);
                 break;
             case R.id.toolbar_searchview:
                 startIntentActivity(this, new SearchActivity());
                 break;
+//            case R.id.toolbar_verify:
+//                startIntentActivity(this,new UserVerifyActivity());
+//                break;
             default:
                 break;
         }

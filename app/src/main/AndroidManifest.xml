@@ -33,10 +33,11 @@
         <activity android:name=".moudles.signup.view.impl.RegisterRealActivity"/>
         <activity android:name=".moudles.signup.AgreementActivity"/>
         <activity android:name=".moudles.signup.view.impl.ForgetPasswordActivity"/>
+        <activity android:name=".moudles.signup.view.impl.QuestionActivity"/>
 
         <!--————————————user——————————-->
-        <activity android:name=".moudles.user.moudles.UserDetailInformationChange"/>
-        <activity android:name=".moudles.user.moudles.UserDetailInformation"/>
+        <activity android:name=".moudles.user.moudles.user_information.UserDetailInformationChange"/>
+        <activity android:name=".moudles.user.moudles.user_information.UserDetailInformation"/>
         <activity android:name=".moudles.user.moudles.UserRentActivity"/>
         <activity android:name=".moudles.user.moudles.UserReturnActivity"/>
         <activity android:name=".moudles.user.moudles.user_publish.UserPublishedActivity"/>
@@ -46,10 +47,14 @@
         <activity android:name=".moudles.user.moudles.UserCollectedActivity"/>
         <activity android:name=".moudles.user.moudles.UserSawActivity"/>
         <activity android:name=".moudles.user.moudles.user_settings.view.impl.UserSettingsActivity"/>
+        <activity android:name=".moudles.user.moudles.user_information.UserVerifyActivity"/>
+        <activity android:name=".moudles.user.moudles.user_information.UserVerificationActivity"/>
 
         <!--————————————homepager——————————-->
         <activity android:name=".moudles.homepage.SearchActivity"/>
         <activity android:name=".moudles.homepage.kinds.Books"/>
+
+        <activity android:name=".TestActivity"/>
 
 
         <!-- 实时通信模块、推送（均需要加入以下声明） START -->

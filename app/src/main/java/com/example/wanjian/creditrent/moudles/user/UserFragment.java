@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseFragment;
 import com.example.wanjian.creditrent.base.C;
@@ -18,11 +19,11 @@ import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserBoughtActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserCollectedActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserDetailInformation;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserRentActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserReturnActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSawActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSelledActivtiy;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_information.UserDetailInformation;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.view.impl.UserSettingsActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_unpublished.UserUnpublishedActivity;
@@ -77,6 +78,13 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
             relLay_unlogin.setVisibility(View.GONE);
             relLay_login.setVisibility(View.VISIBLE);
             login_tv_nickname.setText(nickname);
+
+            if (!ACache.getDefault().getAsString(C.AVATAR).isEmpty()&&ACache.getDefault().getAsString(C.AVATAR)!=null){
+                Glide.with(getContext())
+                        .load(ACache.getDefault().getAsString(C.AVATAR))
+                        .into(login_ci_avatar);
+            }
+
         } else {
             SharedPreferencesUtil.setIsLogin(false);
             relLay_unlogin.setVisibility(View.VISIBLE);

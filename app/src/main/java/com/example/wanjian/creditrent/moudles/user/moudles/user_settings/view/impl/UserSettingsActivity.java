@@ -64,6 +64,13 @@ public class UserSettingsActivity extends BaseActivity implements View.OnClickLi
                     ToastUtil.show("你还未登录！");
                 }
 
+//                if(!isLogin &&username == "" && nickname == "" ){
+//                    ToastUtil.show("你还未登录！");
+//                }else {
+//                    String nothing=null;
+//                    iSettingsPresenter.loginOut(nothing);
+//                }
+
                 break;
         }
     }

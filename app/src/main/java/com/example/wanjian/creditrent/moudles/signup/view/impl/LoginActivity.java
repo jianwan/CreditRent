@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     EditText login_et_username,login_et_password;
     Button login_btn_login;
-    TextView login_tv_forgetPassword,login_tv_register;
+    TextView login_tv_question,login_tv_forgetPassword,login_tv_register;
 
     ILoginPresenter iLoginPresenter;
 
@@ -54,12 +54,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         login_et_username=(EditText)findViewById(R.id.login_et_username);
         login_et_password=(EditText)findViewById(R.id.login_et_password);
         login_btn_login=(Button)findViewById(R.id.login_btn_login);
+        login_tv_question = (TextView) findViewById(R.id.login_tv_question);
         login_tv_forgetPassword=(TextView)findViewById(R.id.login_tv_forgetPassword);
         login_tv_register=(TextView)findViewById(R.id.login_tv_register);
 
         iLoginPresenter=new LoginPresenter(this);
 
         login_btn_login.setOnClickListener(this);
+        login_tv_question.setOnClickListener(this);
         login_tv_forgetPassword.setOnClickListener(this);
         login_tv_register.setOnClickListener(this);
 
@@ -80,6 +82,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case R.id.login_tv_forgetPassword:
                 Intent intentToForgetPasswordActivity=new Intent(LoginActivity.this,ForgetPasswordActivity.class);
                 startActivity(intentToForgetPasswordActivity);
+                break;
+            case R.id.login_tv_question:
+                startIntentActivity(LoginActivity.this,new QuestionActivity());
                 break;
             case R.id.login_tv_register:
                 Intent intentToRegisterPhoneActivity=new Intent(LoginActivity.this,RegisterPhoneActivity.class);

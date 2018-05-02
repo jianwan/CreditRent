@@ -3,16 +3,23 @@ package com.example.wanjian.creditrent.base;
 
 import android.content.Context;
 
+import com.example.wanjian.creditrent.CreditRent_Application;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.common.RxUtil.RxUtils;
 import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.signup.cookie.CookiesManager;
+import com.example.wanjian.creditrent.moudles.user.UserBean;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -28,6 +35,8 @@ public class RetrofitNewSingleton {
     private static ApiInterface apiService = null;
     private static Retrofit retrofit = null;
     private static OkHttpClient okHttpClient = null;
+
+    private static Context context ;
 
 
     private RetrofitNewSingleton() {
@@ -57,36 +66,29 @@ public class RetrofitNewSingleton {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-//        CookieJar mCookieJar = new CookieJar() {
-//            private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-//
-//            @Override
-//            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-//                cookieStore.put(url.host(), cookies);
-//            }
-//
-//            @Override
-//            public List<Cookie> loadForRequest(HttpUrl url) {
-//                List<Cookie> cookies = cookieStore.get(url.host());
-//                return cookies != null ? cookies : new ArrayList<Cookie>();
-//            }
-//        };
 
-        CookiesManager cookiesManager=new  CookiesManager();
+        CookiesManager cookiesManager = new CookiesManager();
+
+        //TODO cookie存在时间有问题，待解决
+        ClearableCookieJar cookieJar =
+                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(CreditRent_Application.getContext()));
 
         okHttpClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(interceptor)
-                .cookieJar(cookiesManager)
+                .cookieJar(cookieJar)
                 .retryOnConnectionFailure(true)//断网自动重连
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .build();
+
     }
 
     private static void initRetrofit() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.HOST)
                 .client(okHttpClient)
+//                .addConverterFactory(new NullOnEmptyConverterFactory())    //空数据处理
+                .addConverterFactory(new NobodyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -268,6 +270,55 @@ public class RetrofitNewSingleton {
     public Observable<String> findPassword(String phone,String yanzhengma, String password) {
         return apiService.findPassword(phone,yanzhengma, password).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
+
+
+    //用户信息详情页，获取信息
+    public Observable<UserBean> getUserInformation(String phone) {
+        return apiService.getUserInformation(phone).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
+
+    //上传头像
+    public Observable<String> uploadImgFile(MultipartBody.Part file) {
+        return apiService.uploadImgFile(file).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    //修改用户信息
+    public Observable<String> changeUserInformation(String phone,String sex,String birthday,String school,String declaration) {
+        return apiService.changeUserInformation(phone,sex,birthday,school,declaration).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    //实名认证
+    public Observable<String> verify(String name, String phone,String studentId, String verifyCode) {
+        return apiService.verify(name,phone,studentId,verifyCode).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    public Observable<String> verifyPic(MultipartBody.Part file) {
+        return apiService.verifyPic(file).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    //登录遇到问题，退出登录
+    public Observable<String> logOutWithError(String name, String password) {
+        return apiService.logOutWithError(name, password)
+                .compose(RxUtils.rxSchedulerHelper())
+                .compose(RxUtils.handleResultToMsg());
+    }
+
+
+//    private static class NullOnEmptyConverterFactory extends Converter.Factory {
+//        @Override
+//        public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+//            final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
+//            return new Converter<ResponseBody,Object>() {
+//                @Override
+//                public Object convert(ResponseBody body) throws IOException {
+//                    if (body.contentLength() == 0)
+//                        return null;
+//                    return delegate.convert(body);
+//                }
+//            };
+//        }
+//    }
+
 
 
 }
