@@ -1,15 +1,20 @@
 package com.example.wanjian.creditrent.base;
 
 
+import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
+
+import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 /**
  * Created by Soully on 2017/7/25.
@@ -99,6 +104,7 @@ public  interface ApiInterface {
             @Field("name") String name,@Field("phone") String phone,@Field("xuehao") String xuehao,
             @Field("tongyi") String verifyCode);
 
+    //实名认证一卡通图片上传
     @FormUrlEncoded
     @POST("uploadrenzhengimg.php")
     Observable<Result<Object>> verifyPic(@Part MultipartBody.Part myfile);
@@ -109,5 +115,25 @@ public  interface ApiInterface {
     @POST("logoutwrong.php")
     Observable<Result<String>> logOutWithError(
             @Field("phone") String phone, @Field("password") String password);
+
+
+    //展现个人信息
+    @GET("showgoodsbypage.php")
+    Observable<Results<ArrayList<HomepagerGoodsList>>> getHomepagerGoods(@Query("page") Integer page);
+
+
+    //上传物品
+    @FormUrlEncoded
+    @POST("uploadgoods.php")
+    Observable<Result<String>> uploadGoods(
+            @Field("goodsname") String goodsname, @Field("typename") String typename, @Field("ershowsell") Integer ershowsell,
+            @Field("ershousellmoney") Double ershousellmoney, @Field("descrition") String description, @Field("chuzumoney") Double chuzumoney);
+
+    //上传物品图片
+    @FormUrlEncoded
+    @POST("uploadgoodsimg.php")
+    Observable<Result<Object>> uploadGoodspic(
+            @Field("goodid") Integer goodid, @Field("imgnumber") Integer imgnumber,@Part MultipartBody.Part myfile);
+
 
 }

@@ -19,6 +19,7 @@ import com.example.wanjian.creditrent.moudles.chat.ChatFragment;
 import com.example.wanjian.creditrent.moudles.homepage.HomePageFragment;
 import com.example.wanjian.creditrent.moudles.homepage.SearchActivity;
 import com.example.wanjian.creditrent.moudles.user.UserFragment;
+import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,6 @@ import cn.leancloud.chatkit.activity.LCIMConversationListFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
-    private final String TAG=MainActivity.class.getSimpleName();
     private ViewPager mainViewpager;
     private HomePageFragment homepagerFragment;
     private ChatFragment chatFragment;
@@ -52,6 +52,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         initView();
         initToolbar();
+
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
     }
 

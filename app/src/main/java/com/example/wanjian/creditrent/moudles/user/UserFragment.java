@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseFragment;
 import com.example.wanjian.creditrent.base.C;
@@ -55,6 +54,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
 
+
         initView(view);
         checkIsLoginin();
 
@@ -79,11 +79,12 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
             relLay_login.setVisibility(View.VISIBLE);
             login_tv_nickname.setText(nickname);
 
-            if (!ACache.getDefault().getAsString(C.AVATAR).isEmpty()&&ACache.getDefault().getAsString(C.AVATAR)!=null){
-                Glide.with(getContext())
-                        .load(ACache.getDefault().getAsString(C.AVATAR))
-                        .into(login_ci_avatar);
-            }
+            //TODO 有bug
+//            if (!ACache.getDefault().getAsString(C.AVATAR).isEmpty()&&ACache.getDefault().getAsString(C.AVATAR)!=null){
+//                Glide.with(getContext())
+//                        .load(ACache.getDefault().getAsString(C.AVATAR))
+//                        .into(login_ci_avatar);
+//            }
 
         } else {
             SharedPreferencesUtil.setIsLogin(false);

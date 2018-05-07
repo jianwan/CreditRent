@@ -8,6 +8,7 @@ import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.common.RxUtil.RxUtils;
 import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.signup.cookie.CookiesManager;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -16,6 +17,7 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -298,9 +300,13 @@ public class RetrofitNewSingleton {
 
     //登录遇到问题，退出登录
     public Observable<String> logOutWithError(String name, String password) {
-        return apiService.logOutWithError(name, password)
-                .compose(RxUtils.rxSchedulerHelper())
-                .compose(RxUtils.handleResultToMsg());
+        return apiService.logOutWithError(name, password).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+
+    //展现首页物品信息
+    public Observable<ArrayList<HomepagerGoodsList>> getHomepagerGoods(Integer page) {
+        return apiService.getHomepagerGoods(page).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
     }
 
 

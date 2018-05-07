@@ -38,8 +38,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import static android.R.attr.name;
-
 /**
  * Created by wanjian on 2017/11/8.
  * 修改用户详细信息
@@ -61,7 +59,6 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
 
     String phonenumber;
 
-    UserBean userBean = new UserBean();
 
     //拍照
     private static final int TAKE_PICTURE = 0;
@@ -83,10 +80,23 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
 
         initView();
 
+        initData();
+
         getInformationFronLocal();
 
         initSwipeRefresh();
     }
+
+    private void initData() {
+        //从网络获取数据
+        if(Utils.isNetworkConnected(CreditRent_Application.getContext())||Utils.isWifi(CreditRent_Application.getContext())){
+            phonenumber = ACache.getDefault().getAsString(C.USER_NAME);
+            getInformationFromInternet(phonenumber);
+        }else {
+            ToastUtil.show("网络连接失败");
+        }
+    }
+
 
     private void initSwipeRefresh() {
         userdetial_swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -350,7 +360,7 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
         if (!appDir.exists()) {
             appDir.mkdir();
         }
-        String fileName = name + ".png";
+        String fileName = "avatar" + ".png";
         File file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);

@@ -86,7 +86,6 @@ dependencies {
     compile ('cn.leancloud.android:avoscloud-feedback:v4.6.4@aar')
 
 //    //chatkit组件
-//    compile ('cn.leancloud.android:chatkit:1.0.6')
     compile project(":leancloudchatkit")
 
     //material design
@@ -101,4 +100,17 @@ dependencies {
     //照片选择，压缩等
 //    compile 'com.jph.takephoto:takephoto_library:4.0.0'
 
+    //状态栏适配
+    compile 'com.jaeger.statusbarutil:library:1.4.0'
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.0.0'
+            }
+        }
+    }
 }

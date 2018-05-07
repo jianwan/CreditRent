@@ -63,14 +63,6 @@ public class UserSettingsActivity extends BaseActivity implements View.OnClickLi
                 }else {
                     ToastUtil.show("你还未登录！");
                 }
-
-//                if(!isLogin &&username == "" && nickname == "" ){
-//                    ToastUtil.show("你还未登录！");
-//                }else {
-//                    String nothing=null;
-//                    iSettingsPresenter.loginOut(nothing);
-//                }
-
                 break;
         }
     }
@@ -88,29 +80,9 @@ public class UserSettingsActivity extends BaseActivity implements View.OnClickLi
         SharedPreferencesUtil.setIsLogin(false);
 
         Intent intent = new Intent(this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
-//    private void leanCloudLoginout() {
-//
-//        AVIMClient nowUser = AVIMClient.getInstance(AVUser.getCurrentUser());
-//        nowUser.open(new AVIMClientCallback() {
-//            @Override
-//            public void done(AVIMClient avimClient, AVIMException e) {
-//                if (e==null){
-//                    avimClient.close(new AVIMClientCallback() {
-//                        @Override
-//                        public void done(AVIMClient avimClient, AVIMException e) {
-//                            if (e==null){
-//                                if (e==null){
-//                                    ToastUtil.show("leanCloun退出登录成功");
-//                                }
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
-//    }
 
 }

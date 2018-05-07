@@ -3,11 +3,13 @@ package com.example.wanjian.creditrent.moudles.user.moudles.user_publish;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
+import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,12 @@ public class UserPublishedActivity extends BaseActivity implements View.OnClickL
         recyclerView.setLayoutManager(linearLayoutManager);
         UserPublishAdapter userPublishAdapter=new UserPublishAdapter(userPublishLists);
         recyclerView.setAdapter(userPublishAdapter);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.user_dl_toolbar);
+        setSupportActionBar(toolbar);
+
+
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),0);
     }
 
 

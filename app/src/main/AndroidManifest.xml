@@ -53,6 +53,7 @@
         <!--————————————homepager——————————-->
         <activity android:name=".moudles.homepage.SearchActivity"/>
         <activity android:name=".moudles.homepage.kinds.Books"/>
+        <activity android:name=".moudles.homepage.UploadGoodActivity"/>
 
         <activity android:name=".TestActivity"/>
 

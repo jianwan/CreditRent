@@ -3,8 +3,8 @@ package com.example.wanjian.creditrent.moudles.homepage;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,9 +26,11 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseFragment;
 import com.example.wanjian.creditrent.base.C;
+import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.example.wanjian.creditrent.common.util.Utils;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerAdapter;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
@@ -45,17 +47,19 @@ import cn.leancloud.chatkit.LCChatKit;
 import cn.leancloud.chatkit.LCChatKitUser;
 import cn.leancloud.chatkit.activity.LCIMConversationActivity;
 import cn.leancloud.chatkit.utils.LCIMConstants;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 /**
  * Created by wanjian on 2017/10/25.
+ * TODO: 1、缓存处理，2、recyclerview滑动到最后的闪动
  */
 
 public class HomePageFragment extends BaseFragment implements OnItemClickListener {
 
 
     private ConvenientBanner convenientBanner;
-    private ArrayList<Integer> localImages = new ArrayList<Integer>();
     private List<String> networkImages;
     private String[] images = {
             "https://bing.ioliu.cn/v1",
@@ -68,11 +72,15 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
     private ImageLoader imageLoader;
     private HomepagerAdapter homepagerAdapter;
 
-    private List<HomepagerGoodsList> homepagerGoodsList=new ArrayList<>();
+    private ArrayList<HomepagerGoodsList> homepagerGoodsList = new ArrayList<>();
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private NestedScrollView nestedScrollView;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+
+    private Integer page = 2;
+    private Boolean isLoadMore = true;     // 是否加载更多数据的标志
 
 
 
@@ -81,10 +89,235 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
         View view = inflater.inflate(R.layout.fragment_homepager, null);
 
         initViews(view);
-        initData();
+
+        loadRecyclerViewData(view);
+
+        initConvenientBanner();
+        initFloatingActionButton(view);
+
+        return view;
+    }
 
 
-        //convenientBanner 的用法
+
+    //recyclerview
+    private void loadRecyclerViewData(View view) {
+
+        //init recyclerview
+        recyclerView = view.findViewById(R.id.homepager_recyclerview);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        //下拉刷新
+        refreshData(view);
+
+
+        if (Utils.isNetworkConnected(getContext())){
+            loadDataFromWeb(1);
+        }else {
+            ToastUtil.show("网络不可用,请联网后重试");
+            homepagerAdapter=new HomepagerAdapter(homepagerGoodsList,getContext(),false);
+            recyclerView.setAdapter(homepagerAdapter);
+        }
+
+
+        //监听nestedScrollView滑动到底部（recyclerview此处监听不到）
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()))  {
+
+                    //TODO：此处因为数据只有三页，后面改变
+                    if(page <= 3 ){
+                        RetrofitNewSingleton.getInstance()
+                                .getHomepagerGoods(page)
+                                .subscribe(new Observer<ArrayList<HomepagerGoodsList>>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(ArrayList<HomepagerGoodsList> value) {
+                                        List<HomepagerGoodsList> newList = new ArrayList<HomepagerGoodsList>();
+                                        if (value.size()>0){
+                                            homepagerAdapter.updateList(value,true);
+                                            page++;
+                                        }else {
+                                            homepagerAdapter.updateList(null,false);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        RetrofitNewSingleton.disposeFailureInfo(e,getContext());
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
+                                });
+                    }else {
+                        homepagerAdapter=new HomepagerAdapter(homepagerGoodsList,getContext(),false);
+                        recyclerView.setAdapter(homepagerAdapter);
+
+                    }
+
+                }
+            }
+        });
+
+    }
+
+    //下拉刷新数据
+    private void refreshData(View view) {
+        swipeRefreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.homepager_SwipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        RetrofitNewSingleton.getInstance()
+                                .getHomepagerGoods(1)
+                                .subscribe(new Observer<ArrayList<HomepagerGoodsList>>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(ArrayList<HomepagerGoodsList> value) {
+                                        homepagerAdapter.resetDatas();
+                                        for (int i=0;i<value.size();i++){
+                                            homepagerGoodsList.add(value.get(i));
+                                        }
+
+                                        homepagerAdapter=new HomepagerAdapter(homepagerGoodsList,getContext(),isLoadMore);
+                                        recyclerView.setAdapter(homepagerAdapter);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        RetrofitNewSingleton.disposeFailureInfo(e,getContext());
+                                        ToastUtil.show("刷新失败,请检查网络连接");
+                                        swipeRefreshLayout.setRefreshing(false);
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+                                        swipeRefreshLayout.setRefreshing(false);
+                                        isLoadMore = false;
+                                        page = 2;
+                                        ToastUtil.show("数据已更新");
+                                    }
+                                });
+                    }
+                });
+            }
+        });
+
+    }
+
+    //从网络获取数据
+    private void loadDataFromWeb(Integer page) {
+
+        RetrofitNewSingleton.getInstance()
+                .getHomepagerGoods(page)
+                .subscribe(new Observer<ArrayList<HomepagerGoodsList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ArrayList<HomepagerGoodsList> value) {
+                        for (int i=0;i<value.size();i++){
+                            homepagerGoodsList.add(value.get(i));
+                        }
+
+                        homepagerAdapter=new HomepagerAdapter(homepagerGoodsList,getContext(),isLoadMore);
+                        recyclerView.setAdapter(homepagerAdapter);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        RetrofitNewSingleton.disposeFailureInfo(e,getContext());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    //TODO 待增加本地缓存
+    private void loadDataFromLocal() {
+        homepagerGoodsList = (ArrayList<HomepagerGoodsList>) ACache.getDefault().getAsObject(C.GOODSINFORMATION);
+        homepagerAdapter=new HomepagerAdapter(homepagerGoodsList,getContext(),true);
+        recyclerView.setAdapter(homepagerAdapter);
+    }
+
+
+
+
+    private void initViews(View view) {
+        convenientBanner=(ConvenientBanner)view.findViewById(R.id.convenientbanner);
+        //初始化ImageLoader图片加载库
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
+
+
+        nestedScrollView = view.findViewById(R.id.homepaer_NestedScrollView);
+
+
+        //点击事件
+        LinearLayout linearLayout=(LinearLayout)view.findViewById(R.id.homepager_kinds_books);
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SharedPreferencesUtil.getIsLogin()){
+//                    String userId = AVUser.getCurrentUser().getObjectId();
+
+                    //  ACache.getDefault().getAsString(C.USER_NAME) ACache.getDefault().getAsString(C.NICKNAME)
+
+//                    Intent intent = new Intent();
+//                    UserBean userBean = intent.getParcelableExtra("userBean");
+
+                    LCChatKitUser lcChatKitUser =new LCChatKitUser(ACache.getDefault().getAsString(C.USER_NAME),
+                            ACache.getDefault().getAsString(C.NICKNAME),"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
+                    LCChatKit.getInstance().open(lcChatKitUser.getUserId(), new AVIMClientCallback() {
+                        @Override
+                        public void done(AVIMClient avimClient, AVIMException e) {
+                            if (null == e) {
+                                Intent intent = new Intent(getActivity(), LCIMConversationActivity.class);
+                                intent.putExtra(LCIMConstants.PEER_ID, "Job");
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }else {
+                    startIntentActivity(getContext(), new LoginActivity());
+                    ToastUtil.show("请登录后再试");
+                }
+
+            }
+        });
+
+    }
+
+
+    //convenientBanner
+    private void initConvenientBanner() {
         networkImages = Arrays.asList(images);
         convenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
@@ -96,31 +329,32 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
                 .startTurning(10000)
                 .setOnItemClickListener(this)
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused});
+    }
 
+    //NetworkImageHolderView
+    private class NetworkImageHolderView implements Holder<String> {
+        private ImageView imageView;
+        @Override
+        public View createView(Context context) {
+            imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            return imageView;
+        }
 
-        //recyclerview
-        recyclerView = view.findViewById(R.id.homepager_recyclerview);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        homepagerAdapter=new HomepagerAdapter(homepagerGoodsList);
-        recyclerView.setAdapter(homepagerAdapter);
+        @Override
+        public void UpdateUI(Context context, int position, String data) {
+            imageView.setImageResource(R.drawable.ic_sync_blue_grey_200_24dp);
+            ImageLoader.getInstance().displayImage(data,imageView);
+        }
+    }
 
-
-
-
-
-        initFloatingActionButton(view);
-        refreshData(view);
-
-//        loadmoreData(view);
-
-
-        return view;
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getContext(),"你点击了第"+position+"张图片",Toast.LENGTH_SHORT).show();
     }
 
 
-    //FloatingActionButton
+    //FloatingActionButton, 当SDK》25时滑动会有问题，详见 https://blog.csdn.net/libra_louis/article/details/55509839
     private void initFloatingActionButton(View view) {
 
         FloatingActionsMenu floatingActionsMenu = view.findViewById(R.id.multiple_actions);
@@ -149,12 +383,13 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
         });
 
 
-
+        //悬浮按钮
         FloatingActionButton floatingActionButtonA = view.findViewById(R.id.action_a);
         floatingActionButtonA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ToastUtil.show("action_a");
+                startIntentActivity(HomePageFragment.this,new UploadGoodActivity());
             }
         });
         FloatingActionButton floatingActionButtonB = view.findViewById(R.id.action_b);
@@ -165,170 +400,6 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
             }
         });
     }
-
-
-
-
-    private void initData() {
-        for (int i=1;i<10;i++){
-            HomepagerGoodsList homepagerGoods=new HomepagerGoodsList(R.mipmap.ic_launcher,"数据结构"+i,"10元","九成新");
-            homepagerGoodsList.add(homepagerGoods);
-        }
-    }
-
-
-
-    private void initViews(View view) {
-        convenientBanner=(ConvenientBanner)view.findViewById(R.id.convenientbanner);
-        //初始化ImageLoader图片加载库
-        imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
-
-
-        //点击事件
-        LinearLayout linearLayout=(LinearLayout)view.findViewById(R.id.homepager_kinds_books);
-
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SharedPreferencesUtil.getIsLogin()){
-//                    String userId = AVUser.getCurrentUser().getObjectId();
-
-                  //  ACache.getDefault().getAsString(C.USER_NAME) ACache.getDefault().getAsString(C.NICKNAME)
-
-//                    Intent intent = new Intent();
-//                    UserBean userBean = intent.getParcelableExtra("userBean");
-
-                    LCChatKitUser lcChatKitUser =new LCChatKitUser(ACache.getDefault().getAsString(C.USER_NAME),
-                            ACache.getDefault().getAsString(C.NICKNAME),"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
-                    LCChatKit.getInstance().open(lcChatKitUser.getUserId(), new AVIMClientCallback() {
-                        @Override
-                        public void done(AVIMClient avimClient, AVIMException e) {
-                            if (null == e) {
-                                Intent intent = new Intent(getActivity(), LCIMConversationActivity.class);
-                                intent.putExtra(LCIMConstants.PEER_ID, "Job");
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-                }else {
-                    startIntentActivity(getContext(), new LoginActivity());
-                    ToastUtil.show("请登录后再试");
-                }
-
-            }
-        });
-
-
-
-    }
-
-
-    //下拉增加数据
-    private void refreshData(View view) {
-        swipeRefreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.homepager_SwipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        List<HomepagerGoodsList> homepagerGoods=new ArrayList<HomepagerGoodsList>();
-                        for (int i = 0; i <5; i++) {
-                            int index = i + 1;
-                            HomepagerGoodsList list=new HomepagerGoodsList(R.mipmap.ic_launcher,"new 数据结构"+index,"10元"+index,"九成新"+index);
-                            homepagerGoods.add(list);
-                        }
-                        homepagerAdapter.addItem(homepagerGoods);
-                        swipeRefreshLayout.setRefreshing(false);
-                        ToastUtil.show("更新了五条数据...");
-                    }
-                });
-            }
-        });
-
-    }
-
-
-    //上拉加载更多
-    private void loadmoreData(View view) {
-
-        recyclerView=(RecyclerView)view.findViewById(R.id.homepager_recyclerview);
-//        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-//            @Override
-//            public void onLoadMore(int currentPage) {
-//                List<HomepagerGoodsList> moreList = new ArrayList<>();
-//                for (int i = 10; i < 13; i++) {
-//                    HomepagerGoodsList homepagerGoodsList=new HomepagerGoodsList(R.mipmap.ic_launcher,"更多的数据 数据结构","10元","九成新");
-//                    moreList.add(homepagerGoodsList);
-//                    homepagerAdapter.notifyDataSetChanged();
-//                    ToastUtil.show("加载完毕");
-//                }
-//            }
-//        });
-
-        int lastVisibleItem=linearLayoutManager.findLastVisibleItemPosition();
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState==RecyclerView.SCROLL_STATE_IDLE&&lastVisibleItem-1==homepagerAdapter.getItemCount()){
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            List<HomepagerGoodsList> newDatas=new ArrayList<HomepagerGoodsList>();
-                            HomepagerGoodsList homepagerGoodsList=new HomepagerGoodsList(R.mipmap.ic_launcher,"更多的数据 数据结构","10元","九成新");
-                            for (int i=0;i<5;i++){
-                                newDatas.add(homepagerGoodsList);
-                            }
-                            homepagerAdapter.addMoreItem(newDatas);
-                        }
-                    },500);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                int lastVisibleItem=linearLayoutManager.findLastVisibleItemPosition();
-                super.onScrolled(recyclerView, dx, dy);
-                lastVisibleItem =linearLayoutManager.findLastVisibleItemPosition();
-            }
-        });
-
-
-    }
-
-
-
-    @Override
-    public void onItemClick(int position) {
-        Toast.makeText(getContext(),"你点击了第"+position+"张图片",Toast.LENGTH_SHORT).show();
-    }
-
-
-
-    //NetworkImageHolderView
-    private class NetworkImageHolderView implements Holder<String> {
-        private ImageView imageView;
-        @Override
-        public View createView(Context context) {
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            return imageView;
-        }
-
-        @Override
-        public void UpdateUI(Context context, int position, String data) {
-            imageView.setImageResource(R.drawable.ic_sync_blue_grey_200_24dp);
-            ImageLoader.getInstance().displayImage(data,imageView);
-        }
-    }
-
 
 
 }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
@@ -28,8 +30,6 @@ import io.reactivex.disposables.Disposable;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-
-import static android.R.attr.name;
 
 /**
  * Created by wanjian on 2018/4/7.
@@ -55,6 +55,10 @@ public class UserVerifyActivity extends BaseActivity implements View.OnClickList
 
     private Uri tempUri;
     private Bitmap mBitmap;
+
+    MaterialDialog dialog;
+
+    Boolean isUploadPic = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,44 +94,52 @@ public class UserVerifyActivity extends BaseActivity implements View.OnClickList
      */
     @Override
     public void onClick(View v) {
+
+        truename = user_verify_truename.getText().toString();
+        phone = user_verify_phone.getText().toString();
+        studentId = user_verify_studentId.getText().toString();
+        verifyCode = user_verify_code.getText().toString();
+
         switch (v.getId()){
             case R.id.user_dl_verify_toolbar_back:
                 onBackPressed();
                 break;
             case R.id.user_verify_pic:
-                //TODO:实现图片上传:图片是以什么样的形式上传的
-                new AlertDialog.Builder(UserVerifyActivity.this).setItems(new String[]{"照相机", "相册", "取消"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case TAKE_PICTURE:
-                                Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                tempUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"temp_image.jpg"));
-                                // 将拍照所得的相片保存到SD卡根目录
-                                openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-                                startActivityForResult(openCameraIntent, TAKE_PICTURE);
-                                break;
-                            case CHOOSE_PICTURE:
-                                Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                                openAlbumIntent.setType("image/*");
-                                startActivityForResult(openAlbumIntent,CHOOSE_PICTURE);
-                                break;
-                            case 2:
-                                break;
-                        }
-                    }
 
-                }).create().show();
+                if (!truename.isEmpty()&&!phone.isEmpty()&&!studentId.isEmpty()&&!verifyCode.isEmpty()){
+                    new AlertDialog.Builder(UserVerifyActivity.this).setItems(new String[]{"照相机", "相册", "取消"}, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case TAKE_PICTURE:
+                                    Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    tempUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"temp_image.jpg"));
+                                    // 将拍照所得的相片保存到SD卡根目录
+                                    openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+                                    startActivityForResult(openCameraIntent, TAKE_PICTURE);
+                                    break;
+                                case CHOOSE_PICTURE:
+                                    Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                                    openAlbumIntent.setType("image/*");
+                                    startActivityForResult(openAlbumIntent,CHOOSE_PICTURE);
+                                    break;
+                                case 2:
+                                    break;
+                            }
+                        }
+                    }).create().show();
+                }else {
+                    ToastUtil.show("请先填写好信息再上传图片");
+                }
                 break;
             case R.id.user_verify_submit:
 
-                truename = user_verify_truename.getText().toString();
-                phone = user_verify_phone.getText().toString();
-                studentId = user_verify_studentId.getText().toString();
-                verifyCode = user_verify_code.getText().toString();
-
                 if (!truename.isEmpty()&&!phone.isEmpty()&&!studentId.isEmpty()&&!verifyCode.isEmpty()){
-                    verifyInformation(truename,phone,studentId,verifyCode);
+                    if (isUploadPic){
+                        verifyInformation(truename,phone,studentId,verifyCode);
+                    }else {
+                        ToastUtil.show("请先选择好图片再上传信息");
+                    }
                 }else {
                     ToastUtil.show("请填好所有信息再提交验证");
                 }
@@ -138,7 +150,7 @@ public class UserVerifyActivity extends BaseActivity implements View.OnClickList
     }
 
 
-    //ok
+    //提交验证
     private void verifyInformation(String truename,String phone,String studentId,String verifyCode) {
         RetrofitNewSingleton.getInstance()
                 .verify(truename,phone,studentId,verifyCode)
@@ -150,7 +162,11 @@ public class UserVerifyActivity extends BaseActivity implements View.OnClickList
 
                     @Override
                     public void onNext(String value) {
-
+                        //dialog
+                        dialog = new MaterialDialog.Builder(UserVerifyActivity.this)
+                                .content("正在提交信息")
+                                .progress(true, 0)
+                                .show();
                     }
 
                     @Override
@@ -160,44 +176,20 @@ public class UserVerifyActivity extends BaseActivity implements View.OnClickList
 
                     @Override
                     public void onComplete() {
-                        ToastUtil.show("信息提交成功");
 
-                        Intent intent=new Intent(UserVerifyActivity.this, UserDetailInformation.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
 
-                    }
-                });
+                                Intent intent=new Intent(UserVerifyActivity.this, UserVerificationActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                ToastUtil.show("信息提交成功");
+                            }
+                        }, 1500);
 
-
-
-        RequestBody requestFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-        MultipartBody.Part body = MultipartBody.Part.createFormData("myfile",fileName,requestFile);
-
-        RetrofitNewSingleton.getInstance()
-                .uploadImgFile(body)
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(String value) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        RetrofitNewSingleton.disposeFailureInfo(e,getApplicationContext());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        ToastUtil.show("照片上传成功");
                     }
                 });
 
@@ -258,6 +250,7 @@ public class UserVerifyActivity extends BaseActivity implements View.OnClickList
             mBitmap = extras.getParcelable("data");
             user_verify_pic.setImageBitmap(mBitmap);//头像设置为新的图片
             uploadPic(mBitmap);//上传图片到服务器
+            isUploadPic = true;
         }
     }
 
@@ -267,13 +260,40 @@ public class UserVerifyActivity extends BaseActivity implements View.OnClickList
         if (!appDir.exists()) {
             appDir.mkdir();
         }
-        fileName = name + ".png";
+        fileName = "yikatong" + ".png";
         file = new File(appDir, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();
+
+            RequestBody requestFile =RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("myfile",fileName,requestFile);
+
+            RetrofitNewSingleton.getInstance()
+                    .verifyPic(body)
+                    .subscribe(new Observer<String>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(String value) {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            RetrofitNewSingleton.disposeFailureInfo(e,getApplicationContext());
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            ToastUtil.show("照片上传成功");
+                        }
+                    });
 
             return file.getAbsolutePath();
 

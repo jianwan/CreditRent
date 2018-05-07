@@ -63,7 +63,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="1">
+                                android:layout_weight="1"
+                                android:layout_marginTop="30dp">
 
                                 <LinearLayout
                                     android:id="@+id/homepager_kinds_books"
@@ -75,14 +76,14 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/ic_launcher"
+                                        android:src="@drawable/book"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="5dp"/>
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="图书音像"
+                                        android:text="图书"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="5dp"/>
 
@@ -101,12 +102,12 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="5dp"
-                                        android:src="@mipmap/ic_launcher" />
+                                        android:src="@drawable/yinxiang" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="电子产品"
+                                        android:text="音像"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="5dp"/>
 
@@ -123,14 +124,14 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/ic_launcher"
+                                        android:src="@drawable/shuma"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="5dp"/>
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="生活用品"
+                                        android:text="数码"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="5dp"/>
 
@@ -146,23 +147,21 @@
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:src="@mipmap/ic_launcher"
+                                        android:src="@drawable/xiangbao"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="5dp"/>
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="其他物品"
+                                        android:text="箱包"
                                         android:layout_gravity="center"
                                         android:layout_marginTop="5dp"/>
 
                                 </LinearLayout>
 
 
-
                             </LinearLayout>
-
 
 
                             <LinearLayout
@@ -171,82 +170,92 @@
                                 android:layout_weight="1">
 
                                 <LinearLayout
-                                    android:id="@+id/homepager_kinds_helpeach"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:orientation="horizontal">
+                                    android:orientation="vertical">
 
                                     <ImageView
-                                        android:layout_width="70sp"
-                                        android:layout_height="70sp"
-                                        android:src="@mipmap/ic_launcher"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/yiwu"
                                         android:layout_gravity="center"
-                                        android:layout_marginLeft="25dp"/>
+                                        android:layout_marginTop="5dp"/>
 
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:orientation="vertical">
-
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="帮帮忙"
-                                            android:layout_marginTop="40dp"
-                                            android:layout_marginLeft="10dp"
-                                            android:textSize="20sp"/>
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="互助互惠"
-                                            android:layout_marginLeft="12dp"
-                                            android:textSize="12sp"/>
-
-                                    </LinearLayout>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="衣物"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="5dp"/>
 
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:id="@+id/homepager_kinds_fleamarket"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:orientation="horizontal">
+                                    android:orientation="vertical">
 
                                     <ImageView
-                                        android:layout_width="70sp"
-                                        android:layout_height="70sp"
-                                        android:src="@mipmap/ic_launcher"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:layout_marginLeft="25dp"/>
+                                        android:layout_marginTop="5dp"
+                                        android:src="@drawable/chuxing" />
+
+                                    <TextView
+                                        android:id="@+id/textView2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="5dp"
+                                        android:text="出行" />
+
+                                </LinearLayout>
 
 
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
 
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/yule"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="5dp"/>
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="淘旧货"
-                                            android:layout_marginTop="40dp"
-                                            android:layout_marginLeft="10dp"
-                                            android:textSize="20sp"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="娱乐"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="5dp"/>
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="旧物发布"
-                                            android:layout_marginLeft="10dp"
-                                            android:textSize="12sp"/>
+                                </LinearLayout>
 
-                                    </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/others"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="5dp"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="其他"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="5dp"/>
 
                                 </LinearLayout>
 
@@ -254,37 +263,16 @@
 
                             </LinearLayout>
 
-
                         </LinearLayout>
 
 
                     </LinearLayout>
-
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/homepager_recyclerview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"/>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_marginTop="50dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="已经拉到底啦"
-                            android:gravity="center"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"/>
-
-                    </LinearLayout>
-
                 </LinearLayout>
 
             </LinearLayout>

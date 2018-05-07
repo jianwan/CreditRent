@@ -58,4 +58,7 @@ public class C {
 
 
 
+    public static final String GOODSINFORMATION="goodsinformation";
+
+
 }

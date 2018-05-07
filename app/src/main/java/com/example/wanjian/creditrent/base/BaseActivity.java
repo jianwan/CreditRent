@@ -4,16 +4,12 @@ package com.example.wanjian.creditrent.base;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.view.KeyEvent;
 import android.view.Window;
-import android.view.WindowManager;
-
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,48 +23,21 @@ import java.net.URL;
 
 public class BaseActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+
     }
 
 
-    public void setStatusBarColor(int color) {
-        /**
-         * Android4.4以上可用
-         * 将状态栏颜色改变
-         * 沉浸式请看郭霖的：http://blog.csdn.net/guolin_blog/article/details/51763825
-         * 即 onWindowFocusChanged（）
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//状态栏
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintResource(color);
-            tintManager.setStatusBarTintEnabled(true);
-        }
-    }
-/**    @Override
-//    public void onWindowFocusChanged(boolean hasFocus) {
-//        super.onWindowFocusChanged(hasFocus);
-//        if (hasFocus && Build.VERSION.SDK_INT >= 19) {
-//            View decorView = getWindow().getDecorView();
-//            decorView.setSystemUiVisibility(
-//                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-//                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-//            );
-//        }
-//    }
+
     /*
     获取图片的主色调
     id为本地图片的地址 如：R.mipmap.ic_launcher
      */
-
-
     public int  GetPaletteAyNc(int id){
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
         final int[] color_GRB = new int[1];
@@ -104,6 +73,7 @@ public class BaseActivity extends AppCompatActivity {
         });
         return color_GRB[0];
     }
+
     /*
     获取网络图片的Bitmap
      */

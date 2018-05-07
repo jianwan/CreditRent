@@ -173,7 +173,7 @@ public class UserDetailInformationChange extends BaseActivity  implements View.O
                     public void onNext(String value) {
                         //dialog
                         dialog = new MaterialDialog.Builder(UserDetailInformationChange.this)
-                                .content("正在加载内容")
+                                .content("正在提交信息")
                                 .progress(true, 0)
                                 .show();
                     }

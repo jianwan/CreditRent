@@ -81,7 +81,7 @@ public class QuestionActivity extends BaseActivity implements View.OnClickListen
 
                         //dialog
                         dialog = new MaterialDialog.Builder(QuestionActivity.this)
-                                .content("正在加载内容")
+                                .content("正在退出")
                                 .progress(true, 0)
                                 .show();
                     }
