@@ -12,12 +12,24 @@
         "source": "C:\\Users\\万健\\.android\\build-cache\\741eb2d25802e366ecece2e6af292fa2d317b9c8\\output\\res\\color-v23\\abc_tint_switch_track.xml"
     },
     {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_tint_spinner.xml"
+    },
+    {
         "merged": "D:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_btn_checkable.xml",
         "source": "C:\\Users\\万健\\.android\\build-cache\\741eb2d25802e366ecece2e6af292fa2d317b9c8\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
     },
     {
         "merged": "D:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_edittext.xml",
         "source": "C:\\Users\\万健\\.android\\build-cache\\741eb2d25802e366ecece2e6af292fa2d317b9c8\\output\\res\\color-v23\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_default.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_tint_default.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_tint_seek_thumb.xml"
     },
     {
         "merged": "D:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_btn_colored_text_material.xml",
@@ -28,6 +40,10 @@
         "source": "C:\\Users\\万健\\.android\\build-cache\\741eb2d25802e366ecece2e6af292fa2d317b9c8\\output\\res\\color-v23\\abc_tint_spinner.xml"
     },
     {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_tint_edittext.xml"
+    },
+    {
         "merged": "D:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_switch_thumb.xml",
         "source": "C:\\Users\\万健\\.android\\build-cache\\741eb2d25802e366ecece2e6af292fa2d317b9c8\\output\\res\\color-v23\\abc_tint_switch_thumb.xml"
     },
@@ -36,7 +52,31 @@
         "source": "C:\\Users\\万健\\.android\\build-cache\\741eb2d25802e366ecece2e6af292fa2d317b9c8\\output\\res\\color-v23\\abc_color_highlight_material.xml"
     },
     {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_btn_colored_borderless_text_material.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_color_highlight_material.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_color_highlight_material.xml"
+    },
+    {
         "merged": "D:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_default.xml",
         "source": "C:\\Users\\万健\\.android\\build-cache\\741eb2d25802e366ecece2e6af292fa2d317b9c8\\output\\res\\color-v23\\abc_tint_default.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\color-v23\\abc_tint_switch_thumb.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\color-v23\\abc_tint_switch_thumb.xml"
     }
 ]

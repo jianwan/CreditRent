@@ -1,16 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <TextView
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/goodsdetialinformation__toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="这是物品详细页"
-        android:gravity="center"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/main_toolbar"
+        android:theme="@style/ThemeOverlay.AppCompat.Light">
 
+        <ImageView
+            android:id="@+id/goodsdetialinformation_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_keyboard_backspace_white_24dp"/>
+
+        <TextView
+            android:textColor="@color/defaultWhite"
+            android:id="@+id/goodsdetialinformation__toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="物品详细信息"/>
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/goodsdetialinformation_convenientbanner"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        app:canLoop="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:text="物品名称"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/goodname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:text="出租者"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/good_renter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:text="出租价格"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/good_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:text="是否支持出售"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/good_sell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/goodsdetialinformation__btn_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系出租者"
+            android:layout_marginLeft="50dp"/>
+
+        <Button
+            android:id="@+id/goodsdetialinformation__btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:text="加入购物车"/>
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/goodsdetialinformation__btn_rent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="发起交易申请"/>
 
 </LinearLayout>

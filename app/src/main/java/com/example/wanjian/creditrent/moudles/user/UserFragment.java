@@ -17,7 +17,7 @@ import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserBoughtActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserCollectedActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserRentActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserReturnActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSawActivity;

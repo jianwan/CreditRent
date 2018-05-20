@@ -25,8 +25,9 @@ import java.util.Map;
 import cn.leancloud.chatkit.LCChatKit;
 
 /**
- * Created by Soully on 2017/7/25.
+ * Created by Jianwan on 2017/7/25.
  */
+
 
 public class CreditRent_Application extends MobApplication {
 

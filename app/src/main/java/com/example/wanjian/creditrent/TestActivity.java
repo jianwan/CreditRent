@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
-
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 
 public class TestActivity extends Activity {
   @Override
@@ -87,4 +87,5 @@ public class TestActivity extends Activity {
     rightLabels.removeButton(addedTwice);
     rightLabels.addButton(addedTwice);
   }
+
 }

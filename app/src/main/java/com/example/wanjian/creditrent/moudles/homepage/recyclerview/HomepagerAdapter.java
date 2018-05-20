@@ -1,6 +1,7 @@
 package com.example.wanjian.creditrent.moudles.homepage.recyclerview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.common.util.Utils;
+import com.example.wanjian.creditrent.moudles.homepage.GoodsDetailinformation;
 
 import java.util.List;
 
@@ -79,10 +81,14 @@ public class HomepagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((NormalHolder) holder).price.setText(homepagerGoodsList.getChuzumoney());
             ((NormalHolder) holder).description.setText(homepagerGoodsList.getDescription());
 
+            String id = homepagerGoodsList.getGoodsid();
+
             ((NormalHolder) holder).detailinformation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.show("detailinformation");
+                    Intent intent = new Intent(context, GoodsDetailinformation.class);
+                    intent.putExtra("GoodId",id);
+                    context.startActivities(new Intent[]{intent});
                 }
             });
 

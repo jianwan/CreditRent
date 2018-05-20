@@ -44,7 +44,7 @@
         <activity android:name=".moudles.user.moudles.user_unpublished.UserUnpublishedActivity"/>
         <activity android:name=".moudles.user.moudles.UserBoughtActivity"/>
         <activity android:name=".moudles.user.moudles.UserSelledActivtiy"/>
-        <activity android:name=".moudles.user.moudles.UserCollectedActivity"/>
+        <activity android:name=".moudles.user.moudles.user_collection.UserCollectedActivity"/>
         <activity android:name=".moudles.user.moudles.UserSawActivity"/>
         <activity android:name=".moudles.user.moudles.user_settings.view.impl.UserSettingsActivity"/>
         <activity android:name=".moudles.user.moudles.user_information.UserVerifyActivity"/>
@@ -54,6 +54,7 @@
         <activity android:name=".moudles.homepage.SearchActivity"/>
         <activity android:name=".moudles.homepage.kinds.Books"/>
         <activity android:name=".moudles.homepage.UploadGoodActivity"/>
+        <activity android:name=".moudles.homepage.GoodsDetailinformation"/>
 
         <activity android:name=".TestActivity"/>
 

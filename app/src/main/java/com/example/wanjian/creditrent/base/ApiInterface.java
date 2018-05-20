@@ -1,8 +1,10 @@
 package com.example.wanjian.creditrent.base;
 
 
+import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectionBean;
 
 import java.util.ArrayList;
 
@@ -75,7 +77,6 @@ public  interface ApiInterface {
             @Field("phone") String phone, @Field("yanzhengma") String yanzhengma, @Field("password") String password);
 
 
-    //TODO 接口待测
 
     //修改个人信息
     @FormUrlEncoded
@@ -117,7 +118,7 @@ public  interface ApiInterface {
             @Field("phone") String phone, @Field("password") String password);
 
 
-    //展现个人信息
+    //展现首页物品列表
     @GET("showgoodsbypage.php")
     Observable<Results<ArrayList<HomepagerGoodsList>>> getHomepagerGoods(@Query("page") Integer page);
 
@@ -135,5 +136,19 @@ public  interface ApiInterface {
     Observable<Result<Object>> uploadGoodspic(
             @Field("goodid") Integer goodid, @Field("imgnumber") Integer imgnumber,@Part MultipartBody.Part myfile);
 
+
+    //展现物品详细信息
+    @FormUrlEncoded
+    @POST("showgoodsdetail.php")
+    Observable<Results<GoodsDetailinformationBean>> getGoodDetialInformation(@Field("goodsid") String goodsid);
+
+    //收藏物品
+    @FormUrlEncoded
+    @POST("usershoucanggoods.php")
+    Observable<Result<Object>> goodCollection(@Field("goodsid") Integer goodid);
+
+    //展现收藏页列表
+    @GET("showgoodsbypage.php")
+    Observable<Results<ArrayList<UserCollectionBean>>> getGoodsCollection();
 
 }

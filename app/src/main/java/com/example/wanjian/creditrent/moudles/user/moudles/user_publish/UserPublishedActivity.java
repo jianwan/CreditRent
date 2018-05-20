@@ -48,7 +48,6 @@ public class UserPublishedActivity extends BaseActivity implements View.OnClickL
 
 
     private void init() {
-
         for (int i=0;i<30;i++){
             UserPublishList userpublish=new UserPublishList(R.mipmap.ic_launcher,"数据结构","2017-11-15",""+i);
             userPublishLists.add(userpublish);

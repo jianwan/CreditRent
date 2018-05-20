@@ -8,9 +8,11 @@ import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.common.RxUtil.RxUtils;
 import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.signup.cookie.CookiesManager;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectionBean;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
@@ -310,6 +312,12 @@ public class RetrofitNewSingleton {
     }
 
 
+
+    //展现首页物品信息
+    public Observable<GoodsDetailinformationBean> getGoodDetialInformation(String goodsid) {
+        return apiService.getGoodDetialInformation(goodsid).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
+
 //    private static class NullOnEmptyConverterFactory extends Converter.Factory {
 //        @Override
 //        public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
@@ -325,6 +333,14 @@ public class RetrofitNewSingleton {
 //        }
 //    }
 
+    //收藏物品
+    public Observable<String> goodCollection(Integer goodsId) {
+        return apiService.goodCollection(goodsId).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
 
+    //收藏物品
+    public Observable<ArrayList<UserCollectionBean>> getGoodsCollection() {
+        return apiService.getGoodsCollection().compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
 
 }
