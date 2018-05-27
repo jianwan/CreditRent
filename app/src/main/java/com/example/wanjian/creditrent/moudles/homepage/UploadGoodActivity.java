@@ -13,11 +13,6 @@ import android.widget.TextView;
 
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
-import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
-import com.example.wanjian.creditrent.common.util.ToastUtil;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by wanjian on 2018/5/6.
@@ -117,29 +112,29 @@ public class UploadGoodActivity extends BaseActivity implements View.OnClickList
                     chuzumoney = Double.parseDouble(priceString);
                 }
 
-                RetrofitNewSingleton.getInstance()
-                        .uploadGoods(goodnameString,goodTypeString,ershousell,ershoumoney,descriptionString,chuzumoney)
-                        .subscribe(new Observer<String>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(String value) {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                ToastUtil.show("物品上传已提交，等待审核完成即可上架~");
-                            }
-                        });
+//                RetrofitNewSingleton.getInstance()
+//                        .uploadGoods(goodnameString,goodTypeString,ershousell,ershoumoney,descriptionString,chuzumoney)
+//                        .subscribe(new Observer<String>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(String value) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                                ToastUtil.show("物品上传已提交，等待审核完成即可上架~");
+//                            }
+//                        });
         }
     }
 
