@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="schools">
+
+        <item>重庆邮电大学</item>
+        <item>重庆大学</item>
+        <item>西南大学</item>
+        <item>重庆师范大学</item>
+        <item>西南政法大学</item>
+        <item>重庆工商大学</item>
+        <item>重庆理工大学</item>
+        <item>其他</item>
+    </string-array>
+
+
+    <string-array name="sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+
+    <string-array name="goodtype">
+        <item>无</item>
+        <item>图书</item>
+        <item>音像 </item>
+        <item>数码</item>
+        <item>箱包</item>
+        <item>衣物</item>
+        <item>出行</item>
+        <item>娱乐 </item>
+        <item>其他</item>
+    </string-array>
+
+</resources>

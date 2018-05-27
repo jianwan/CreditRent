@@ -287,16 +287,13 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
 
                     //  ACache.getDefault().getAsString(C.USER_NAME) ACache.getDefault().getAsString(C.NICKNAME)
 
-//                    Intent intent = new Intent();
-//                    UserBean userBean = intent.getParcelableExtra("userBean");
-
                     LCChatKitUser lcChatKitUser =new LCChatKitUser(ACache.getDefault().getAsString(C.USER_NAME),
                             ACache.getDefault().getAsString(C.NICKNAME),"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
                     LCChatKit.getInstance().open(lcChatKitUser.getUserId(), new AVIMClientCallback() {
                         @Override
                         public void done(AVIMClient avimClient, AVIMException e) {
                             if (null == e) {
-                                Intent intent = new Intent(getActivity(), LCIMConversationActivity.class);
+                                Intent  intent = new Intent(getActivity(), LCIMConversationActivity.class);
                                 intent.putExtra(LCIMConstants.PEER_ID, "Job");
                                 startActivity(intent);
                             } else {

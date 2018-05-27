@@ -10,6 +10,7 @@ import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
 import com.example.wanjian.creditrent.common.util.ACache;
+import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.main.MainActivity;
@@ -56,8 +57,9 @@ public class UserSettingsActivity extends BaseActivity implements View.OnClickLi
             case R.id.btn_loginout:
                 isLogin= SharedPreferencesUtil.getIsLogin();
                 String username = ACache.getDefault().getAsString(C.USER_NAME);
-                String nickname =ACache.getDefault().getAsString(C.NICKNAME);
-                if (isLogin||username != ""||nickname != ""){
+                String password =ACache.getDefault().getAsString(C.PASSWORD);
+                PLog.d("TAG","islogin"+isLogin.toString()+"username"+username+"password"+password);
+                if (isLogin&&username != ""||password != ""){
                     String nothing=null;
                     iSettingsPresenter.loginOut(nothing);
                 }else {

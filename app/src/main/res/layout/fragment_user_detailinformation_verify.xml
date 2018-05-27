@@ -140,7 +140,6 @@
             android:layout_height="wrap_content"
             android:text="点击上传图片"
             android:gravity="center"/>
-
        
         <Button
             android:id="@+id/user_verify_submit"

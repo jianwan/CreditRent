@@ -36,12 +36,19 @@ public class LCIMConversationListFragment extends Fragment {
   protected LCIMCommonListAdapter<AVIMConversation> itemAdapter;
   protected LinearLayoutManager layoutManager;
 
+
+
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.lcim_conversation_list_fragment, container, false);
 
     refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_conversation_srl_pullrefresh);
     recyclerView = (RecyclerView) view.findViewById(R.id.fragment_conversation_srl_view);
+
+
+//    initFloatingActionButton(view);
+
 
     refreshLayout.setEnabled(false);
     layoutManager = new LinearLayoutManager(getActivity());
@@ -51,24 +58,38 @@ public class LCIMConversationListFragment extends Fragment {
     recyclerView.setAdapter(itemAdapter);
     EventBus.getDefault().register(this);
     return view;
+
   }
+
+//  private void initFloatingActionButton(View view) {
+//
+//    FloatingActionButton floationActionButton = (FloatingActionButton) view.findViewById(R.id.conversation_floationActionButton);
+//    floationActionButton.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//          Intent intentToCrentCar = new Intent(getContext(),CrentCarActivity.class);
+//          startActivity(intentToCrentCar);
+//      }
+//    });
+//  }
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
     updateConversationList();
+    super.onActivityCreated(savedInstanceState);
   }
 
   @Override
   public void onResume() {
-    super.onResume();
-    updateConversationList();
+      updateConversationList();
+      super.onResume();
   }
 
   @Override
   public void onDestroyView() {
-    super.onDestroyView();
-    EventBus.getDefault().unregister(this);
+      EventBus.getDefault().unregister(this);
+      super.onDestroyView();
+
   }
 
   /**

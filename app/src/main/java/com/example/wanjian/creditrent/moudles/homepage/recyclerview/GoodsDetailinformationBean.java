@@ -43,6 +43,9 @@ public class GoodsDetailinformationBean {
     private Object shangjia_time;
     private String goods_pingfen;
     private String chuzu_money;
+    private Integer isSave;    //是否收藏
+
+
 
     public String getGoodsid() {
         return goodsid;
@@ -179,4 +182,13 @@ public class GoodsDetailinformationBean {
     public void setChuzu_money(String chuzu_money) {
         this.chuzu_money = chuzu_money;
     }
+
+    public Integer getIsSave() {
+        return isSave;
+    }
+
+    public void setIsSave(Integer isSave) {
+        this.isSave = isSave;
+    }
+
 }

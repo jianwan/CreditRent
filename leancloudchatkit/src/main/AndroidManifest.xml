@@ -21,6 +21,7 @@
         </activity>
 
         <activity android:name="cn.leancloud.chatkit.activity.LCIMImageActivity"/>
+        <activity android:name=".activity.CrentCarActivity"/>
 
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
             <intent-filter>

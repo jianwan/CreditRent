@@ -88,21 +88,6 @@
             android:text="性别"
             android:textSize="14sp"
             android:textColor="#5c5c5c" />
-        <!--<EditText-->
-            <!--android:id="@+id/user_dl_et_phone"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:paddingLeft="15dp"-->
-            <!--android:background="@null"-->
-            <!--android:hint="请输入你的电话"-->
-            <!--android:minWidth="80dp"-->
-            <!--android:textColor="#969696"-->
-            <!--android:textColorHint="#b3b3b3"-->
-            <!--android:textSize="14sp"-->
-            <!--android:maxLines="1"-->
-            <!--android:singleLine="true"/>-->
 
         <Spinner
             android:id="@+id/user_dl_spinner_sex"

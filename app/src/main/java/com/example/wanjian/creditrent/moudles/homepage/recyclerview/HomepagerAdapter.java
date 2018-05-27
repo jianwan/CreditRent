@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.wanjian.creditrent.R;
-import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.common.util.Utils;
-import com.example.wanjian.creditrent.moudles.homepage.GoodsDetailinformation;
 
 import java.util.List;
 
@@ -86,7 +84,7 @@ public class HomepagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((NormalHolder) holder).detailinformation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, GoodsDetailinformation.class);
+                    Intent intent = new Intent(context, GoodsDetailinformationActivity.class);
                     intent.putExtra("GoodId",id);
                     context.startActivities(new Intent[]{intent});
                 }

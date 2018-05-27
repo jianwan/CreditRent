@@ -104,6 +104,7 @@ dependencies {
     compile 'com.jaeger.statusbarutil:library:1.4.0'
 
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
 }
 
 configurations.all {

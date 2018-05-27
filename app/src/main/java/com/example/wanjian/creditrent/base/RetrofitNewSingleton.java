@@ -8,6 +8,7 @@ import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.common.RxUtil.RxUtils;
 import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.example.wanjian.creditrent.moudles.chat.rentcar.RentcarBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.signup.cookie.CookiesManager;
@@ -73,7 +74,6 @@ public class RetrofitNewSingleton {
 
         CookiesManager cookiesManager = new CookiesManager();
 
-        //TODO cookie存在时间有问题，待解决
         ClearableCookieJar cookieJar =
                 new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(CreditRent_Application.getContext()));
 
@@ -108,7 +108,6 @@ public class RetrofitNewSingleton {
                 ToastUtil.showLong(R.string.fail_connet);
             } else if (t.getMessage().equals(C.UNLOGIN)) {
                 ToastUtil.showLong(C.UNLOGIN);
-//                UnLoginDispose.startLoginActivity(context);
             } else {
                 ToastUtil.show(t.getMessage());
                 PLog.w(t.toString());
@@ -296,6 +295,7 @@ public class RetrofitNewSingleton {
         return apiService.verify(name,phone,studentId,verifyCode).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
+    //实名认证一卡通图片上传
     public Observable<String> verifyPic(MultipartBody.Part file) {
         return apiService.verifyPic(file).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
@@ -306,41 +306,58 @@ public class RetrofitNewSingleton {
     }
 
 
-    //展现首页物品信息
+    //展现首页物品列表
     public Observable<ArrayList<HomepagerGoodsList>> getHomepagerGoods(Integer page) {
         return apiService.getHomepagerGoods(page).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
     }
 
 
+    //上传物品
+    public Observable<String> uploadGoods(String goodsname,String typename, Integer ershowsell,
+                                          Double ershousellmoney, String description,Double chuzumoney) {
+        return apiService.uploadGoods(goodsname,typename,ershowsell,ershousellmoney,description,chuzumoney)
+                .compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
 
-    //展现首页物品信息
+
+
+
+
+
+    //展现首页物品详细信息
     public Observable<GoodsDetailinformationBean> getGoodDetialInformation(String goodsid) {
         return apiService.getGoodDetialInformation(goodsid).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
     }
 
-//    private static class NullOnEmptyConverterFactory extends Converter.Factory {
-//        @Override
-//        public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-//            final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
-//            return new Converter<ResponseBody,Object>() {
-//                @Override
-//                public Object convert(ResponseBody body) throws IOException {
-//                    if (body.contentLength() == 0)
-//                        return null;
-//                    return delegate.convert(body);
-//                }
-//            };
-//        }
-//    }
 
     //收藏物品
     public Observable<String> goodCollection(Integer goodsId) {
         return apiService.goodCollection(goodsId).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
-    //收藏物品
+    //取消收藏
+    public Observable<String> goodCollectionCancel(Integer goodsId) {
+        return apiService.goodCollectionCancel(goodsId).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    //物品收藏列表
     public Observable<ArrayList<UserCollectionBean>> getGoodsCollection() {
         return apiService.getGoodsCollection().compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
+
+    //加入信租车
+    public Observable<String> addGoodToRentCar(Integer goodsId) {
+        return apiService.addGoodToRentCar(goodsId).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    //展现信租车
+    public Observable<ArrayList<RentcarBean>> getRentCarGoods() {
+        return apiService.getRentCarGoods().compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
+
+    //加入信租车
+    public Observable<String> deleteGoodFromRentCar(Integer goodsId) {
+        return apiService.deleteGoodFromRentCar(goodsId).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
 }

@@ -43,24 +43,4 @@
 
     <!--————————user————————-->
 
-    <string-array name="schools">
-
-        <item>重庆邮电大学</item>
-        <item>重庆大学</item>
-        <item>西南大学</item>
-        <item>重庆师范大学</item>
-        <item>西南政法大学</item>
-        <item>重庆工商大学</item>
-        <item>重庆理工大学</item>
-        <item>其他</item>
-    </string-array>
-
-
-    <string-array name="sex">
-        <item>男</item>
-        <item>女</item>
-    </string-array>
-
-
-
 </resources>

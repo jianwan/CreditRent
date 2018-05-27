@@ -25,12 +25,6 @@ public class LoginPresenter extends BaseActivity implements ILoginPresenter {
     public void userLogin(String phone, String password) {
         RetrofitNewSingleton.getInstance()
                 .userLogin(phone,password)
-//                .doOnTerminate(new Action() {
-//                    @Override
-//                    public void run() throws Exception {
-//                        iLoginView.setBtUnClickable();
-//                    }
-//                })
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {

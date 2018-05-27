@@ -54,9 +54,12 @@
         <activity android:name=".moudles.homepage.SearchActivity"/>
         <activity android:name=".moudles.homepage.kinds.Books"/>
         <activity android:name=".moudles.homepage.UploadGoodActivity"/>
-        <activity android:name=".moudles.homepage.GoodsDetailinformation"/>
+        <activity android:name=".moudles.homepage.recyclerview.GoodsDetailinformationActivity"/>
 
         <activity android:name=".TestActivity"/>
+
+        <!--————————————chatframent——————————-->
+        <activity android:name=".moudles.chat.rentcar.RentCarActivity"/>
 
 
         <!-- 实时通信模块、推送（均需要加入以下声明） START -->

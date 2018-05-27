@@ -2,6 +2,7 @@ package com.example.wanjian.creditrent.moudles.main;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -15,9 +16,12 @@ import android.widget.Toast;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
+import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.chat.ChatFragment;
+import com.example.wanjian.creditrent.moudles.chat.rentcar.RentCarActivity;
 import com.example.wanjian.creditrent.moudles.homepage.HomePageFragment;
 import com.example.wanjian.creditrent.moudles.homepage.SearchActivity;
+import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
 import com.example.wanjian.creditrent.moudles.user.UserFragment;
 import com.jaeger.library.StatusBarUtil;
 
@@ -35,8 +39,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private UserFragment userFragment;
     private MainViewpagerAdapter mainViewpagerAdapter;
     private ImageView toolbarSearchview,ivOne,ivTwo,ivThree;
-    private TextView verify,tvOne,tvTwo,tvThree,tv_title;
+    private TextView tvOne,tvTwo,tvThree,tv_title;
     private Toolbar toolbar;
+    private FloatingActionButton floatingActionButton;
+
+    List<Fragment> fragmentList;
 
     //上次按下返回键的系统时间
     private long lastBackTime = 0;
@@ -71,12 +78,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void initView() {
         mainViewpager = (ViewPager) findViewById(R.id.activity_main_viewPager);
-        List<Fragment> fragmentList = new ArrayList<Fragment>();
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.activity_main_floatingactionbutton);
+        floatingActionButton.setOnClickListener(this);
+        fragmentList = new ArrayList<Fragment>();
         userFragment = new UserFragment();
         chatFragment =new ChatFragment();
         lcimConversationListFragment = new LCIMConversationListFragment();
         homepagerFragment = new HomePageFragment();
         fragmentList.add(homepagerFragment);
+
+//        fragmentList.add(chatFragment);
 
         if (isLogin){
             fragmentList.add(lcimConversationListFragment);
@@ -89,7 +100,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mainViewpager.setOffscreenPageLimit(3);  //设置预加载
         mainViewpager.setAdapter(mainViewpagerAdapter);
         toolbarSearchview=(ImageView)findViewById(R.id.toolbar_searchview);
-//        verify = (TextView) findViewById(R.id.toolbar_verify);
         ivOne = (ImageView) findViewById(R.id.linear1_iv);
         ivTwo = (ImageView) findViewById(R.id.linear2_iv);
         ivThree = (ImageView) findViewById(R.id.linear3_iv);
@@ -105,7 +115,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         tvThree.setTextColor(this.getResources().getColor(R.color.textColor));
 
         toolbarSearchview.setOnClickListener(this);
-//        verify.setOnClickListener(this);
         ivOne.setOnClickListener(this);
         ivTwo.setOnClickListener(this);
         ivThree.setOnClickListener(this);
@@ -125,7 +134,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             actionBar.setDisplayHomeAsUpEnabled(false);
             tv_title.setText("首页");
             toolbarSearchview.setVisibility(View.VISIBLE);
-//            verify.setVisibility(View.GONE);
         }
     }
 
@@ -138,28 +146,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mainViewpager.setCurrentItem(0);
                 tv_title.setText("首页");
                 toolbarSearchview.setVisibility(View.VISIBLE);
-//                verify.setVisibility(View.GONE);
+                floatingActionButton.setVisibility(View.GONE);
                 break;
             case R.id.linear2_iv:
             case R.id.linear2_tv:
                 mainViewpager.setCurrentItem(1);
                 tv_title.setText("对话");
                 toolbarSearchview.setVisibility(View.GONE);
-//                verify.setVisibility(View.GONE);
+                floatingActionButton.setVisibility(View.VISIBLE);
                 break;
             case R.id.linear3_iv:
             case R.id.linear3_tv:
                 mainViewpager.setCurrentItem(2);
                 tv_title.setText("个人中心");
                 toolbarSearchview.setVisibility(View.GONE);
-//                verify.setVisibility(View.VISIBLE);
+                floatingActionButton.setVisibility(View.GONE);
                 break;
             case R.id.toolbar_searchview:
                 startIntentActivity(this, new SearchActivity());
                 break;
-//            case R.id.toolbar_verify:
-//                startIntentActivity(this,new UserVerifyActivity());
-//                break;
+            case R.id.activity_main_floatingactionbutton:
+                if (isLogin){
+                    startIntentActivity(this,new RentCarActivity());
+                }else {
+                    startIntentActivity(this,new LoginActivity());
+                    ToastUtil.show("您还未登录，请登录后再查看~");
+                }
+                break;
             default:
                 break;
         }
@@ -176,6 +189,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         switch (position){
             case 0:
                 toolbarSearchview.setVisibility(View.VISIBLE);
+                floatingActionButton.setVisibility(View.GONE);
                 tv_title.setText("首页");
                 ivOne.setImageResource(R.mipmap.home_seclect);
                 ivTwo.setImageResource(R.mipmap.service_unseclect);
@@ -186,6 +200,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 1:
                 toolbarSearchview.setVisibility(View.GONE);
+                floatingActionButton.setVisibility(View.VISIBLE);
                 tv_title.setText("对话");
                 ivOne.setImageResource(R.mipmap.home_unseclect);
                 ivTwo.setImageResource(R.mipmap.service_seclect);
@@ -196,6 +211,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 2:
                 toolbarSearchview.setVisibility(View.GONE);
+                floatingActionButton.setVisibility(View.GONE);
                 tv_title.setText("个人中心");
                 ivOne.setImageResource(R.mipmap.home_unseclect);
                 ivTwo.setImageResource(R.mipmap.service_unseclect);

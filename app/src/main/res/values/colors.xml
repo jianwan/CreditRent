@@ -32,4 +32,5 @@
     <color name="forgetPassword">#FF0033</color>
 
 
+    <color name="recyclerview"> #E8E1E0</color>
 </resources>

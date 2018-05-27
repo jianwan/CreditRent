@@ -1,5 +1,8 @@
 package com.example.wanjian.creditrent.moudles.user.moudles.user_settings.presenter.impl;
 
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
@@ -9,6 +12,7 @@ import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.presenter.ISettingsPresenter;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.view.IUserSettings;
 
+import cn.leancloud.chatkit.LCChatKit;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -22,6 +26,7 @@ public class SettingsPresenter extends BaseActivity implements ISettingsPresente
 
 
     IUserSettings iUserSettings;
+
 
     public SettingsPresenter(IUserSettings iUserSettings){
         this.iUserSettings=iUserSettings;
@@ -46,6 +51,18 @@ public class SettingsPresenter extends BaseActivity implements ISettingsPresente
                         PLog.d("loginOut","onNext"+value);
                         ACache.getDefault().put(C.USER_NAME,"");
                         ACache.getDefault().put(C.PASSWORD,"");
+
+
+                        LCChatKit.getInstance().close(new AVIMClientCallback() {
+                            @Override
+                            public void done(AVIMClient avimClient, AVIMException e) {
+                                if (null!= e) {
+                                    e.printStackTrace();
+                                } else {
+                                   ToastUtil.show("chatkit退出成功");
+                                }
+                            }
+                        });
                         iUserSettings.showLoginOutSuccessed();
                         iUserSettings.loginOutIntent();
                         ToastUtil.show(value);

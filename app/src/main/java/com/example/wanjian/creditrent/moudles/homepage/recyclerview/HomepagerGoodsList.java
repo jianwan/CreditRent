@@ -27,6 +27,7 @@ public class HomepagerGoodsList {
     private String goodsimg3;
     private String chuzumoney;                        //出租价格
 
+
     public HomepagerGoodsList(String goodsimg1,String goodsname,String chuzumoney,String description){
         this.goodsimg1=goodsimg1;
         this.goodsname=goodsname;

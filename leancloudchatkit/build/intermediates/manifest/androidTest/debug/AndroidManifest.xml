@@ -3,7 +3,7 @@
     package="cn.leancloud.chatkit.test" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="25" />
 
     <instrumentation
@@ -38,6 +38,7 @@
             </intent-filter>
         </activity>
         <activity android:name="cn.leancloud.chatkit.activity.LCIMImageActivity" />
+        <activity android:name="cn.leancloud.chatkit.activity.CrentCarActivity" />
 
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver" >
             <intent-filter>

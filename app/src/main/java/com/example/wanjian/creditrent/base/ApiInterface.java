@@ -1,6 +1,7 @@
 package com.example.wanjian.creditrent.base;
 
 
+import com.example.wanjian.creditrent.moudles.chat.rentcar.RentcarBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
@@ -147,8 +148,28 @@ public  interface ApiInterface {
     @POST("usershoucanggoods.php")
     Observable<Result<Object>> goodCollection(@Field("goodsid") Integer goodid);
 
+    //取消收藏
+    @FormUrlEncoded
+    @POST("userShouCangDeleteGoods.php")
+    Observable<Result<Object>> goodCollectionCancel(@Field("goodsid") Integer goodid);
+
     //展现收藏页列表
-    @GET("showgoodsbypage.php")
+    @GET("usershoucanggoodsshow.php")
     Observable<Results<ArrayList<UserCollectionBean>>> getGoodsCollection();
+
+    //加入信租车
+    @FormUrlEncoded
+    @POST("userxinzuchegoods.php")
+    Observable<Result<Object>> addGoodToRentCar(@Field("goodsid") Integer goodid);
+
+    //展现信租车
+    @GET("userxinzuchegoodsshow.php")
+    Observable<Results<ArrayList<RentcarBean>>> getRentCarGoods();
+
+
+    //加入信租车
+    @FormUrlEncoded
+    @POST("userXinZuCheDeleteGoods.php")
+    Observable<Result<Object>> deleteGoodFromRentCar(@Field("goodsid") Integer goodid);
 
 }

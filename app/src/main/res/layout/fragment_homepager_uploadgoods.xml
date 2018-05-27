@@ -30,5 +30,187 @@
     </android.support.v7.widget.Toolbar>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="物品名称"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/uploadgoods_et_goodname"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:hint="请输入你要上传的物品名称"
+                android:textSize="14sp"
+                android:background="@null"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="物品种类"
+                android:textSize="14sp"
+                android:textColor="#5c5c5c" />
+
+            <Spinner
+                android:id="@+id/uploadgoods_spinner_goodtype"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:entries="@array/goodtype"
+                android:spinnerMode="dialog">
+            </Spinner>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="物品描述"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/uploadgoods_et_description"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:hint="请输入你要上传的物品名称"
+                android:textSize="14sp"
+                android:background="@null"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="租赁or出售"
+                android:textColor="#5c5c5c"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/uploadgoods_rt_rent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="租赁"/>
+
+            <RadioButton
+                android:id="@+id/uploadgoods_rt_sell"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="出售"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="价格"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/uploadgoods_et_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:hint="请输入你租赁or出售物品的价格"
+                android:textSize="14sp"
+                android:background="@null"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee" />
+        
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/uploadgoods_iv_pic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/uploadgoods_iv_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击上传图片"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/uploadgoods_button_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="发布物品"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
 
 </LinearLayout>

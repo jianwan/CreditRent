@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.wanjian.creditrent.R;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 
 public class UserCollectionAdapter extends BaseQuickAdapter<UserCollectionBean, BaseViewHolder> {
+
 
     public UserCollectionAdapter(@LayoutRes int layoutResId, @Nullable List<UserCollectionBean> data) {
         super(layoutResId, data);
@@ -28,6 +30,7 @@ public class UserCollectionAdapter extends BaseQuickAdapter<UserCollectionBean, 
 
     @Override
     protected void convert(BaseViewHolder helper, UserCollectionBean item) {
-
+        helper.setText(R.id.collect_item_goodname,item.getGoodsname());
+        helper.setText(R.id.collect_item_status,item.getGoodsststus());
     }
 }
