@@ -32,6 +32,7 @@ public class UserPublishedActivity extends BaseActivity implements View.OnClickL
 
         init();
         initView();
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.user_published_recyclerview);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);

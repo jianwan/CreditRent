@@ -91,7 +91,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:id="@+id/homepager_kinds_electronicproducts"
+                                    android:id="@+id/homepager_kinds_yinxiang"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -116,7 +116,7 @@
 
 
                                 <LinearLayout
-                                    android:id="@+id/homepager_kinds_livinggoods"
+                                    android:id="@+id/homepager_kinds_shuma"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -139,7 +139,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:id="@+id/homepager_kinds_otherthings"
+                                    android:id="@+id/homepager_kinds_bags"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -171,6 +171,7 @@
                                 android:layout_weight="1">
 
                                 <LinearLayout
+                                    android:id="@+id/homepager_kinds_clothes"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -193,6 +194,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
+                                    android:id="@+id/homepager_kinds_traffic"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -217,6 +219,7 @@
 
 
                                 <LinearLayout
+                                    android:id="@+id/homepager_kinds_play"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -239,6 +242,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
+                                    android:id="@+id/homepager_kinds_others"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
@@ -296,15 +300,15 @@
         fab:fab_labelStyle="@style/menu_labels_style"
         fab:fab_addButtonSize="normal"
         fab:layout_behavior="com.example.wanjian.creditrent.moudles.homepage.ScrollAwareFABBehavior"
-        android:layout_marginLeft="172dp"
-        android:layout_marginTop="228dp">
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="308dp">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_title="出租物品"
+            fab:fab_title="出租or出售物品"
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_size="normal"
             fab:fab_icon="@drawable/ic_edit"/>
@@ -317,7 +321,8 @@
             fab:fab_title="出售物品"
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_size="normal"
-            fab:fab_icon="@drawable/ic_edit"/>
+            fab:fab_icon="@drawable/ic_edit"
+            android:visibility="gone"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

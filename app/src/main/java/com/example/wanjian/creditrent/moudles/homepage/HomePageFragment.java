@@ -1,7 +1,6 @@
 package com.example.wanjian.creditrent.moudles.homepage;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
@@ -16,9 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -43,10 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cn.leancloud.chatkit.LCChatKit;
-import cn.leancloud.chatkit.LCChatKitUser;
-import cn.leancloud.chatkit.activity.LCIMConversationActivity;
-import cn.leancloud.chatkit.utils.LCIMConstants;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -56,7 +48,7 @@ import io.reactivex.disposables.Disposable;
  * TODO: 1、缓存处理，2、recyclerview滑动到最后的闪动
  */
 
-public class HomePageFragment extends BaseFragment implements OnItemClickListener {
+public class HomePageFragment extends BaseFragment implements OnItemClickListener,View.OnClickListener {
 
 
     private ConvenientBanner convenientBanner;
@@ -82,7 +74,7 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
     private Integer page = 2;
     private Boolean isLoadMore = true;     // 是否加载更多数据的标志
 
-
+    private LinearLayout books,yinxiang,shuma,bags,clothes,traffic,play,others;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -267,49 +259,64 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
 
 
     private void initViews(View view) {
-        convenientBanner=(ConvenientBanner)view.findViewById(R.id.convenientbanner);
+        convenientBanner = view.findViewById(R.id.convenientbanner);
         //初始化ImageLoader图片加载库
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
 
-
         nestedScrollView = view.findViewById(R.id.homepaer_NestedScrollView);
 
 
-        //点击事件
-        LinearLayout linearLayout=(LinearLayout)view.findViewById(R.id.homepager_kinds_books);
+        books = view.findViewById(R.id.homepager_kinds_books);
+        yinxiang = view.findViewById(R.id.homepager_kinds_yinxiang);
+        shuma = view.findViewById(R.id.homepager_kinds_shuma);
+        bags = view.findViewById(R.id.homepager_kinds_bags);
+        clothes = view.findViewById(R.id.homepager_kinds_clothes);
+        traffic = view.findViewById(R.id.homepager_kinds_traffic);
+        play = view.findViewById(R.id.homepager_kinds_play);
+        others = view.findViewById(R.id.homepager_kinds_others);
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SharedPreferencesUtil.getIsLogin()){
-//                    String userId = AVUser.getCurrentUser().getObjectId();
+        books.setOnClickListener(this);
+        yinxiang.setOnClickListener(this);
+        shuma.setOnClickListener(this);
+        bags.setOnClickListener(this);
+        clothes.setOnClickListener(this);
+        traffic.setOnClickListener(this);
+        play.setOnClickListener(this);
+        others.setOnClickListener(this);
+    }
 
-                    //  ACache.getDefault().getAsString(C.USER_NAME) ACache.getDefault().getAsString(C.NICKNAME)
 
-                    LCChatKitUser lcChatKitUser =new LCChatKitUser(ACache.getDefault().getAsString(C.USER_NAME),
-                            ACache.getDefault().getAsString(C.NICKNAME),"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
-                    LCChatKit.getInstance().open(lcChatKitUser.getUserId(), new AVIMClientCallback() {
-                        @Override
-                        public void done(AVIMClient avimClient, AVIMException e) {
-                            if (null == e) {
-                                Intent  intent = new Intent(getActivity(), LCIMConversationActivity.class);
-                                intent.putExtra(LCIMConstants.PEER_ID, "Job");
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-                }else {
-                    startIntentActivity(getContext(), new LoginActivity());
-                    ToastUtil.show("请登录后再试");
-                }
-
-            }
-        });
-
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.homepager_kinds_books:
+                ToastUtil.show("books");
+                break;
+            case R.id.homepager_kinds_yinxiang:
+                ToastUtil.show("yinxiang");
+                break;
+            case R.id.homepager_kinds_shuma:
+                ToastUtil.show("shuma");
+                break;
+            case R.id.homepager_kinds_bags:
+                ToastUtil.show("bags");
+                break;
+            case R.id.homepager_kinds_clothes:
+                ToastUtil.show("clothes");
+                break;
+            case R.id.homepager_kinds_traffic:
+                ToastUtil.show("traffic");
+                break;
+            case R.id.homepager_kinds_play:
+                ToastUtil.show("play");
+                break;
+            case R.id.homepager_kinds_others:
+                ToastUtil.show("others");
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -327,6 +334,8 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
                 .setOnItemClickListener(this)
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused});
     }
+
+
 
     //NetworkImageHolderView
     private class NetworkImageHolderView implements Holder<String> {
@@ -385,17 +394,24 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
         floatingActionButtonA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show("action_a");
-                startIntentActivity(HomePageFragment.this,new UploadGoodActivity());
+                if (SharedPreferencesUtil.getIsLogin()){
+                    startIntentActivity(HomePageFragment.this,new UploadGoodActivity());
+                }else {
+                    startIntentActivity(HomePageFragment.this,new LoginActivity());
+                    ToastUtil.show("请先登录后再上传物品~");
+                }
             }
         });
-        FloatingActionButton floatingActionButtonB = view.findViewById(R.id.action_b);
-        floatingActionButtonB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.show("action_b");
-            }
-        });
+
+
+//        FloatingActionButton floatingActionButtonB = view.findViewById(R.id.action_b);
+//        floatingActionButtonB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ToastUtil.show("action_b");
+//            }
+//        });
+
     }
 
 

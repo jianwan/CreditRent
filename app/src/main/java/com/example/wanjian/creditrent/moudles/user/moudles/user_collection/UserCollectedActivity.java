@@ -1,17 +1,24 @@
 package com.example.wanjian.creditrent.moudles.user.moudles.user_collection;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
+import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationActivity;
+import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +50,9 @@ public class UserCollectedActivity extends BaseActivity implements View.OnClickL
             setContentView(R.layout.fragment_user_collected);
 
             initViews();
-            //获取收藏物品列表
+            StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
+            //获取收藏物品列表
             recyclerView=(RecyclerView)findViewById(R.id.collect_recyclerview);
             LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
             recyclerView.setLayoutManager(linearLayoutManager);
@@ -82,9 +90,6 @@ public class UserCollectedActivity extends BaseActivity implements View.OnClickL
                         for (int i=0;i<value.size();i++){
                             userCollectionBean.add(value.get(i));
                         }
-                        userCollectionAdapter =new UserCollectionAdapter(R.layout.fragment_user_collected_item,userCollectionBean);
-                        recyclerView.setAdapter(userCollectionAdapter);
-
                     }
 
                     @Override
@@ -94,30 +99,32 @@ public class UserCollectedActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onComplete() {
+                        userCollectionAdapter =new UserCollectionAdapter(R.layout.fragment_user_collected_item,userCollectionBean);
+
+                        ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(userCollectionAdapter);
+                        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
+                        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+                        // 开启滑动删除
+                        userCollectionAdapter.enableSwipeItem();
+                        userCollectionAdapter.setOnItemSwipeListener(onItemSwipeListener);
+                        recyclerView.setAdapter(userCollectionAdapter);
+
+                        userCollectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                startIntentActivity(UserCollectedActivity.this,new GoodsDetailinformationActivity(),"GoodId",userCollectionBean.get(position).getGoodsid());
+                            }
+                        });
+
                         ToastUtil.show("数据加载完毕");
                     }
+
                 });
 
     }
 
 
-    //下拉刷新数据
-//    private void refreshData() {
-//        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.homepager_SwipeRefreshLayout);
-//        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                swipeRefreshLayout.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        getCollection();
-//                    }
-//                });
-//            }
-//        });
-//
-//    }
 
     private void initViews() {
         back = (ImageView) findViewById(R.id.user_settings_collection_toolbar_back);
@@ -132,5 +139,49 @@ public class UserCollectedActivity extends BaseActivity implements View.OnClickL
                 break;
         }
     }
+
+    OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+        @Override
+        public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+
+        }
+
+        @Override
+        public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+
+        }
+
+        @Override
+        public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+            RetrofitNewSingleton.getInstance()
+                    .goodCollectionCancel(Integer.parseInt(userCollectionBean.get(pos).getGoodsid()))
+                    .subscribe(new Observer<String>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(String value) {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            ToastUtil.show("删除成功");
+                        }
+                    });
+        }
+
+        @Override
+        public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+
+        }
+    };
 
 }

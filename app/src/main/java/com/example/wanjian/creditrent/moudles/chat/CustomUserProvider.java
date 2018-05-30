@@ -26,7 +26,7 @@ public class CustomUserProvider implements LCChatProfileProvider {
     private CustomUserProvider() {
     }
 
-    public   List<LCChatKitUser> partUsers = new ArrayList<>();
+    private static List<LCChatKitUser> partUsers = new ArrayList<LCChatKitUser>();
 
 
 //    static String userId = AVUser.getCurrentUser().getObjectId();
@@ -36,12 +36,10 @@ public class CustomUserProvider implements LCChatProfileProvider {
 //    private static String nickname = ACache.getDefault().getAsString(C.NICKNAME);
 
     //TODO 暂时未理解这个的作用
-//    static {
-//        partUsers.add(new LCChatKitUser(userId,
-//                nickname, "http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg"));
-//        partUsers.add(new LCChatKitUser("Job",
-//                "Job", "http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg"));
-//    }
+     static {
+        partUsers.add(new LCChatKitUser("15879283850",
+                "信租客服", "http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg"));
+    }
 
 
 

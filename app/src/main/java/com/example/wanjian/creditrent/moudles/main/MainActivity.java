@@ -1,6 +1,7 @@
 package com.example.wanjian.creditrent.moudles.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
+import com.example.wanjian.creditrent.base.C;
+import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.chat.ChatFragment;
@@ -28,7 +34,11 @@ import com.jaeger.library.StatusBarUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.LCChatKitUser;
+import cn.leancloud.chatkit.activity.LCIMConversationActivity;
 import cn.leancloud.chatkit.activity.LCIMConversationListFragment;
+import cn.leancloud.chatkit.utils.LCIMConstants;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
@@ -42,6 +52,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private TextView tvOne,tvTwo,tvThree,tv_title;
     private Toolbar toolbar;
     private FloatingActionButton floatingActionButton;
+    private TextView toolbarTextview;
 
     List<Fragment> fragmentList;
 
@@ -100,6 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mainViewpager.setOffscreenPageLimit(3);  //设置预加载
         mainViewpager.setAdapter(mainViewpagerAdapter);
         toolbarSearchview=(ImageView)findViewById(R.id.toolbar_searchview);
+        toolbarTextview = (TextView) findViewById(R.id.toolbar_textview);
         ivOne = (ImageView) findViewById(R.id.linear1_iv);
         ivTwo = (ImageView) findViewById(R.id.linear2_iv);
         ivThree = (ImageView) findViewById(R.id.linear3_iv);
@@ -115,6 +127,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         tvThree.setTextColor(this.getResources().getColor(R.color.textColor));
 
         toolbarSearchview.setOnClickListener(this);
+        toolbarTextview.setOnClickListener(this);
         ivOne.setOnClickListener(this);
         ivTwo.setOnClickListener(this);
         ivThree.setOnClickListener(this);
@@ -134,6 +147,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             actionBar.setDisplayHomeAsUpEnabled(false);
             tv_title.setText("首页");
             toolbarSearchview.setVisibility(View.VISIBLE);
+            toolbarSearchview.setBackgroundResource(R.drawable.ic_search_white_24dp);
+            toolbarTextview.setVisibility(View.GONE);
         }
     }
 
@@ -146,13 +161,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mainViewpager.setCurrentItem(0);
                 tv_title.setText("首页");
                 toolbarSearchview.setVisibility(View.VISIBLE);
+                toolbarSearchview.setBackgroundResource(R.drawable.ic_search_white_24dp);
+                toolbarTextview.setVisibility(View.GONE);
                 floatingActionButton.setVisibility(View.GONE);
                 break;
             case R.id.linear2_iv:
             case R.id.linear2_tv:
                 mainViewpager.setCurrentItem(1);
                 tv_title.setText("对话");
-                toolbarSearchview.setVisibility(View.GONE);
+                toolbarSearchview.setVisibility(View.VISIBLE);
+                toolbarSearchview.setBackgroundResource(R.drawable.nomessage);
+                toolbarTextview.setVisibility(View.GONE);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 break;
             case R.id.linear3_iv:
@@ -160,10 +179,38 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mainViewpager.setCurrentItem(2);
                 tv_title.setText("个人中心");
                 toolbarSearchview.setVisibility(View.GONE);
+                toolbarTextview.setVisibility(View.VISIBLE);
+                toolbarTextview.setText("联系客服");
                 floatingActionButton.setVisibility(View.GONE);
                 break;
             case R.id.toolbar_searchview:
-                startIntentActivity(this, new SearchActivity());
+                if (mainViewpager.getCurrentItem() == 0){
+                    startIntentActivity(this, new SearchActivity());
+                }else if (mainViewpager.getCurrentItem() == 1){
+                    ToastUtil.show("对话");
+                }
+                break;
+            case R.id.toolbar_textview:
+                if(isLogin){
+                    LCChatKitUser lcChatKitUser =new LCChatKitUser(ACache.getDefault().getAsString(C.USER_NAME),
+                            ACache.getDefault().getAsString(C.NICKNAME),"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
+                    LCChatKit.getInstance().open(lcChatKitUser.getUserId(), new AVIMClientCallback() {
+                        @Override
+                        public void done(AVIMClient avimClient, AVIMException e) {
+                            if (null == e) {
+                                Intent intent = new Intent(MainActivity.this, LCIMConversationActivity.class);
+                                intent.putExtra(LCIMConstants.PEER_ID, "15879283850");
+                                startActivity(intent);
+                            } else {
+                                ToastUtil.show(e.toString());
+                            }
+                        }
+                    });
+
+                }else {
+                    startIntentActivity(this,new LoginActivity());
+                    ToastUtil.show("请先登录后再操作~");
+                }
                 break;
             case R.id.activity_main_floatingactionbutton:
                 if (isLogin){
@@ -189,6 +236,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         switch (position){
             case 0:
                 toolbarSearchview.setVisibility(View.VISIBLE);
+                toolbarSearchview.setBackgroundResource(R.drawable.ic_search_white_24dp);
+                toolbarTextview.setVisibility(View.GONE);
                 floatingActionButton.setVisibility(View.GONE);
                 tv_title.setText("首页");
                 ivOne.setImageResource(R.mipmap.home_seclect);
@@ -199,7 +248,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 tvThree.setTextColor(this.getResources().getColor(R.color.textColor));
                 break;
             case 1:
-                toolbarSearchview.setVisibility(View.GONE);
+                toolbarSearchview.setVisibility(View.VISIBLE);
+                toolbarSearchview.setBackgroundResource(R.drawable.nomessage);
+                toolbarTextview.setVisibility(View.GONE);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 tv_title.setText("对话");
                 ivOne.setImageResource(R.mipmap.home_unseclect);
@@ -211,6 +262,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 2:
                 toolbarSearchview.setVisibility(View.GONE);
+                toolbarTextview.setVisibility(View.VISIBLE);
+                toolbarTextview.setText("联系客服");
                 floatingActionButton.setVisibility(View.GONE);
                 tv_title.setText("个人中心");
                 ivOne.setImageResource(R.mipmap.home_unseclect);

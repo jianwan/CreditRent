@@ -20,6 +20,7 @@ import com.example.wanjian.creditrent.base.C;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.jaeger.library.StatusBarUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -46,6 +47,7 @@ public class UserDetailInformationChange extends BaseActivity  implements View.O
         setContentView(R.layout.fragment_user_detailinformation_change);
 
         initView();
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
         //展现个人信息（从缓存中或者网络中获取）
         showUserInfromation();

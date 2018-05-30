@@ -26,6 +26,7 @@ import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.common.util.Utils;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
+import com.jaeger.library.StatusBarUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -79,6 +80,7 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
 
 
         initView();
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
         initData();
 
@@ -153,10 +155,12 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
 //                                .load(value.getImg())
 //                                .into(userdetial_ci_avatar);
 
+                        userdetial_tv_nickname.setText(value.getPhone().toString());
                         userdetial_tv_credit.setText(value.getCrent().toString());
                         userdetial_tv_school.setText(value.getArea().toString());
-                        userdetial_tv_sex.setText(value.getSex());
-                        userdetial_bt_verify.setText(value.getRenzheng());
+                        userdetial_tv_sex.setText(value.getSex().toString());
+                        userdetial_bt_verify.setText(value.getRenzheng().toString());
+                        userdetial_ci_declaration.setText(value.getQianming().toString());
                         Glide.with(getBaseContext())
                                 .load(value.getImg())
                                 .into(userdetial_ci_avatar);
@@ -292,7 +296,12 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
                 }).create().show();
                 break;
             case R.id.userdetial_bt_verify:
-                startIntentActivity(this,new UserVerifyActivity());
+                if (userdetial_bt_verify.getText().toString() == "实名认证还未通过"){
+                    startIntentActivity(this,new UserVerificationActivity());
+                }else {
+                    startIntentActivity(this,new UserVerifyActivity());
+                }
+                break;
             default:
                 break;
         }

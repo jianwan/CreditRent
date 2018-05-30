@@ -2,6 +2,7 @@ package com.example.wanjian.creditrent.base;
 
 
 import com.example.wanjian.creditrent.moudles.chat.rentcar.RentcarBean;
+import com.example.wanjian.creditrent.moudles.homepage.UploadGoodsBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
@@ -107,7 +108,7 @@ public  interface ApiInterface {
             @Field("tongyi") String verifyCode);
 
     //实名认证一卡通图片上传
-    @FormUrlEncoded
+    @Multipart
     @POST("uploadrenzhengimg.php")
     Observable<Result<Object>> verifyPic(@Part MultipartBody.Part myfile);
 
@@ -127,15 +128,16 @@ public  interface ApiInterface {
     //上传物品
     @FormUrlEncoded
     @POST("uploadgoods.php")
-    Observable<Result<String>> uploadGoods(
-            @Field("goodsname") String goodsname, @Field("typename") String typename, @Field("ershowsell") Integer ershowsell,
-            @Field("ershousellmoney") Double ershousellmoney, @Field("descrition") String description, @Field("chuzumoney") Double chuzumoney);
+    Observable<Results<UploadGoodsBean>> uploadGoods(
+            @Field("goodsname") String goodsname, @Field("typename") String typename, @Field("ershousell") Integer ershowsell,
+             @Field("descrition") String description, @Field("chuzumoney") Double chuzumoney);
 
     //上传物品图片
-    @FormUrlEncoded
+    @Multipart
     @POST("uploadgoodsimg.php")
     Observable<Result<Object>> uploadGoodspic(
-            @Field("goodid") Integer goodid, @Field("imgnumber") Integer imgnumber,@Part MultipartBody.Part myfile);
+            @Part("goodsid") Integer goodid, @Part("imgnumber") Integer imgnumber,
+            @Part MultipartBody.Part goodsimg);
 
 
     //展现物品详细信息

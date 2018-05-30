@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
+import com.jaeger.library.StatusBarUtil;
 
 /**
  * Created by wanjian on 2017/11/8.
@@ -17,6 +18,7 @@ public class UserSelledActivtiy extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_selled);
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
     }
 }

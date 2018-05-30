@@ -49,12 +49,20 @@
         <activity android:name=".moudles.user.moudles.user_settings.view.impl.UserSettingsActivity"/>
         <activity android:name=".moudles.user.moudles.user_information.UserVerifyActivity"/>
         <activity android:name=".moudles.user.moudles.user_information.UserVerificationActivity"/>
+        <activity android:name=".moudles.user.moudles.user_information.UserVerifyPicActivity"/>
 
         <!--————————————homepager——————————-->
         <activity android:name=".moudles.homepage.SearchActivity"/>
         <activity android:name=".moudles.homepage.kinds.Books"/>
         <activity android:name=".moudles.homepage.UploadGoodActivity"/>
+        <activity android:name=".moudles.homepage.UploadGoodPicActivity"/>
         <activity android:name=".moudles.homepage.recyclerview.GoodsDetailinformationActivity"/>
+        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+
+        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity android:name=".TestActivity"/>
 

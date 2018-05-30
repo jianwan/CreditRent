@@ -21,7 +21,6 @@
 
 
     <string-array name="goodtype">
-        <item>无</item>
         <item>图书</item>
         <item>音像 </item>
         <item>数码</item>

@@ -10,24 +10,28 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseFragment;
 import com.example.wanjian.creditrent.base.C;
+import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserBoughtActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserRentActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserReturnActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSawActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSelledActivtiy;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_information.UserDetailInformation;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.view.impl.UserSettingsActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_unpublished.UserUnpublishedActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by wanjian on 2017/10/25.
@@ -77,7 +81,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
             SharedPreferencesUtil.setIsLogin(true);
             relLay_unlogin.setVisibility(View.GONE);
             relLay_login.setVisibility(View.VISIBLE);
-            login_tv_nickname.setText(nickname);
+            login_tv_nickname.setText(username);
 
             //TODO 有bug
 //            if (!ACache.getDefault().getAsString(C.AVATAR).isEmpty()&&ACache.getDefault().getAsString(C.AVATAR)!=null){
@@ -85,6 +89,34 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 //                        .load(ACache.getDefault().getAsString(C.AVATAR))
 //                        .into(login_ci_avatar);
 //            }
+
+            RetrofitNewSingleton.getInstance()
+                    .getUserInformation(username)
+                    .subscribe(new Observer<UserBean>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(UserBean value) {
+                            if (!value.getImg().isEmpty()){
+                                Glide.with(getContext())
+                                        .load(value.getImg())
+                                        .into(login_ci_avatar);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
 
         } else {
             SharedPreferencesUtil.setIsLogin(false);
@@ -141,10 +173,8 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                 startIntentActivity(this,new LoginActivity());
                 break;
             case R.id.login_linear_userinformation:
-                startIntentActivity(this,new UserDetailInformation());
-                break;
             case R.id.login_ci_avatar:
-
+                startIntentActivity(this,new UserDetailInformation());
                 break;
             case R.id.linear_rent:
                 startIntentActivity(this,new UserRentActivity());

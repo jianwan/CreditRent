@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.wanjian.creditrent.moudles.main.MainActivity"
     android:fitsSystemWindows="true">
@@ -36,10 +36,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:src="@drawable/ic_search_white_24dp"
-                    android:layout_marginRight="15dp"
-                    android:visibility="gone"/>
+                    android:layout_marginRight="15dp"/>
 
+                <TextView
+                    android:id="@+id/toolbar_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="12sp"
+                    android:textColor="@color/defaultWhite"
+                    android:visibility="gone"/>
 
             </android.support.v7.widget.Toolbar>
 
@@ -62,7 +68,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="270dp"
         android:layout_marginTop="480dp"
-        android:src="@mipmap/my_seclect"
+        android:src="@drawable/rentcar"
+        app:backgroundTint="#ffffff"
+        app:rippleColor="#ffffff"
         android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>

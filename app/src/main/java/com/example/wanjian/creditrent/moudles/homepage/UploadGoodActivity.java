@@ -9,10 +9,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
+import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
+import com.example.wanjian.creditrent.common.util.PLog;
+import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.jaeger.library.StatusBarUtil;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by wanjian on 2018/5/6.
@@ -22,12 +28,14 @@ import com.example.wanjian.creditrent.base.BaseActivity;
 public class UploadGoodActivity extends BaseActivity implements View.OnClickListener{
 
     private EditText goodname,description,price;
+    private ImageView back;
     private Spinner goodtype;
     private RadioButton rent,sell;
-    private ImageView pic;
-    private TextView tv;
 
     private Button upload;
+
+    private String goodId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +44,23 @@ public class UploadGoodActivity extends BaseActivity implements View.OnClickList
 
         initViews();
         initSpinner();
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
     }
 
     private void initViews() {
+        back = (ImageView) findViewById(R.id.uploadgoods_toolbar_back);
+
         goodname = (EditText) findViewById(R.id.uploadgoods_et_goodname);
         description = (EditText) findViewById(R.id.uploadgoods_et_description);
         price = (EditText) findViewById(R.id.uploadgoods_et_price);
         rent = (RadioButton) findViewById(R.id.uploadgoods_rt_rent);
         sell = (RadioButton) findViewById(R.id.uploadgoods_rt_sell);
-        pic = (ImageView) findViewById(R.id.uploadgoods_iv_pic);
-        tv = (TextView) findViewById(R.id.uploadgoods_iv_tv);
         upload = (Button) findViewById(R.id.uploadgoods_button_upload);
 
+        back.setOnClickListener(this);
         rent.setOnClickListener(this);
         sell.setOnClickListener(this);
-        pic.setOnClickListener(this);
-        tv.setOnClickListener(this);
         upload.setOnClickListener(this);
 
     }
@@ -84,11 +92,6 @@ public class UploadGoodActivity extends BaseActivity implements View.OnClickList
             case R.id.uploadgoods_toolbar_back:
                 onBackPressed();
                 break;
-            case R.id.uploadgoods_iv_pic:
-            case R.id.uploadgoods_iv_tv:
-                uploadGoodsPics();
-                break;
-
             case R.id.uploadgoods_button_upload:
 
                 String goodnameString = goodname.getText().toString();
@@ -96,50 +99,59 @@ public class UploadGoodActivity extends BaseActivity implements View.OnClickList
                 String sellString = sell.getText().toString();
                 String rentString = rent.getText().toString();
                 String descriptionString = description.getText().toString();
-                String priceString = price.getText().toString();
+                Double priceDouble = Double.parseDouble(price.getText().toString());
 
-                int ershousell;
-                double ershoumoney;
-                double chuzumoney;
+                Integer rentOrSell = 0 ;
 
-                if (rent.isChecked()){
-                    ershousell = 0;
-                    ershoumoney = 0.00;
-                    chuzumoney = Double.parseDouble(priceString);
-                }else if (sell.isChecked()){
-                    ershousell = 1;
-                    ershoumoney = Double.parseDouble(priceString);
-                    chuzumoney = Double.parseDouble(priceString);
+                if (sell.isChecked()){
+                    rentOrSell = 1;
+                }else if (rent.isChecked()) {
+                    rentOrSell = 0;
                 }
 
-//                RetrofitNewSingleton.getInstance()
-//                        .uploadGoods(goodnameString,goodTypeString,ershousell,ershoumoney,descriptionString,chuzumoney)
-//                        .subscribe(new Observer<String>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(String value) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//                                RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//                                ToastUtil.show("物品上传已提交，等待审核完成即可上架~");
-//                            }
-//                        });
+                if (goodnameString != "" && goodTypeString != "" && descriptionString != "" &&
+                        priceDouble.toString() != "" ){
+                    if (sell.isChecked()||rent.isChecked()){
+
+                        PLog.d("TAG",goodnameString+goodTypeString+rentOrSell+descriptionString+priceDouble);
+
+                        RetrofitNewSingleton.getInstance()
+                                .uploadGoods(goodnameString,goodTypeString,rentOrSell,descriptionString,priceDouble)
+                                .subscribe(new Observer<UploadGoodsBean>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(UploadGoodsBean value) {
+                                        goodId = value.getGoodsis();
+                                        PLog.d("TAG","goodId"+goodId);
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+                                        ToastUtil.show("物品信息已提交，请及时提交物品照片~");
+                                        startIntentActivity(UploadGoodActivity.this,new UploadGoodPicActivity(),"goodid",goodId);
+                                    }
+                                });
+
+                    }else {
+                        ToastUtil.show("请选择出租or出售");
+                    }
+                }else {
+                    ToastUtil.show("请填好相关信息~");
+                }
+
+
+                break;
         }
     }
 
-    //上传照片
-    private void uploadGoodsPics() {
 
-    }
 }

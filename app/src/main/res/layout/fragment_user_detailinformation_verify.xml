@@ -127,26 +127,14 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/user_verify_pic"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="点击上传图片"
-            android:gravity="center"/>
        
         <Button
             android:id="@+id/user_verify_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="点击提交信息"
+            android:layout_marginTop="80dp"
+            android:text="下一步"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"/>
         

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<me.iwf.photopicker.widget.SquareItemLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:padding="1dp"
+    android:background="@drawable/addpic">
+
+
+</me.iwf.photopicker.widget.SquareItemLayout>
+

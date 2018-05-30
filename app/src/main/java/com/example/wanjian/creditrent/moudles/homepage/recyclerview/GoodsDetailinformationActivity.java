@@ -2,6 +2,7 @@ package com.example.wanjian.creditrent.moudles.homepage.recyclerview;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,21 +12,31 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
+import com.example.wanjian.creditrent.base.C;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
+import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
+import com.jaeger.library.StatusBarUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Arrays;
 import java.util.List;
 
+import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.LCChatKitUser;
+import cn.leancloud.chatkit.activity.LCIMConversationActivity;
+import cn.leancloud.chatkit.utils.LCIMConstants;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -44,6 +55,7 @@ public class GoodsDetailinformationActivity extends BaseActivity implements OnIt
     private List<String> networkImages;
     private String[] images;
     String goodId;
+    String userId;
     Toolbar toolbar;
 
 
@@ -60,6 +72,7 @@ public class GoodsDetailinformationActivity extends BaseActivity implements OnIt
 
         initViews();
         initToolbar();
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
         getGoodDetialInformation(goodId);
 
@@ -148,6 +161,7 @@ public class GoodsDetailinformationActivity extends BaseActivity implements OnIt
 
                     @Override
                     public void onNext(GoodsDetailinformationBean value) {
+                        userId = value.getOwnerphone();
                         goodName.setText(value.getGoodsname());
                         goodRenter.setText(value.getOwnerphone());
                         goodPrice.setText(value.getChuzu_money());
@@ -182,6 +196,25 @@ public class GoodsDetailinformationActivity extends BaseActivity implements OnIt
                 onBackPressed();
                 break;
             case R.id.goodsdetialinformation__btn_contact:
+                if (SharedPreferencesUtil.getIsLogin()){
+                    LCChatKitUser lcChatKitUser =new LCChatKitUser(ACache.getDefault().getAsString(C.USER_NAME),
+                            ACache.getDefault().getAsString(C.NICKNAME),"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
+                    LCChatKit.getInstance().open(lcChatKitUser.getUserId(), new AVIMClientCallback() {
+                        @Override
+                        public void done(AVIMClient avimClient, AVIMException e) {
+                            if (null == e) {
+                                Intent intent = new Intent(GoodsDetailinformationActivity.this, LCIMConversationActivity.class);
+                                intent.putExtra(LCIMConstants.PEER_ID, userId);
+                                startActivity(intent);
+                            } else {
+                                ToastUtil.show(e.toString());
+                            }
+                        }
+                    });
+
+                }else {
+                    ToastUtil.show("请先登录后再试~");
+                }
 
                 break;
             case R.id.goodsdetialinformation__btn_add:

@@ -9,6 +9,7 @@ import com.example.wanjian.creditrent.common.RxUtil.RxUtils;
 import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.chat.rentcar.RentcarBean;
+import com.example.wanjian.creditrent.moudles.homepage.UploadGoodsBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.signup.cookie.CookiesManager;
@@ -313,15 +314,16 @@ public class RetrofitNewSingleton {
 
 
     //上传物品
-    public Observable<String> uploadGoods(String goodsname,String typename, Integer ershowsell,
-                                          Double ershousellmoney, String description,Double chuzumoney) {
-        return apiService.uploadGoods(goodsname,typename,ershowsell,ershousellmoney,description,chuzumoney)
-                .compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    public Observable<UploadGoodsBean> uploadGoods(String goodsname, String typename, Integer ershousell,
+                                                   String description, Double chuzumoney) {
+        return apiService.uploadGoods(goodsname,typename,ershousell,description,chuzumoney)
+                .compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
     }
 
-
-
-
+    //上传物品图片
+    public Observable<String> uploadGoodspic(Integer goodid, Integer imgnumber, MultipartBody.Part goodsimg) {
+        return apiService.uploadGoodspic(goodid,imgnumber,goodsimg).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
 
 
     //展现首页物品详细信息

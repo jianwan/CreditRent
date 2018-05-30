@@ -15,10 +15,10 @@ import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
-import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationActivity;
+import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +50,7 @@ public class RentCarActivity extends BaseActivity implements View.OnClickListene
 
             back = (ImageView) findViewById(R.id.chat_rentcar_toolbar_back);
             back.setOnClickListener(this);
+            StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
             recyclerView=(RecyclerView)findViewById(R.id.chat_rentcar_recyclerview);
             LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
@@ -66,6 +67,7 @@ public class RentCarActivity extends BaseActivity implements View.OnClickListene
 
             back = (ImageView) findViewById(R.id.user_nologin_back);
             back.setOnClickListener(this);
+            StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
         }
 
     }
@@ -108,7 +110,6 @@ public class RentCarActivity extends BaseActivity implements View.OnClickListene
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 startIntentActivity(RentCarActivity.this,new GoodsDetailinformationActivity(),"GoodId",rentcarBeen.get(position).getGoodsid());
-                                PLog.d("TAG1","rentcarada"+rentcarBeen.get(position).getGoodsid());
                             }
                         });
                         ToastUtil.show("数据加载完毕");

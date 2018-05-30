@@ -17,6 +17,7 @@ import com.example.wanjian.creditrent.moudles.main.MainActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.presenter.ISettingsPresenter;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.presenter.impl.SettingsPresenter;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.view.IUserSettings;
+import com.jaeger.library.StatusBarUtil;
 
 /**
  * Created by wanjian on 2017/11/8.
@@ -35,6 +36,7 @@ public class UserSettingsActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.fragment_user_settings);
 
         initViews();
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
     }
 

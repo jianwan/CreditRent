@@ -108,28 +108,19 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="2">
+                            android:layout_weight="2"
+                            android:paddingRight="10dp">
+
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/login_ci_avatar"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
                                 android:layout_marginBottom="5dp"
-                                android:src="@mipmap/avatordefault"/>
+                                android:layout_marginTop="5dp"
+                                android:src="@mipmap/avatordefault" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
 
-                            <ImageView
-                                android:id="@+id/iv_go"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@mipmap/trunright"
-                                android:layout_gravity="center"/>
-                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -236,14 +227,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@drawable/publish"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="64dp"
+                        android:layout_marginLeft="56dp"
                         android:textSize="15sp"
                         android:text="我上架的" />
                     <ImageView
@@ -252,7 +243,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_launcher"/>
+                        android:background="@drawable/right"/>
                 </RelativeLayout>
 
                 <View
@@ -269,14 +260,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@drawable/unpublish"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="64dp"
+                        android:layout_marginLeft="56dp"
                         android:textSize="15sp"
                         android:text="我下架的" />
                     <ImageView
@@ -285,7 +276,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_launcher"/>
+                        android:background="@drawable/right"/>
                 </RelativeLayout>
 
                 <View
@@ -302,14 +293,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@drawable/bought"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="64dp"
+                        android:layout_marginLeft="56dp"
                         android:textSize="15sp"
                         android:text="@string/bought" />
                     <TextView
@@ -328,7 +319,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_launcher"/>
+                        android:background="@drawable/right"/>
                 </RelativeLayout>
 
                 <View
@@ -346,14 +337,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@drawable/selled"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="64dp"
+                        android:layout_marginLeft="56dp"
                         android:textSize="15sp"
                         android:text="@string/selled" />
                     <ImageView
@@ -362,7 +353,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_launcher"/>
+                        android:background="@drawable/right"/>
                 </RelativeLayout>
 
 
@@ -383,14 +374,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/collection" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="64dp"
+                        android:layout_marginLeft="56dp"
                         android:text="@string/collected"
                         android:textSize="15sp" />
 
@@ -400,7 +391,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_launcher" />
+                        android:background="@drawable/right" />
                 </RelativeLayout>
 
                 <View
@@ -417,23 +408,27 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@drawable/see"
+                        android:id="@+id/imageView3" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="64dp"
+                        android:layout_marginLeft="56dp"
                         android:textSize="15sp"
-                        android:text="我浏览的" />
+                        android:text="我浏览的"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/imageView3"
+                        android:layout_toEndOf="@+id/imageView3"
+                        android:layout_marginStart="11dp" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_launcher"/>
+                        android:background="@drawable/right"/>
                 </RelativeLayout>
 
 
@@ -454,14 +449,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/settings" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="64dp"
+                        android:layout_marginLeft="56dp"
                         android:text="我的设置"
                         android:textSize="15sp" />
 
@@ -471,7 +466,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="15dp"
-                        android:background="@mipmap/ic_launcher" />
+                        android:background="@drawable/right" />
                 </RelativeLayout>
 
 
