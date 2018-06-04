@@ -64,6 +64,30 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:text="物品描述"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/gooddescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:textSize="16sp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -87,28 +111,6 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:paddingTop="8dp"
-                android:text="出租价格"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/good_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="2"
-                android:textSize="16sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -121,7 +123,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:paddingTop="8dp"
-                android:text="是否支持出售"
+                android:text="出租or出售"
                 android:textSize="16sp" />
 
             <TextView
@@ -133,6 +135,31 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:text="交易价格"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/good_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -143,28 +170,30 @@
 
         <Button
             android:id="@+id/goodsdetialinformation__btn_contact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="联系出租者"
-            android:layout_marginLeft="50dp"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="联系出租者"/>
 
         <Button
             android:id="@+id/goodsdetialinformation__btn_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:text="加入购物车"/>
+
+        <Button
+            android:id="@+id/goodsdetialinformation__btn_rent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:text="发起交易申请"/>
 
     </LinearLayout>
 
 
 
-    <Button
-        android:id="@+id/goodsdetialinformation__btn_rent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:text="发起交易申请"/>
+
 
 </LinearLayout>

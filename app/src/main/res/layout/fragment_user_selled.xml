@@ -6,7 +6,7 @@
 
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/user_dl_toolbar"
+        android:id="@+id/user_selled_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/main_toolbar">
@@ -15,12 +15,12 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/user_settings_toolbar_back"
+                android:id="@+id/user_selled_toolbar_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_keyboard_backspace_white_24dp"/>
             <TextView
-                android:id="@+id/user_settings_toolbar_settings"
+                android:id="@+id/user_selled_toolbar_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -32,10 +32,17 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+  <com.ajguan.library.EasyRefreshLayout
+      android:id="@+id/user_selled_easyrefreshlayout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/user_selled_recyclerview"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+      </android.support.v7.widget.RecyclerView>
+
+  </com.ajguan.library.EasyRefreshLayout>
 
 </LinearLayout>

@@ -80,7 +80,7 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
 
 
         initView();
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
+
 
         initData();
 
@@ -253,6 +253,7 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
         userdetial_ci_avatar.setOnClickListener(this);
         userdetial_bt_verify.setOnClickListener(this);
 
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
     }
 
 
@@ -296,8 +297,8 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
                 }).create().show();
                 break;
             case R.id.userdetial_bt_verify:
-                if (userdetial_bt_verify.getText().toString() == "实名认证还未通过"){
-                    startIntentActivity(this,new UserVerificationActivity());
+                if (userdetial_bt_verify.getText().toString().equals("实名认证已通过")){
+                    ToastUtil.show("您的实名认证已通过，请勿再次申请~");
                 }else {
                     startIntentActivity(this,new UserVerifyActivity());
                 }

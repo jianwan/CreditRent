@@ -22,9 +22,9 @@
 
     <string-array name="goodtype">
         <item>图书</item>
-        <item>音像 </item>
-        <item>数码</item>
-        <item>箱包</item>
+        <item>影像 </item>
+        <item>数码产品</item>
+        <item>鞋靴箱包</item>
         <item>衣物</item>
         <item>出行</item>
         <item>娱乐 </item>

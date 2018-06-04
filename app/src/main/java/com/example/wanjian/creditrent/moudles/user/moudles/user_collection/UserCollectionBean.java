@@ -6,11 +6,20 @@ package com.example.wanjian.creditrent.moudles.user.moudles.user_collection;
 
 public class UserCollectionBean {
 
+
+    private String goodsimg;
     private String goodsid;
     private String goodsname;
     private String goodsststus;
 
 
+    public String getGoodsimg() {
+        return goodsimg;
+    }
+
+    public void setGoodsimg(String goodsimg) {
+        this.goodsimg = goodsimg;
+    }
 
     public String getGoodsid() {
         return goodsid;

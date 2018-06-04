@@ -1,10 +1,14 @@
 package com.example.wanjian.creditrent.base;
 
 
+import com.example.wanjian.creditrent.moudles.chat.order.HandleOrderBean;
+import com.example.wanjian.creditrent.moudles.chat.order.OrderBean;
 import com.example.wanjian.creditrent.moudles.chat.rentcar.RentcarBean;
 import com.example.wanjian.creditrent.moudles.homepage.UploadGoodsBean;
+import com.example.wanjian.creditrent.moudles.homepage.kinds.KindsBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
+import com.example.wanjian.creditrent.moudles.homepage.recyclerview.MakeOrderBean;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectionBean;
 
@@ -168,10 +172,61 @@ public  interface ApiInterface {
     @GET("userxinzuchegoodsshow.php")
     Observable<Results<ArrayList<RentcarBean>>> getRentCarGoods();
 
-
     //加入信租车
     @FormUrlEncoded
     @POST("userXinZuCheDeleteGoods.php")
     Observable<Result<Object>> deleteGoodFromRentCar(@Field("goodsid") Integer goodid);
+
+    //根据物品类型返回物品列表
+    @FormUrlEncoded
+    @POST("showbytypelist.php")
+    Observable<Results<ArrayList<KindsBean>>> getGoodsByType(@Field("page") Integer page,@Field("type") Integer type);
+
+    //我上传的物品，包括上架、正在审核，下架
+    @FormUrlEncoded
+    @POST("aboutowngoods.php")
+    Observable<Results<ArrayList<KindsBean>>> getUserGoodsByType(@Field("page") Integer page,@Field("showtype") Integer type);
+
+    //物品上架
+    @FormUrlEncoded
+    @POST("goodsshangjiarequest.php ")
+    Observable<Result<Object>> userGoodPublised(@Field("goodsid") Integer goodid);
+
+    //物品下架
+    @FormUrlEncoded
+    @POST("goodsxiajiarequest.php")
+    Observable<Result<Object>> userGoodUnpublised(@Field("goodsid") Integer goodid);
+
+
+    //修改物品信息
+    @FormUrlEncoded
+    @POST("ImproveGoodsInfo.php")
+    Observable<Result<UploadGoodsBean>> changeGoodInformation(
+            @Field("goodsid") Integer goodsid, @Field("goodsname") String goodsname,
+            @Field("typename") String typename, @Field("ershousell") Integer ershowsell,
+            @Field("descrition") String description, @Field("chuzumoney") String chuzumoney);
+
+    //发起交易申请
+    @FormUrlEncoded
+    @POST("jiaoyiapplication.php")
+    Observable<Result<MakeOrderBean>> makeOrder(@Field("goodsid") Integer goodsid, @Field("address") String address);
+
+
+    //展示向我发起的交易请求
+    @FormUrlEncoded
+    @POST("showOthersApplication.php")
+    Observable<Results<ArrayList<OrderBean>>> getOrderToMe(@Field("a")  String a);
+
+
+    //处理交易申请
+    @FormUrlEncoded
+    @POST("chuzuZheHandleJiaoYiShenQing.php")
+    Observable<Result<HandleOrderBean>> handleOrder(@Field("orderId") String orderId, @Field("handle") Integer handle);
+
+
+    //查看自己的交易记录
+    @FormUrlEncoded
+    @POST("showOwnApplication.php")
+    Observable<Results<ArrayList<OrderBean>>> getMyOrders(@Field("a")  String a);
 
 }

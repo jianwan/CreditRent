@@ -27,6 +27,7 @@ import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.common.util.Utils;
+import com.example.wanjian.creditrent.moudles.homepage.kinds.Books;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerAdapter;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
@@ -120,8 +121,8 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()))  {
 
-                    //TODO：此处因为数据只有三页，后面改变
-                    if(page <= 3 ){
+                    //TODO：
+                    if(page <= 100 ){
                         RetrofitNewSingleton.getInstance()
                                 .getHomepagerGoods(page)
                                 .subscribe(new Observer<ArrayList<HomepagerGoodsList>>() {
@@ -144,6 +145,8 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
                                     @Override
                                     public void onError(Throwable e) {
                                         RetrofitNewSingleton.disposeFailureInfo(e,getContext());
+                                        homepagerAdapter=new HomepagerAdapter(homepagerGoodsList,getContext(),false);
+                                        recyclerView.setAdapter(homepagerAdapter);
                                     }
 
                                     @Override
@@ -154,7 +157,6 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
                     }else {
                         homepagerAdapter=new HomepagerAdapter(homepagerGoodsList,getContext(),false);
                         recyclerView.setAdapter(homepagerAdapter);
-
                     }
 
                 }
@@ -291,28 +293,28 @@ public class HomePageFragment extends BaseFragment implements OnItemClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.homepager_kinds_books:
-                ToastUtil.show("books");
+                startIntentActivity(this,new Books(),"type",1);
                 break;
             case R.id.homepager_kinds_yinxiang:
-                ToastUtil.show("yinxiang");
+                startIntentActivity(this,new Books(),"type",2);
                 break;
             case R.id.homepager_kinds_shuma:
-                ToastUtil.show("shuma");
+                startIntentActivity(this,new Books(),"type",4);
                 break;
             case R.id.homepager_kinds_bags:
-                ToastUtil.show("bags");
+                startIntentActivity(this,new Books(),"type",3);
                 break;
             case R.id.homepager_kinds_clothes:
-                ToastUtil.show("clothes");
+                startIntentActivity(this,new Books(),"type",5);
                 break;
             case R.id.homepager_kinds_traffic:
-                ToastUtil.show("traffic");
+                startIntentActivity(this,new Books(),"type",6);
                 break;
             case R.id.homepager_kinds_play:
-                ToastUtil.show("play");
+                startIntentActivity(this,new Books(),"type",7);
                 break;
             case R.id.homepager_kinds_others:
-                ToastUtil.show("others");
+                startIntentActivity(this,new Books(),"type",1);
                 break;
             default:
                 break;

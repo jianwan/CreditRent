@@ -236,7 +236,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="56dp"
                         android:textSize="15sp"
-                        android:text="我上架的" />
+                        android:text="我发布的" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
                     android:background="#dddddd" />
 
                 <RelativeLayout
-                    android:id="@+id/user_ralLay_unpublished"
+                    android:id="@+id/user_ralLay_myorders"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="5dp"
@@ -269,7 +269,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="56dp"
                         android:textSize="15sp"
-                        android:text="我下架的" />
+                        android:text="我的交易" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -278,6 +278,7 @@
                         android:layout_marginRight="15dp"
                         android:background="@drawable/right"/>
                 </RelativeLayout>
+
 
                 <View
                     android:layout_width="match_parent"
@@ -366,7 +367,7 @@
                 <RelativeLayout
                     android:id="@+id/user_ralLay_collected"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="45dp"
                     android:layout_marginTop="5dp"
                     android:clickable="true">
 

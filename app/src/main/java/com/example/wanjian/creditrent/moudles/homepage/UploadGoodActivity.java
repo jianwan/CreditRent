@@ -22,7 +22,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by wanjian on 2018/5/6.
- * TODO：待接口修改完成
+ *
  */
 
 public class UploadGoodActivity extends BaseActivity implements View.OnClickListener{
@@ -44,7 +44,6 @@ public class UploadGoodActivity extends BaseActivity implements View.OnClickList
 
         initViews();
         initSpinner();
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
 
     }
 
@@ -63,6 +62,7 @@ public class UploadGoodActivity extends BaseActivity implements View.OnClickList
         sell.setOnClickListener(this);
         upload.setOnClickListener(this);
 
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
     }
 
     private void initSpinner() {

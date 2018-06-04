@@ -48,7 +48,8 @@ public class C {
     public static final String SEX_POSITION="0";
     public static final String SCHOOL_POSITION="0";
 
-
+    public static final String RENTNUMBER = "rentnumber";
+    public static final String RETURNNUMBER = "returnnumber";
 
 
     /**

@@ -140,4 +140,26 @@ public class SharedPreferencesUtil {
         return preferences.getString(C.CREDIT, "");
     }
 
+    public static void setRentNumber(Integer rentNumber) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE).edit();
+        editor.putInt(C.RENTNUMBER, rentNumber);
+        editor.apply();
+    }
+
+    public static Integer getRentNumber() {
+        SharedPreferences preferences = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
+        return preferences.getInt(C.RENTNUMBER, 0);
+    }
+
+    public static void setReturnNumber(Integer returnNumber) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE).edit();
+        editor.putInt(C.RETURNNUMBER, returnNumber);
+        editor.apply();
+    }
+
+    public static Integer getReturnNumber() {
+        SharedPreferences preferences = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
+        return preferences.getInt(C.RETURNNUMBER, 0);
+    }
+
 }

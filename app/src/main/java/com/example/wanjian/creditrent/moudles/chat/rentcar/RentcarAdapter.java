@@ -1,5 +1,8 @@
 package com.example.wanjian.creditrent.moudles.chat.rentcar;
 
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.wanjian.creditrent.R;
@@ -25,6 +28,7 @@ public class RentcarAdapter extends BaseItemDraggableAdapter<RentcarBean,BaseVie
     protected void convert(BaseViewHolder helper, RentcarBean item) {
         helper.setText(R.id.rentcar_item_goodname,item.getGoodsname());
         helper.setText(R.id.rentcar_item_goodstatus,item.getGoodsststus());
+        Glide.with(mContext).load(item.getGoodsimg()).crossFade().into((ImageView) helper.getView(R.id.rentcar_item_imageview));
     }
 
 

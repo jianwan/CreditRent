@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/kinds_item"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/kinds_item_imageview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/kinds_item_goodname"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:text="这里是书的名字"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3px"
+                android:background="@color/recyclerview"/>
+
+            <TextView
+                android:id="@+id/kinds_item_description"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:text="这里是物品描述"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3px"
+                android:background="@color/recyclerview"/>
+
+            <TextView
+                android:id="@+id/kinds_item_sellorrent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:text="这里是出租还是出售"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3px"
+                android:background="@color/recyclerview"/>
+
+            <TextView
+                android:id="@+id/kinds_item_price"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:text="这里是价格"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="@color/recyclerview"/>
+
+</LinearLayout>

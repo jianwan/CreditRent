@@ -18,20 +18,22 @@ import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserBoughtActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserRentActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserReturnActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_orders.UserOrdersActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return.UserBoughtActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return.UserRentActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return.UserReturnActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.UserSawActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserSelledActivtiy;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return.UserSelledActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectedActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_information.UserDetailInformation;
-import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishedActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.view.impl.UserSettingsActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.user_unpublished.UserUnpublishedActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+
+
 
 /**
  * Created by wanjian on 2017/10/25.
@@ -40,7 +42,7 @@ import io.reactivex.disposables.Disposable;
 public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout relLay_unlogin,relLay_login,
-            user_ralLay_published,user_ralLay_unpublished,user_relLay_bought,
+            user_ralLay_published,user_ralLay_myorders,user_relLay_bought,
             user_relLay_selled,user_relLay_collected,user_relLay_saw, user_relLay_settings;
 
     private Button unlogin_btn_login;
@@ -51,15 +53,23 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     private TextView login_tv_nickname;
     private LinearLayout linear_rent,linear_return;
 
+    private TextView rentNumber,returnNuber;
 
-
+    boolean tag = false;            //是否显示缓存中的标志位
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null);
 
-
         initView(view);
+
+        //TODO:不能及时从缓存中获取数据
+        if (!tag){
+            ACache.getDefault().put(C.RENTNUMBER,0);
+            ACache.getDefault().put(C.RETURNNUMBER,0);
+            tag = true;
+        }
+
         checkIsLoginin();
 
         return view;
@@ -77,11 +87,19 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         String username= ACache.getDefault().getAsString(C.USER_NAME);
         String nickname=ACache.getDefault().getAsString(C.NICKNAME);
 
+
         if (username!=null&&!username.equals("")) {
             SharedPreferencesUtil.setIsLogin(true);
             relLay_unlogin.setVisibility(View.GONE);
             relLay_login.setVisibility(View.VISIBLE);
             login_tv_nickname.setText(username);
+
+
+            int rentN = (Integer) ACache.getDefault().getAsObject(C.RENTNUMBER);
+            int returnN = (Integer) ACache.getDefault().getAsObject(C.RETURNNUMBER);
+
+            rentNumber.setText(String.valueOf(rentN));
+            returnNuber.setText(String.valueOf(returnN));
 
             //TODO 有bug
 //            if (!ACache.getDefault().getAsString(C.AVATAR).isEmpty()&&ACache.getDefault().getAsString(C.AVATAR)!=null){
@@ -130,7 +148,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         relLay_unlogin=v.findViewById(R.id.relLay_unlogin);
         relLay_login=v.findViewById(R.id.relLay_login);
         user_ralLay_published=v.findViewById(R.id.user_ralLay_published);
-        user_ralLay_unpublished=v.findViewById(R.id.user_ralLay_unpublished);
+        user_ralLay_myorders=v.findViewById(R.id.user_ralLay_myorders);
         user_relLay_bought=v.findViewById(R.id.user_relLay_bought);
         user_relLay_selled=v.findViewById(R.id.user_relLay_selled);
         user_relLay_collected=v.findViewById(R.id.user_ralLay_collected);
@@ -148,20 +166,22 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
         unlogin_btn_login.setOnClickListener(this);
         login_linear_userinformation.setOnClickListener(this);
-        user_ralLay_unpublished.setOnClickListener(this);
         login_ci_avatar.setOnClickListener(this);
 
         linear_rent.setOnClickListener(this);
         linear_return.setOnClickListener(this);
 
         user_ralLay_published.setOnClickListener(this);
-        user_ralLay_unpublished.setOnClickListener(this);
+        user_ralLay_myorders.setOnClickListener(this);
         user_relLay_bought.setOnClickListener(this);
         user_relLay_selled.setOnClickListener(this);
         user_relLay_collected.setOnClickListener(this);
         user_relLay_saw.setOnClickListener(this);
         user_relLay_settings.setOnClickListener(this);
 
+
+        rentNumber = v.findViewById(R.id.tv_number_rent);
+        returnNuber = v.findViewById(R.id.tv_number_return);
     }
 
 
@@ -183,16 +203,16 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                 startIntentActivity(this,new UserReturnActivity());
                 break;
             case R.id.user_ralLay_published:
-                startIntentActivity(this,new UserPublishedActivity());
+                startIntentActivity(this,new UserPublishActivity());
                 break;
-            case R.id.user_ralLay_unpublished:
-                startIntentActivity(this,new UserUnpublishedActivity());
+            case R.id.user_ralLay_myorders:
+                startIntentActivity(this,new UserOrdersActivity());
                 break;
             case R.id.user_relLay_bought:
                 startIntentActivity(this,new UserBoughtActivity());
                 break;
             case R.id.user_relLay_selled:
-                startIntentActivity(this,new UserSelledActivtiy());
+                startIntentActivity(this,new UserSelledActivity());
                 break;
             case R.id.user_ralLay_collected:
                 startIntentActivity(this,new UserCollectedActivity());

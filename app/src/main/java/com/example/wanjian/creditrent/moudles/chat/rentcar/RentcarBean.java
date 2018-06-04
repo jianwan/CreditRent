@@ -6,9 +6,21 @@ package com.example.wanjian.creditrent.moudles.chat.rentcar;
 
 public class RentcarBean {
 
+    private String goodsimg;
     private String goodsid;
     private String goodsname;
     private String goodsststus;
+
+
+
+
+    public String getGoodsimg() {
+        return goodsimg;
+    }
+
+    public void setGoodsimg(String goodsimg) {
+        this.goodsimg = goodsimg;
+    }
 
     public String getGoodsid() {
         return goodsid;

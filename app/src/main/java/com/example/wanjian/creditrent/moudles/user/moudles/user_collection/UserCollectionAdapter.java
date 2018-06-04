@@ -1,5 +1,8 @@
 package com.example.wanjian.creditrent.moudles.user.moudles.user_collection;
 
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.wanjian.creditrent.R;
@@ -25,5 +28,6 @@ public class UserCollectionAdapter extends BaseItemDraggableAdapter<UserCollecti
     protected void convert(BaseViewHolder helper, UserCollectionBean item) {
         helper.setText(R.id.collect_item_goodname,item.getGoodsname());
         helper.setText(R.id.collect_item_status,item.getGoodsststus());
+        Glide.with(mContext).load(item.getGoodsimg()).crossFade().into((ImageView) helper.getView(R.id.collect_item_imageview));
     }
 }

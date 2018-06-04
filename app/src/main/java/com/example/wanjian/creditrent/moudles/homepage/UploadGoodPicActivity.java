@@ -116,8 +116,8 @@ public class UploadGoodPicActivity extends BaseActivity implements View.OnClickL
                 }).create().show();
                 break;
             case R.id.uploadgoodsPic_button_upload:
-
-                ToastUtil.show("upload");
+                startIntentActivity(this,new UploadGoodsOkActivity());
+                ToastUtil.show("上传成功");
                 break;
         }
     }
@@ -152,7 +152,7 @@ public class UploadGoodPicActivity extends BaseActivity implements View.OnClickL
 
                         @Override
                         public void onNext(String value) {
-                            ToastUtil.show("onNext");
+
                         }
 
                         @Override
@@ -162,7 +162,7 @@ public class UploadGoodPicActivity extends BaseActivity implements View.OnClickL
 
                         @Override
                         public void onComplete() {
-                            ToastUtil.show("onComplete");
+                            ToastUtil.show("图片上传成功~点击即可继续上传");
                         }
                     });
 

@@ -50,7 +50,7 @@ public class UserCollectedActivity extends BaseActivity implements View.OnClickL
             setContentView(R.layout.fragment_user_collected);
 
             initViews();
-            StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
+
 
             //获取收藏物品列表
             recyclerView=(RecyclerView)findViewById(R.id.collect_recyclerview);
@@ -129,6 +129,8 @@ public class UserCollectedActivity extends BaseActivity implements View.OnClickL
     private void initViews() {
         back = (ImageView) findViewById(R.id.user_settings_collection_toolbar_back);
         back.setOnClickListener(this);
+
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),0);
     }
 
     @Override

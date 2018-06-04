@@ -20,10 +20,13 @@ import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
+import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.chat.ChatFragment;
+import com.example.wanjian.creditrent.moudles.chat.order.OrderBean;
+import com.example.wanjian.creditrent.moudles.chat.order.OrdersActivity;
 import com.example.wanjian.creditrent.moudles.chat.rentcar.RentCarActivity;
 import com.example.wanjian.creditrent.moudles.homepage.HomePageFragment;
 import com.example.wanjian.creditrent.moudles.homepage.SearchActivity;
@@ -39,6 +42,8 @@ import cn.leancloud.chatkit.LCChatKitUser;
 import cn.leancloud.chatkit.activity.LCIMConversationActivity;
 import cn.leancloud.chatkit.activity.LCIMConversationListFragment;
 import cn.leancloud.chatkit.utils.LCIMConstants;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
@@ -62,6 +67,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private long currentBackTime = 0;
 
     private Boolean isLogin = SharedPreferencesUtil.getIsLogin();
+
+    private Boolean isHaveOrder = false;    //是否有订单消息
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +178,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 tv_title.setText("对话");
                 toolbarSearchview.setVisibility(View.VISIBLE);
                 toolbarSearchview.setBackgroundResource(R.drawable.nomessage);
+                getIfHavaOrder();
                 toolbarTextview.setVisibility(View.GONE);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 break;
@@ -187,6 +195,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 if (mainViewpager.getCurrentItem() == 0){
                     startIntentActivity(this, new SearchActivity());
                 }else if (mainViewpager.getCurrentItem() == 1){
+                    startIntentActivity(this,new OrdersActivity());
                     ToastUtil.show("对话");
                 }
                 break;
@@ -249,7 +258,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case 1:
                 toolbarSearchview.setVisibility(View.VISIBLE);
+
                 toolbarSearchview.setBackgroundResource(R.drawable.nomessage);
+                getIfHavaOrder();
+
                 toolbarTextview.setVisibility(View.GONE);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 tv_title.setText("对话");
@@ -273,6 +285,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 tvTwo.setTextColor(this.getResources().getColor(R.color.textColor));
                 tvThree.setTextColor(this.getResources().getColor(R.color.main_toolbar));
                 break;
+        }
+    }
+
+    private void getIfHavaOrder() {
+        if (isLogin){
+            RetrofitNewSingleton.getInstance()
+                    .getOrderToMe(null)
+                    .subscribe(new Observer<ArrayList<OrderBean>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(ArrayList<OrderBean> value) {
+                            if (!value.isEmpty()){
+                                isHaveOrder = true;
+                                toolbarSearchview.setBackgroundResource(R.drawable.message);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            isHaveOrder = false;
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            isHaveOrder = true;
+                        }
+                    });
         }
     }
 

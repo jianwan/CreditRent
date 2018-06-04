@@ -2,15 +2,19 @@ package com.example.wanjian.creditrent.moudles.homepage.recyclerview;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -47,7 +51,7 @@ import io.reactivex.disposables.Disposable;
 public class GoodsDetailinformationActivity extends BaseActivity implements OnItemClickListener,View.OnClickListener {
 
 
-    TextView goodName,goodRenter,goodPrice,goodIsSell;
+    TextView goodName,gooddescription,goodRenter,goodPrice,goodIsSell;
     Integer isSave;
     Button contactToRenter,addToCart,rent;
     ImageView back;
@@ -89,6 +93,7 @@ public class GoodsDetailinformationActivity extends BaseActivity implements OnIt
 
     private void initViews() {
         goodName = (TextView) findViewById(R.id.goodname);
+        gooddescription = (TextView) findViewById(R.id.gooddescription);
         goodRenter = (TextView) findViewById(R.id.good_renter);
         goodPrice = (TextView) findViewById(R.id.good_price);
         goodIsSell = (TextView) findViewById(R.id.good_sell);
@@ -163,9 +168,15 @@ public class GoodsDetailinformationActivity extends BaseActivity implements OnIt
                     public void onNext(GoodsDetailinformationBean value) {
                         userId = value.getOwnerphone();
                         goodName.setText(value.getGoodsname());
+                        gooddescription.setText(value.getGoods_description());
                         goodRenter.setText(value.getOwnerphone());
                         goodPrice.setText(value.getChuzu_money());
-                        goodIsSell.setText(value.getErshousell());
+                        if (value.getErshousell().equals("0")){
+                            goodIsSell.setText("出租");
+                        }else {
+                            goodIsSell.setText("出售");
+                        }
+
                         images = new String[]{value.getGoods_img1(),value.getGoods_img2(),value.getGoods_img3()};
                         isSave = value.getIsSave();
                         if (isSave == 1){
@@ -221,9 +232,77 @@ public class GoodsDetailinformationActivity extends BaseActivity implements OnIt
                 addToCrentCar();
                 break;
             case R.id.goodsdetialinformation__btn_rent:
-
+                if (SharedPreferencesUtil.getIsLogin()){
+                    makeOrder();
+                }else {
+                    startIntentActivity(this,new LoginActivity());
+                    ToastUtil.show("请先登录后再试");
+                }
                 break;
         }
+    }
+
+
+    //发起交易
+    private void makeOrder() {
+
+        //显示dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View layout = inflater.inflate(R.layout.fragment_chat_makeorder_dialog, null);//获取自定义布局
+        builder.setView(layout);
+        builder.setTitle("确认发起交易");//设置标题内容
+        //builder.setMessage("");//显示自定义布局内容
+
+
+        //确认按钮
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+                TextView content = layout.findViewById(R.id.fragment_chat_makeorder_address);
+                String address = content.getText().toString();
+
+                if (!address.isEmpty()&&address != ""){
+                    RetrofitNewSingleton.getInstance()
+                            .makeOrder(Integer.parseInt(goodId), address)
+                            .subscribe(new Observer<String>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(String value) {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    ToastUtil.show("交易发起成功,请及时联系物主进行交易~");
+                                }
+                            });
+                }else {
+                    ToastUtil.show("请填写好信息再进行交易");
+                }
+
+            }
+        });
+        //取消
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                Toast.makeText(getApplication(), "cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+        final AlertDialog dlg = builder.create();
+        dlg.show();
     }
 
     //添加到信租车

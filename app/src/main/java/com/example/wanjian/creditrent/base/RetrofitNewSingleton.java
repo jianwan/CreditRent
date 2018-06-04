@@ -8,8 +8,10 @@ import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.common.RxUtil.RxUtils;
 import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.example.wanjian.creditrent.moudles.chat.order.OrderBean;
 import com.example.wanjian.creditrent.moudles.chat.rentcar.RentcarBean;
 import com.example.wanjian.creditrent.moudles.homepage.UploadGoodsBean;
+import com.example.wanjian.creditrent.moudles.homepage.kinds.KindsBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.HomepagerGoodsList;
 import com.example.wanjian.creditrent.moudles.signup.cookie.CookiesManager;
@@ -360,6 +362,58 @@ public class RetrofitNewSingleton {
     //加入信租车
     public Observable<String> deleteGoodFromRentCar(Integer goodsId) {
         return apiService.deleteGoodFromRentCar(goodsId).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+
+    //根据物品类型返回物品列表
+    public Observable<ArrayList<KindsBean>> getGoodsByType(Integer page, Integer type) {
+        return apiService.getGoodsByType(page, type).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
+
+
+    //我的页面物品
+    public Observable<ArrayList<KindsBean>> getUserGoodsByType(Integer page, Integer type) {
+        return apiService.getUserGoodsByType(page, type).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
+
+    //物品下架
+    public Observable<String> userGoodUnpublised(Integer goodsId) {
+        return apiService.userGoodUnpublised(goodsId).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    //物品上架
+    public Observable<String> userGoodPublised(Integer goodsId) {
+        return apiService.userGoodPublised(goodsId).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+
+    //修改物品信息
+    public Observable<String> changeGoodInformation(Integer goodsid,String goodsname, String typename, Integer ershousell,
+                                                   String description, String chuzumoney) {
+        return apiService.changeGoodInformation(goodsid,goodsname,typename,ershousell,description,chuzumoney)
+                .compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+
+    //发起交易申请
+    public Observable<String> makeOrder(Integer goodsid, String address) {
+        return apiService.makeOrder(goodsid, address).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+
+    //展示向我发起的交易请求
+    public Observable<ArrayList<OrderBean>> getOrderToMe(String a) {
+        return apiService.getOrderToMe(a).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
+
+    //处理交易申请
+    public Observable<String> handleOrder(String  orderId, Integer handle) {
+        return apiService.handleOrder(orderId, handle).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
+    }
+
+    //展示向我发起的交易请求
+    public Observable<ArrayList<OrderBean>> getMyOrders(String a) {
+        return apiService.getMyOrders(a).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
     }
 
 }
