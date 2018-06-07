@@ -22,6 +22,8 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -75,6 +77,8 @@ public class RetrofitNewSingleton {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
 
+
+
         CookiesManager cookiesManager = new CookiesManager();
 
         ClearableCookieJar cookieJar =
@@ -90,11 +94,18 @@ public class RetrofitNewSingleton {
 
     }
 
+
+
     private static void initRetrofit() {
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.HOST)
                 .client(okHttpClient)
-//                .addConverterFactory(new NullOnEmptyConverterFactory())    //空数据处理
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addConverterFactory(new NobodyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -407,13 +418,19 @@ public class RetrofitNewSingleton {
     }
 
     //处理交易申请
-    public Observable<String> handleOrder(String  orderId, Integer handle) {
+    public Observable<String> handleOrder(Integer  orderId, Integer handle) {
         return apiService.handleOrder(orderId, handle).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResultToMsg());
     }
 
     //展示向我发起的交易请求
     public Observable<ArrayList<OrderBean>> getMyOrders(String a) {
         return apiService.getMyOrders(a).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
+    }
+
+
+    //关键字搜索物品
+    public Observable<ArrayList<RentcarBean>> searchGoods(Integer page,String key) {
+        return apiService.searchGoods(page,key).compose(RxUtils.rxSchedulerHelper()).compose(RxUtils.handleResult());
     }
 
 }

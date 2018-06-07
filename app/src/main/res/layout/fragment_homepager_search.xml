@@ -71,5 +71,17 @@
     </LinearLayout>
 
 
+    <com.ajguan.library.EasyRefreshLayout
+        android:id="@+id/search_easyrefreshlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recyclerview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </com.ajguan.library.EasyRefreshLayout>
+
 
 </LinearLayout>

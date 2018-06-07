@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,19 +19,23 @@ import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.C;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
+import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.common.util.Utils;
 import com.example.wanjian.creditrent.moudles.user.UserBean;
 import com.jaeger.library.StatusBarUtil;
+import com.nanchen.compresshelper.CompressHelper;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import me.iwf.photopicker.PhotoPicker;
+import me.iwf.photopicker.PhotoPreview;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -72,6 +73,9 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
 
     private Uri tempUri;
     private Bitmap mBitmap;
+
+    private ArrayList<String> selectedPhotos = new ArrayList<>();
+    private File picFile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -279,16 +283,35 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case TAKE_PICTURE:
-                                Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                tempUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"temp_image.jpg"));
-                                // 将拍照所得的相片保存到SD卡根目录
-                                openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-                                startActivityForResult(openCameraIntent, TAKE_PICTURE);
+//                                Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                                tempUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"temp_image.jpg"));
+//                                // 将拍照所得的相片保存到SD卡根目录
+//                                openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+//                                startActivityForResult(openCameraIntent, TAKE_PICTURE);
+//                                break;
+
+                                PhotoPicker.builder()
+                                        .setOpenCamera(true)
+                                        .setCrop(true)
+                                        .setCropXY(1, 1)
+                                        .setCropColors(R.color.main_toolbar, R.color.main_toolbar)
+                                        .start(UserDetailInformation.this);
+
                                 break;
                             case CHOOSE_PICTURE:
-                                Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                                openAlbumIntent.setType("image/*");
-                                startActivityForResult(openAlbumIntent,CHOOSE_PICTURE);
+//                                Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//                                openAlbumIntent.setType("image/*");
+//                                startActivityForResult(openAlbumIntent,CHOOSE_PICTURE);
+//                                break;
+
+
+                                PhotoPicker.builder()
+                                        .setPhotoCount(1)
+                                        .setPreviewEnabled(false)
+                                        .setCrop(true)
+                                        .setCropXY(1, 1)
+                                        .setCropColors(R.color.main_toolbar, R.color.main_toolbar)
+                                        .start(UserDetailInformation.this);
                                 break;
                             case 2:
                                 break;
@@ -311,113 +334,197 @@ public class UserDetailInformation extends BaseActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case TAKE_PICTURE:
-                    cutImage(tempUri); // 对图片进行裁剪处理
-                    break;
-                case CHOOSE_PICTURE:
-                    cutImage(data.getData()); // 对图片进行裁剪处理
-                    break;
-                case CROP_SMALL_PICTURE:
-                    if (data != null) {
-                        setImageToView(data); // 让刚才选择裁剪得到的图片显示在界面上
-                    }
-                    break;
+//        if (resultCode == RESULT_OK) {
+//            switch (requestCode) {
+//                case TAKE_PICTURE:
+//                    cutImage(tempUri); // 对图片进行裁剪处理
+//                    break;
+//                case CHOOSE_PICTURE:
+//                    cutImage(data.getData()); // 对图片进行裁剪处理
+//                    break;
+//                case CROP_SMALL_PICTURE:
+//                    if (data != null) {
+//                        setImageToView(data); // 让刚才选择裁剪得到的图片显示在界面上
+//                    }
+//                    break;
+//            }
+//        }
+
+
+        //选择返回
+        if (resultCode == RESULT_OK &&
+                (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+            userdetial_ci_avatar.setVisibility(View.GONE);
+
+            List<String> photos = null;
+            if (data != null) {
+                photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
             }
+            selectedPhotos.clear();
+            if (photos != null) {
+                selectedPhotos.addAll(photos);
+                //上传图片
+                picFile = new File(photos.get(0));
+                zipPic(picFile);
+            }
+
         }
+        //拍照功能或者裁剪后返回
+        if (resultCode == RESULT_OK && requestCode == PhotoPicker.CROP_CODE) {
+            userdetial_ci_avatar.setVisibility(View.VISIBLE);
+            Glide.with(getApplicationContext()).load(Uri.fromFile(new File(data.getStringExtra(PhotoPicker.KEY_CAMEAR_PATH)))).into(userdetial_ci_avatar);
+            //上传图片
+            picFile = new File(data.getStringExtra(PhotoPicker.KEY_CAMEAR_PATH));
+            zipPic(picFile);
+        }
+
+    }
+
+    //压缩图片并展示
+    private void zipPic(File oldFile) {
+        try{
+            if (oldFile.length() >= 1048576) {
+                File compressFile = new CompressHelper.Builder(getBaseContext())
+                        .setMaxWidth(720)
+                        .setMaxHeight(960)
+                        .build()
+                        .compressToFile(oldFile);
+                String fileName = "avatar" + ".png";
+                uploadAvater(compressFile,fileName);
+            }else {
+                String fileName = "avatar" + ".png";
+                uploadAvater(oldFile, fileName);
+            }
+        }catch (Exception e){
+            PLog.d(e.toString());
+        }
+
+    }
+
+    private void uploadAvater(File file, String fileName) {
+
+        RequestBody requestFile =RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("myfile",fileName,requestFile);
+
+        RetrofitNewSingleton.getInstance()
+                .uploadImgFile(body)
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String value) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        RetrofitNewSingleton.disposeFailureInfo(e,getApplicationContext());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        ToastUtil.show("头像上传成功");
+                    }
+                });
+
     }
 
 
 
-    /**
-     * 裁剪图片方法实现
-     */
-    protected void cutImage(Uri uri) {
-        if (uri == null) {
-            Log.i("dyp", "The uri is not exist.");
-        }
-        tempUri = uri;
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        //com.android.camera.action.CROP这个action是用来裁剪图片用的
-        intent.setDataAndType(uri, "image/*");
-        // 设置裁剪
-        intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, CROP_SMALL_PICTURE);
-    }
-    /**
-     * 保存裁剪之后的图片数据
-     */
-    protected void setImageToView(Intent data) {
-        Bundle extras = data.getExtras();
-        if (extras != null) {
-            mBitmap = extras.getParcelable("data");
-            userdetial_ci_avatar.setImageBitmap(mBitmap);//头像设置为新的图片
-            uploadPic(mBitmap);//上传图片到服务器
-        }
-    }
 
-    private String uploadPic(Bitmap bitmap) {
-
-        File appDir = new File(Environment.getExternalStorageDirectory().getPath());
-        if (!appDir.exists()) {
-            appDir.mkdir();
-        }
-        String fileName = "avatar" + ".png";
-        File file = new File(appDir, fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-
-
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-            MultipartBody.Part body = MultipartBody.Part.createFormData("myfile",fileName,requestFile);
-
-            RetrofitNewSingleton.getInstance()
-                    .uploadImgFile(body)
-                    .subscribe(new Observer<String>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(String value) {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            RetrofitNewSingleton.disposeFailureInfo(e,getApplicationContext());
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            ToastUtil.show("上传成功");
-                        }
-                    });
-
-
-            return file.getAbsolutePath();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        return null;
-    }
+//    //之前上传头像的方法，因Android 7.0权限问题改用开源库 photopicker
+//
+//    /**
+//     * 裁剪图片方法实现
+//     */
+//    protected void cutImage(Uri uri) {
+//        if (uri == null) {
+//            Log.i("dyp", "The uri is not exist.");
+//        }
+//        tempUri = uri;
+//        Intent intent = new Intent("com.android.camera.action.CROP");
+//        //com.android.camera.action.CROP这个action是用来裁剪图片用的
+//        intent.setDataAndType(uri, "image/*");
+//        // 设置裁剪
+//        intent.putExtra("crop", "true");
+//        // aspectX aspectY 是宽高的比例
+//        intent.putExtra("aspectX", 1);
+//        intent.putExtra("aspectY", 1);
+//        // outputX outputY 是裁剪图片宽高
+//        intent.putExtra("outputX", 150);
+//        intent.putExtra("outputY", 150);
+//        intent.putExtra("return-data", true);
+//        startActivityForResult(intent, CROP_SMALL_PICTURE);
+//    }
+//    /**
+//     * 保存裁剪之后的图片数据
+//     */
+//    protected void setImageToView(Intent data) {
+//        Bundle extras = data.getExtras();
+//        if (extras != null) {
+//            mBitmap = extras.getParcelable("data");
+//            userdetial_ci_avatar.setImageBitmap(mBitmap);//头像设置为新的图片
+//            uploadPic(mBitmap);//上传图片到服务器
+//        }
+//    }
+//
+//    private String uploadPic(Bitmap bitmap) {
+//
+//        File appDir = new File(Environment.getExternalStorageDirectory().getPath());
+//        if (!appDir.exists()) {
+//            appDir.mkdir();
+//        }
+//        String fileName = "avatar" + ".png";
+//        File file = new File(appDir, fileName);
+//        try {
+//            FileOutputStream fos = new FileOutputStream(file);
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+//            fos.flush();
+//            fos.close();
+//
+//
+//            RequestBody requestFile =
+//                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//
+//            MultipartBody.Part body = MultipartBody.Part.createFormData("myfile",fileName,requestFile);
+//
+//            RetrofitNewSingleton.getInstance()
+//                    .uploadImgFile(body)
+//                    .subscribe(new Observer<String>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onNext(String value) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            RetrofitNewSingleton.disposeFailureInfo(e,getApplicationContext());
+//                        }
+//
+//                        @Override
+//                        public void onComplete() {
+//                            ToastUtil.show("上传成功");
+//                        }
+//                    });
+//
+//
+//            return file.getAbsolutePath();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        return null;
+//    }
 
 
 }

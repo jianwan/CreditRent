@@ -13,12 +13,12 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/user_dl_verify_toolbar_back"
+                android:id="@+id/uploadgoodsok_toolbar_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_keyboard_backspace_white_24dp"/>
             <TextView
-                android:id="@+id/user_dl_toolbar_detailinformation"
+                android:id="@+id/uploadgoodsok_toolbar_detailinformation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -32,6 +32,7 @@
 
 
     <TextView
+        android:id="@+id/uploadgoodsok_tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="物品审核中···请耐心等待"

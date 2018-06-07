@@ -29,13 +29,18 @@ import io.reactivex.disposables.Disposable;
 
 public class TabFragment2 extends BaseFragment {
 
-    private List<KindsBean> kindsBeen = new ArrayList<>();
+    private List<KindsBean> kindBeen = new ArrayList<>();
     private RecyclerView recyclerView;
     private EasyRefreshLayout easyRefreshLayout;
     private UserPublishBaseAdapter userPublishBaseAdapter;
 
     int page = 1;
     int TYPE_GOOD_UNDERPUBLISHED = 0;
+
+
+    Boolean isLoadMore = false;       //是否是加载更多
+    Boolean isRefresh = false;        //是否是刷新
+    Boolean isFirstLoad = true;        //是否是第一次加载数据
 
 
     @Nullable
@@ -54,18 +59,18 @@ public class TabFragment2 extends BaseFragment {
         easyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
+                isLoadMore = true;
                 getPublishGoods(view,page,TYPE_GOOD_UNDERPUBLISHED);
-                easyRefreshLayout.loadMoreComplete();
-                ToastUtil.show("加载完毕");
             }
 
             @Override
             public void onRefreshing() {
-                kindsBeen.clear();
+                if (!kindBeen.isEmpty()){
+                    userPublishBaseAdapter.getData().clear();
+                }
+                isRefresh = true;
                 page = 1;
                 getPublishGoods(view,1,TYPE_GOOD_UNDERPUBLISHED);
-                easyRefreshLayout.refreshComplete();
-                ToastUtil.show("刷新完毕");
             }
         });
         return view;
@@ -83,28 +88,68 @@ public class TabFragment2 extends BaseFragment {
 
                     @Override
                     public void onNext(ArrayList<KindsBean> value) {
-                        for (int i=0;i<value.size();i++){
-                            kindsBeen.add(value.get(i));
+
+                        if (isRefresh){
+                            userPublishBaseAdapter.replaceData(value);
+                            page ++ ;
                         }
-                        userPublishBaseAdapter = new UserPublishBaseAdapter(getContext(),R.layout.fragment_user_publish_tablelayout_recyclerview_item,kindsBeen,1);
-                        recyclerView.setAdapter(userPublishBaseAdapter);
 
 
-                        page ++;
+                        if (isFirstLoad){
+                            userPublishBaseAdapter = new UserPublishBaseAdapter(getContext(),R.layout.fragment_user_publish_tablelayout_recyclerview_item,value,1);
+                            recyclerView.setAdapter(userPublishBaseAdapter);
+                            page ++;
+                        }
+
+
+                        if (isLoadMore){
+                            userPublishBaseAdapter.getData().addAll(value);
+                            userPublishBaseAdapter.notifyDataSetChanged();
+                            page ++;
+                        }
+
+                        if (!value.isEmpty()){
+                            kindBeen.addAll(value);
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        easyRefreshLayout.loadMoreComplete();
+                        easyRefreshLayout.refreshComplete();
+                        isLoadMore = false;
+                        isRefresh = false;
+                        isFirstLoad = false;
                         ToastUtil.show("暂无更多数据");
                     }
 
                     @Override
                     public void onComplete() {
 
+
+                        if (isLoadMore){
+                            easyRefreshLayout.loadMoreComplete();
+                            isLoadMore = false;
+                            ToastUtil.show("数据加载完毕");
+                        }
+
+                        if (isRefresh){
+                            easyRefreshLayout.refreshComplete();
+                            isRefresh = false;
+                            ToastUtil.show("刷新完毕");
+                        }
+
+                        if (isFirstLoad){
+                            isFirstLoad = false;
+                            ToastUtil.show("数据加载完毕");
+                        }
+
+
                         userPublishBaseAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                startIntentActivity(getActivity(),new GoodsDetailinformationActivity(),"GoodId",kindsBeen.get(position).getGoodsid());
+                                startIntentActivity(getActivity(),new GoodsDetailinformationActivity(),"GoodId",userPublishBaseAdapter.getItem(position).getGoodsid());
                             }
                         });
                     }

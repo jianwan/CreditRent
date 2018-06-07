@@ -35,7 +35,7 @@ public class RentCarActivity extends BaseActivity implements View.OnClickListene
 
     private List<RentcarBean> rentcarBeen = new ArrayList<>();
     private RecyclerView recyclerView;
-    RentcarAdapter rentcarAdapter;
+    private RentcarAdapter rentcarAdapter;
 
     Toolbar toolbar;
     ImageView back;

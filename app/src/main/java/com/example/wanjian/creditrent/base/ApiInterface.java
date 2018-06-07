@@ -221,12 +221,18 @@ public  interface ApiInterface {
     //处理交易申请
     @FormUrlEncoded
     @POST("chuzuZheHandleJiaoYiShenQing.php")
-    Observable<Result<HandleOrderBean>> handleOrder(@Field("orderId") String orderId, @Field("handle") Integer handle);
+    Observable<Result<HandleOrderBean>> handleOrder(@Field("jiaoyiid") Integer orderId, @Field("taidu") Integer handle);
 
 
     //查看自己的交易记录
     @FormUrlEncoded
     @POST("showOwnApplication.php")
     Observable<Results<ArrayList<OrderBean>>> getMyOrders(@Field("a")  String a);
+
+
+    //物品搜索
+    @FormUrlEncoded
+    @POST("searchgoods.php")
+    Observable<Results<ArrayList<RentcarBean>>> searchGoods(@Field("page") Integer goodid,@Field("key") String key);
 
 }

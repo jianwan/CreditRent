@@ -5,6 +5,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/conversation_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#00caab">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/conversation_toolbar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_keyboard_backspace_white_24dp"/>
+            <TextView
+                android:id="@+id/conversation_toolbar_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="19sp"
+                android:text="对话"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
     <fragment
         android:id="@+id/fragment_chat"
         android:name="cn.leancloud.chatkit.activity.LCIMConversationFragment"

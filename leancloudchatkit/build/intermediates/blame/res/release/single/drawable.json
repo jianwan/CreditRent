@@ -1,11 +1,11 @@
 [
     {
-        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_ab_back_material.xml",
-        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
-    },
-    {
         "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\notification_icon_background.xml",
         "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
     },
     {
         "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
@@ -24,12 +24,12 @@
         "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
     },
     {
-        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_edit_text_material.xml",
-        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\drawable\\abc_edit_text_material.xml"
-    },
-    {
         "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\lcim_textview_bg.xml",
         "source": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\src\\main\\res\\drawable\\lcim_textview_bg.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\drawable\\abc_edit_text_material.xml"
     },
     {
         "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_dialog_material_background.xml",
@@ -70,6 +70,10 @@
     {
         "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_text_cursor_material.xml",
         "source": "C:\\Users\\17631\\.android\\build-cache\\e3740623ac2942448ccc350a0d51431d8dcf520a\\output\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\ic_keyboard_backspace_white_24dp.png",
+        "source": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\src\\main\\res\\drawable\\ic_keyboard_backspace_white_24dp.png"
     },
     {
         "merged": "E:\\AndroidProjects\\CreditRent\\leancloudchatkit\\build\\intermediates\\res\\merged\\release\\drawable\\lcim_bottom_bar_keyboard_button_bg.xml",

@@ -1,6 +1,7 @@
 package com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -20,14 +21,21 @@ import java.util.List;
 
 public class UserSelledBaseAdapter extends BaseQuickAdapter<KindsBean,BaseViewHolder> {
 
+
     private Context mContext;
 
-    public UserSelledBaseAdapter(List<KindsBean> data) {
+    public UserSelledBaseAdapter(Context context,List<KindsBean> data) {
         super(data);
+        mContext = context;
     }
 
     public UserSelledBaseAdapter(Context context, int layoutResId, List<KindsBean> data) {
         super(layoutResId, data);
+        mContext = context;
+    }
+
+    public UserSelledBaseAdapter(Context context,@LayoutRes int layoutResId) {
+        super(layoutResId);
         mContext = context;
     }
 

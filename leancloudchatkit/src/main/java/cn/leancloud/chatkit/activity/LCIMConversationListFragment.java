@@ -61,17 +61,6 @@ public class LCIMConversationListFragment extends Fragment {
 
   }
 
-//  private void initFloatingActionButton(View view) {
-//
-//    FloatingActionButton floationActionButton = (FloatingActionButton) view.findViewById(R.id.conversation_floationActionButton);
-//    floationActionButton.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View v) {
-//          Intent intentToCrentCar = new Intent(getContext(),CrentCarActivity.class);
-//          startActivity(intentToCrentCar);
-//      }
-//    });
-//  }
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
@@ -135,4 +124,5 @@ public class LCIMConversationListFragment extends Fragment {
   public void onEvent(LCIMOfflineMessageCountChangeEvent updateEvent) {
     updateConversationList();
   }
+
 }

@@ -19,6 +19,7 @@ public class OrderBean {
      * goodsimg3 : http://119.29.133.244/test/adminweb/photo/134525819232018-04-25-14-56-37.jpg
      */
 
+    private String jiaoyiid;
     private String time;
     private String address;
     private String faqiren;
@@ -28,6 +29,28 @@ public class OrderBean {
     private String goodsimg1;
     private String goodsimg2;
     private String goodsimg3;
+
+
+    private String owner;              //我申请的交易
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+
+
+
+    public String getJiaoyiid() {
+        return jiaoyiid;
+    }
+
+    public void setJiaoyiid(String jiaoyiid) {
+        this.jiaoyiid = jiaoyiid;
+    }
 
     public String getTime() {
         return time;

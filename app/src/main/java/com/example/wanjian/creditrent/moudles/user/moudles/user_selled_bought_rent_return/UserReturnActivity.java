@@ -31,7 +31,7 @@ import io.reactivex.disposables.Disposable;
 
 public class UserReturnActivity extends BaseActivity {
 
-    private List<KindsBean> kindsBeen = new ArrayList<>();
+    private List<KindsBean> kindBeen = new ArrayList<>();
     private RecyclerView recyclerView;
     private EasyRefreshLayout easyRefreshLayout;
     private UserSelledBaseAdapter userSelledBaseAdapter;
@@ -39,6 +39,11 @@ public class UserReturnActivity extends BaseActivity {
     int page = 1;
     int TYPE_GOOD_RETURN = 4;
     int returnNumber;
+
+    Boolean isLoadMore = false;       //是否是加载更多
+    Boolean isRefresh = false;        //是否是刷新
+    Boolean isFirstLoad = true;        //是否是第一次加载数据
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,18 +65,18 @@ public class UserReturnActivity extends BaseActivity {
         easyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
+                isLoadMore = true;
                 getSelledGoods(page,TYPE_GOOD_RETURN);
-                easyRefreshLayout.loadMoreComplete();
-                ToastUtil.show("加载完毕");
             }
 
             @Override
             public void onRefreshing() {
-                kindsBeen.clear();
+                if (!kindBeen.isEmpty()){
+                    userSelledBaseAdapter.getData().clear();
+                }
+                isRefresh = true;
                 page = 1;
                 getSelledGoods(1,TYPE_GOOD_RETURN);
-                easyRefreshLayout.refreshComplete();
-                ToastUtil.show("刷新完毕");
             }
         });
 
@@ -88,16 +93,36 @@ public class UserReturnActivity extends BaseActivity {
 
                     @Override
                     public void onNext(ArrayList<KindsBean> value) {
-                        for (int i=0;i<value.size();i++){
-                            kindsBeen.add(value.get(i));
+                        if (isRefresh){
+                            userSelledBaseAdapter.replaceData(value);
+                            page ++ ;
                         }
-                        userSelledBaseAdapter = new UserSelledBaseAdapter(getBaseContext(),R.layout.fragment_user_selled_item,kindsBeen);
-                        recyclerView.setAdapter(userSelledBaseAdapter);
-                        page ++;
+
+                        if (isFirstLoad){
+                            userSelledBaseAdapter = new UserSelledBaseAdapter(getBaseContext(),R.layout.fragment_user_selled_item,value);
+                            recyclerView.setAdapter(userSelledBaseAdapter);
+                            page ++;
+                        }
+
+                        if (isLoadMore){
+                            userSelledBaseAdapter.getData().addAll(value);
+                            userSelledBaseAdapter.notifyDataSetChanged();
+                            page ++;
+                        }
+
+                        if (!value.isEmpty()){
+                            kindBeen.addAll(value);
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        easyRefreshLayout.loadMoreComplete();
+                        easyRefreshLayout.refreshComplete();
+                        isLoadMore = false;
+                        isRefresh = false;
+                        isFirstLoad = false;
                         ToastUtil.show("暂无更多数据");
                         saveReturnNumber();
                     }
@@ -105,12 +130,30 @@ public class UserReturnActivity extends BaseActivity {
                     @Override
                     public void onComplete() {
 
+
+                        if (isLoadMore){
+                            easyRefreshLayout.loadMoreComplete();
+                            isLoadMore = false;
+                            ToastUtil.show("数据加载完毕");
+                        }
+
+                        if (isRefresh){
+                            easyRefreshLayout.refreshComplete();
+                            isRefresh = false;
+                            ToastUtil.show("刷新完毕");
+                        }
+
+                        if (isFirstLoad){
+                            isFirstLoad = false;
+                            ToastUtil.show("数据加载完毕");
+                        }
+
                         saveReturnNumber();
 
                         userSelledBaseAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                startIntentActivity(UserReturnActivity.this,new GoodsDetailinformationActivity(),"GoodId",kindsBeen.get(position).getGoodsid());
+                                startIntentActivity(UserReturnActivity.this,new GoodsDetailinformationActivity(),"GoodId",userSelledBaseAdapter.getItem(position).getGoodsid());
                             }
                         });
                     }
@@ -118,7 +161,7 @@ public class UserReturnActivity extends BaseActivity {
     }
 
     private void saveReturnNumber() {
-        if (!kindsBeen.isEmpty()){
+        if (!kindBeen.isEmpty()){
             returnNumber = userSelledBaseAdapter.getItemCount();
             ACache.getDefault().put(C.RETURNNUMBER,returnNumber);
         }

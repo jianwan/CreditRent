@@ -29,6 +29,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
   final static int TYPE_ADD = 1;
   final static int TYPE_PHOTO = 2;
 
+  final static int MIN = 1;
   final static int MAX = 9;
 
   public PhotoAdapter(Context mContext, ArrayList<String> photoPaths) {

@@ -2,6 +2,7 @@ package com.example.wanjian.creditrent.moudles.user;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +18,17 @@ import com.example.wanjian.creditrent.base.C;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
 import com.example.wanjian.creditrent.common.util.ACache;
 import com.example.wanjian.creditrent.common.util.SharedPreferencesUtil;
+import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.signup.view.impl.LoginActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.UserSawActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectedActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_information.UserDetailInformation;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_orders.UserOrdersActivity;
+import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return.UserBoughtActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return.UserRentActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return.UserReturnActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.UserSawActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_selled_bought_rent_return.UserSelledActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.user_collection.UserCollectedActivity;
-import com.example.wanjian.creditrent.moudles.user.moudles.user_information.UserDetailInformation;
-import com.example.wanjian.creditrent.moudles.user.moudles.user_publish.UserPublishActivity;
 import com.example.wanjian.creditrent.moudles.user.moudles.user_settings.view.impl.UserSettingsActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,7 +57,10 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     private TextView rentNumber,returnNuber;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     boolean tag = false;            //是否显示缓存中的标志位
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -163,6 +168,46 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         login_tv_nickname=v.findViewById(R.id.login_tv_nickname);
         linear_rent=v.findViewById(R.id.linear_rent);
         linear_return=v.findViewById(R.id.linear_return);
+
+        swipeRefreshLayout = v.findViewById(R.id.userSwipeRefresh);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                String username= ACache.getDefault().getAsString(C.USER_NAME);
+                RetrofitNewSingleton.getInstance()
+                        .getUserInformation(username)
+                        .subscribe(new Observer<UserBean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(UserBean value) {
+                                if (!value.getImg().isEmpty()){
+                                    Glide.with(getContext())
+                                            .load(value.getImg())
+                                            .into(login_ci_avatar);
+                                }
+                                TextView nickname = v.findViewById(R.id.login_tv_nickname);
+                                nickname.setText(value.getPhone());
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                swipeRefreshLayout.setRefreshing(false);
+                                ToastUtil.show("信息已更新~");
+                            }
+                        });
+
+            }
+        });
 
         unlogin_btn_login.setOnClickListener(this);
         login_linear_userinformation.setOnClickListener(this);

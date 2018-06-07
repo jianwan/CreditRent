@@ -27,11 +27,11 @@ public class UserOrdersAdapter extends BaseItemDraggableAdapter<OrderBean,BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, OrderBean item) {
-        helper.setText(R.id.myorder_item_goodname,item.getGoodsname());
-        helper.setText(R.id.myorder_item_faqiren,item.getFaqiren());
-        helper.setText(R.id.myorder_item_address,item.getAddress());
-        helper.setText(R.id.myorder_item_time,item.getTime());
-        helper.setText(R.id.myorder_item_status,item.getJiaoyiownerstatus());
+        helper.setText(R.id.myorder_item_goodname,"物品名称："+item.getGoodsname());
+        helper.setText(R.id.myorder_item_faqiren,"物主："+item.getOwner());
+        helper.setText(R.id.myorder_item_address,"交易地点："+item.getAddress());
+        helper.setText(R.id.myorder_item_time,"交易发起时间："+item.getTime());
+        helper.setText(R.id.myorder_item_status,"交易状态："+item.getJiaoyiownerstatus());
         Glide.with(mContext).load(item.getGoodsimg1()).crossFade().into((ImageView) helper.getView(R.id.myorder_item_imageview));
 
     }

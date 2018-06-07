@@ -5,21 +5,19 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.AVIMChatRoom;
 import com.avos.avoscloud.im.v2.AVIMTemporaryConversation;
-import com.avos.avoscloud.im.v2.AVIMConversationsQuery;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 
 import java.util.Arrays;
-import java.util.List;
 
 import cn.leancloud.chatkit.LCChatKit;
 import cn.leancloud.chatkit.R;
@@ -37,12 +35,32 @@ public class LCIMConversationActivity extends AppCompatActivity {
 
   protected LCIMConversationFragment conversationFragment;
 
+  private ImageView back;
+  private TextView name;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.lcim_conversation_activity);
     conversationFragment = (LCIMConversationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_chat);
     initByIntent(getIntent());
+
+    initView();
+  }
+
+  private void initView() {
+
+    back = (ImageView) findViewById(R.id.conversation_toolbar_back);
+    back.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
+
+    name = (TextView) findViewById(R.id.conversation_toolbar_name);
+    name.setText("对话");
+
   }
 
   @Override

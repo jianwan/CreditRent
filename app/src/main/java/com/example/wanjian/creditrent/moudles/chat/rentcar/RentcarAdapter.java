@@ -29,6 +29,8 @@ public class RentcarAdapter extends BaseItemDraggableAdapter<RentcarBean,BaseVie
         helper.setText(R.id.rentcar_item_goodname,item.getGoodsname());
         helper.setText(R.id.rentcar_item_goodstatus,item.getGoodsststus());
         Glide.with(mContext).load(item.getGoodsimg()).crossFade().into((ImageView) helper.getView(R.id.rentcar_item_imageview));
+
+        helper.addOnClickListener(R.id.rentcar_item);
     }
 
 

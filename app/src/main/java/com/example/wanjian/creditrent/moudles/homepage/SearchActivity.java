@@ -2,6 +2,8 @@ package com.example.wanjian.creditrent.moudles.homepage;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -14,12 +16,22 @@ import android.widget.TextView;
 
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
+import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
+import com.example.wanjian.creditrent.common.util.ToastUtil;
+import com.example.wanjian.creditrent.moudles.chat.rentcar.RentcarAdapter;
+import com.example.wanjian.creditrent.moudles.chat.rentcar.RentcarBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by wanjian on 2017/11/24.
+ * TODO:待完成
  */
 
 public class SearchActivity extends BaseActivity implements View.OnClickListener{
@@ -28,12 +40,19 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     EditText search_et_searchcontent;
     TextView search_tv_search;
 
+    private RecyclerView recyclerview;
+    private RentcarAdapter rentAdapter;
+    private List<RentcarBean> rentcarBeen = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_homepager_search);
 
         initViews();
+
+        initRecyclerview();
+
 
 
         Timer timer=new Timer();
@@ -49,7 +68,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     }
 
-
+    private void initRecyclerview() {
+        recyclerview = (RecyclerView) findViewById(R.id.search_recyclerview);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        recyclerview.setLayoutManager(linearLayoutManager);
+    }
 
 
     private void initViews() {
@@ -106,7 +129,34 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.search_tv_search:
                 //TODO　搜索功能的实现
+                if (!search_et_searchcontent.getText().toString().isEmpty() && search_et_searchcontent.getText().toString() != ""){
+                    RetrofitNewSingleton.getInstance()
+                            .searchGoods(1,"书")
+                            .subscribe(new Observer<ArrayList<RentcarBean>>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
 
+                                }
+
+                                @Override
+                                public void onNext(ArrayList<RentcarBean> value) {
+                                    rentAdapter = new RentcarAdapter(R.layout.fragment_chat_rentcar_item,value);
+                                    recyclerview.setAdapter(rentAdapter);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+                }else {
+                    ToastUtil.show("请输入搜索关键字");
+                }
                 break;
         }
     }

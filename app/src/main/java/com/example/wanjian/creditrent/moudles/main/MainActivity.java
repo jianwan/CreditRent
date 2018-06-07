@@ -78,8 +78,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initView();
         initToolbar();
 
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
-
     }
 
     @Override
@@ -143,6 +141,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         tvThree.setOnClickListener(this);
 
         mainViewpager.setOnPageChangeListener(this);
+
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.main_toolbar),40);
+
+        if (isLogin){
+            startAChat();
+        }
+
     }
 
     private void initToolbar() {
@@ -232,6 +237,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             default:
                 break;
         }
+    }
+
+    private void startAChat() {
+        LCChatKitUser lcChatKitUser =new LCChatKitUser(ACache.getDefault().getAsString(C.USER_NAME),
+                ACache.getDefault().getAsString(C.NICKNAME),"http://www.avatarsdb.com/avatars/tom_and_jerry2.jpg");
+        LCChatKit.getInstance().open(lcChatKitUser.getUserId(), new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient avimClient, AVIMException e) {
+                if (null == e) {
+
+                } else {
+                    ToastUtil.show(e.toString());
+                }
+            }
+        });
     }
 
 

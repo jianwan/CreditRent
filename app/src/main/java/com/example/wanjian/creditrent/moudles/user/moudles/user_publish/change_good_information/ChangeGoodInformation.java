@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import com.example.wanjian.creditrent.R;
 import com.example.wanjian.creditrent.base.BaseActivity;
 import com.example.wanjian.creditrent.base.RetrofitNewSingleton;
+import com.example.wanjian.creditrent.common.util.PLog;
 import com.example.wanjian.creditrent.common.util.ToastUtil;
 import com.example.wanjian.creditrent.moudles.homepage.recyclerview.GoodsDetailinformationBean;
 import com.jaeger.library.StatusBarUtil;
@@ -27,6 +28,8 @@ import io.reactivex.disposables.Disposable;
 
 public class ChangeGoodInformation extends BaseActivity implements View.OnClickListener{
 
+    ArrayAdapter<String> goodtypeAdapter;
+
     private EditText goodname,description,price;
     private ImageView back;
     private Spinner goodtype;
@@ -37,6 +40,10 @@ public class ChangeGoodInformation extends BaseActivity implements View.OnClickL
     private String goodId;
 
     private String preGoodId;
+
+    private int typePosition;
+
+    String goodTypeString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,17 @@ public class ChangeGoodInformation extends BaseActivity implements View.OnClickL
                                 sell.setChecked(true);
                             }
                             price.setText(value.getChuzu_money());
+
+                            //TODO: failed
+                            String[] strings = new String[] {"图书","影像","数码产品","鞋靴箱包","衣物","出行","娱乐","其他"};
+                            for (int i = 0;i<8;i++){
+                                PLog.d("TAG1",strings[i]);
+                                PLog.d("TAG2",value.getTypename().toString());
+                                if (value.getTypename().toString().equals(strings[i]) ){
+                                    goodtype.setSelection(i);
+                                    PLog.d("TAG3",value.getTypename().toString());
+                                }
+                            }
                         }
 
                         @Override
@@ -106,7 +124,7 @@ public class ChangeGoodInformation extends BaseActivity implements View.OnClickL
         //选择类型
         goodtype = (Spinner)findViewById(R.id.uploadgoods_spinner_goodtype);
         String[] mGoodTypeSelection = getResources().getStringArray(R.array.goodtype);
-        ArrayAdapter<String> goodtypeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,
+        goodtypeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,
                 mGoodTypeSelection);
         //设置显示样式
         goodtypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -114,6 +132,10 @@ public class ChangeGoodInformation extends BaseActivity implements View.OnClickL
         goodtype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                typePosition = position;
+                Spinner spinner = (Spinner) parent;
+                goodTypeString = (String) spinner.getItemAtPosition(position);
+                PLog.d("TAG goodtype",goodTypeString);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -132,7 +154,7 @@ public class ChangeGoodInformation extends BaseActivity implements View.OnClickL
             case R.id.uploadgoods_button_upload:
 
                 String goodnameString = goodname.getText().toString();
-                String goodTypeString = goodtype.getSelectedItem().toString();
+
                 String sellString = sell.getText().toString();
                 String rentString = rent.getText().toString();
                 String descriptionString = description.getText().toString();
@@ -150,6 +172,7 @@ public class ChangeGoodInformation extends BaseActivity implements View.OnClickL
                         priceString != "" ){
                     if (sell.isChecked()||rent.isChecked()){
                         int id = Integer.parseInt(preGoodId);
+                        PLog.d("TAG goodtype",goodTypeString);
                         RetrofitNewSingleton.getInstance()
                                 .changeGoodInformation(id,goodnameString,goodTypeString,rentOrSell,descriptionString,priceString)
                                 .subscribe(new Observer<String>() {

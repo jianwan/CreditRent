@@ -148,7 +148,6 @@ public class UploadGoodActivity extends BaseActivity implements View.OnClickList
                     ToastUtil.show("请填好相关信息~");
                 }
 
-
                 break;
         }
     }

@@ -38,7 +38,8 @@ public class OrdersActivity extends BaseActivity implements View.OnClickListener
     Toolbar toolbar;
     ImageView back;
 
-    Button reject,accept;
+
+    String orderId;       //交易id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,10 +129,10 @@ public class OrdersActivity extends BaseActivity implements View.OnClickListener
                                 switch (view.getId()){
                                     case R.id.order_item_reject:
                                         ToastUtil.show("拒绝");
-//                                        handleOrder();
+                                        handleOrder(position,0);
                                         break;
                                     case R.id.order_item_accept:
-//                                        handleOrder();
+                                        handleOrder(position,1);
                                         ToastUtil.show("接受");
                                         break;
                                 }
@@ -153,9 +154,9 @@ public class OrdersActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void handleOrder() {
+    private void handleOrder(Integer position,Integer hander) {
         RetrofitNewSingleton.getInstance()
-                .handleOrder("a",1)
+                .handleOrder(Integer.parseInt(orderBeen.get(position).getJiaoyiid()),hander)
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -175,9 +176,17 @@ public class OrdersActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onComplete() {
                         ToastUtil.show("交易已处理");
+                        Button accept = (Button) findViewById(R.id.order_item_accept);
+                        Button reject = (Button) findViewById(R.id.order_item_reject);
+                        accept.setClickable(false);
+                        reject.setClickable(false);
+                        if (hander == 0){
+                            reject.setText("已拒绝");
+                        }else {
+                            accept.setText("已同意");
+                        }
                     }
                 });
     }
-
-
+    
 }

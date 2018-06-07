@@ -30,7 +30,7 @@ import io.reactivex.disposables.Disposable;
 
 public class Books extends BaseActivity implements View.OnClickListener{
 
-    private List<KindsBean> kindsBeen = new ArrayList<>();
+    private List<KindsBean> kindBeen = new ArrayList<>();
     private RecyclerView recyclerView;
     private EasyRefreshLayout easyRefreshLayout;
     BasekindsAdapter basekindsAdapter;
@@ -41,6 +41,11 @@ public class Books extends BaseActivity implements View.OnClickListener{
 
     int type;
     int page = 1;
+
+
+    Boolean isLoadMore = false;       //是否是加载更多
+    Boolean isRefresh = false;        //是否是刷新
+    Boolean isFirstLoad = true;        //是否是第一次加载数据
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +102,18 @@ public class Books extends BaseActivity implements View.OnClickListener{
             easyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
                 @Override
                 public void onLoadMore() {
+                    isLoadMore = true;
                     getGoodsFromWeb(page,type);
                 }
 
                 @Override
                 public void onRefreshing() {
-
+                    if (!kindBeen.isEmpty()){
+                        basekindsAdapter.getData().clear();
+                    }
+                    isRefresh = true;
+                    page = 1;
+                    getGoodsFromWeb(page,type);
                 }
             });
         }
@@ -116,7 +127,7 @@ public class Books extends BaseActivity implements View.OnClickListener{
 
     private void getGoodsFromWeb(int intpage,int inttype) {
         RetrofitNewSingleton.getInstance()
-                .getGoodsByType(intpage,intpage)
+                .getGoodsByType(intpage,inttype)
                 .subscribe(new Observer<ArrayList<KindsBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -125,27 +136,70 @@ public class Books extends BaseActivity implements View.OnClickListener{
 
                     @Override
                     public void onNext(ArrayList<KindsBean> value) {
-                        for (int i=0;i<value.size();i++){
-                            kindsBeen.add(value.get(i));
+
+                        if (isRefresh){
+                            basekindsAdapter.replaceData(value);
+                            page ++ ;
                         }
 
-                        basekindsAdapter = new BasekindsAdapter(getBaseContext(),R.layout.fragment_homepager_kinds_item,kindsBeen);
-                        recyclerView.setAdapter(basekindsAdapter);
-                        page ++;
+
+                        if (isFirstLoad){
+                            basekindsAdapter = new BasekindsAdapter(getBaseContext(),R.layout.fragment_homepager_kinds_item,value);
+                            recyclerView.setAdapter(basekindsAdapter);
+                            page ++;
+                        }
+
+
+                        if (isLoadMore){
+                            basekindsAdapter.getData().addAll(value);
+                            basekindsAdapter.notifyDataSetChanged();
+                            page ++;
+                        }
+
+                        if (!value.isEmpty()){
+                            kindBeen.addAll(value);
+                        }
+
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        RetrofitNewSingleton.disposeFailureInfo(e,getBaseContext());
+                        easyRefreshLayout.loadMoreComplete();
+                        easyRefreshLayout.refreshComplete();
+                        isLoadMore = false;
+                        isRefresh = false;
+                        isFirstLoad = false;
+                        ToastUtil.show("暂无更多数据");
                     }
 
                     @Override
                     public void onComplete() {
+
+
+                        if (isLoadMore){
+                            easyRefreshLayout.loadMoreComplete();
+                            isLoadMore = false;
+                            ToastUtil.show("数据加载完毕");
+                        }
+
+                        if (isRefresh){
+                            easyRefreshLayout.refreshComplete();
+                            isRefresh = false;
+                            ToastUtil.show("刷新完毕");
+                        }
+
+                        if (isFirstLoad){
+                            isFirstLoad = false;
+                            ToastUtil.show("数据加载完毕");
+                        }
+
+
+
                         basekindsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                startIntentActivity(Books.this,new GoodsDetailinformationActivity(),"GoodId",kindsBeen.get(position).getGoodsid());
+                                startIntentActivity(Books.this,new GoodsDetailinformationActivity(),"GoodId",basekindsAdapter.getItem(position).getGoodsid());
                             }
                         });
                         ToastUtil.show("数据加载完毕");

@@ -31,18 +31,24 @@
 
     <ImageView
         android:id="@+id/uploadgoodsPic_iv_pic"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/addpic"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/addpic"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/uploadgoodsPic_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
     <TextView
         android:id="@+id/uploadgoodsPic_iv_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="点击上传图片"
+        android:text="点击选中图片"
         android:gravity="center"/>
 
     <Button

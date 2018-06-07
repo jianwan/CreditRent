@@ -1,6 +1,7 @@
 package com.example.wanjian.creditrent.moudles.user.moudles.user_publish;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -23,8 +24,11 @@ public class UserPublishBaseAdapter extends BaseQuickAdapter<KindsBean,BaseViewH
     private Context mContext;
     private int id;
 
-    public UserPublishBaseAdapter(List<KindsBean> data) {
+
+    public UserPublishBaseAdapter(Context context, List<KindsBean> data, int tablayoutid) {
         super(data);
+        mContext = context;
+        id = tablayoutid;
     }
 
     public UserPublishBaseAdapter(Context context, int layoutResId, List<KindsBean> data,int tablayoutid) {
@@ -32,6 +36,14 @@ public class UserPublishBaseAdapter extends BaseQuickAdapter<KindsBean,BaseViewH
         mContext = context;
         id = tablayoutid;
     }
+
+
+    public UserPublishBaseAdapter(Context context,@LayoutRes int layoutResId,int tablayoutid) {
+        super(layoutResId);
+        mContext = context;
+        id = tablayoutid;
+    }
+
 
     @Override
     protected void convert(BaseViewHolder helper, KindsBean item) {
